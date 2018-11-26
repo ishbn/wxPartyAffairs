@@ -1,0 +1,14 @@
+<!--pages/wode/feedback/mysubmit_list/mysubmit_list.wxml-->
+<view name="feedback_list_item" wx:for='{{feedback_list}}' wx:key='{{item.feedback_id}}'>
+  <navigator url="../feedback_detail/feedback_detail?feedback_id={{ item.feedback_id }}">
+    <view class='list_item' >
+        <view class='list_item_title'>{{item.title}}</view>
+        <view class='list_item_text'>
+          <view class='list_item_type'>{{item.feedback_type}}</view>
+          <view class='list_item_date'>{{item.date}}</view>
+        </view>
+      </view>
+      </navigator>
+   
+</view>
+ <view class='tail'>没有更多内容了...</view>

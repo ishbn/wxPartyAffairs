@@ -1,0 +1,58 @@
+<view class='main'>
+  <view class='searchBox'>
+    <view class='menu'>
+    <!--菜单图标  -->
+      <image class='menu-image' src='{{menu}}' bindtap="showitem"></image>
+    </view>
+    <!--搜索框  -->
+    <view class='content'>
+        <image class="img {{isFocus?'change-img':''}}" src='/images/partySchool_icon/search.png' mode="aspectFit"></image>
+      <input class="ipt {{isFocus?'change-ipt':''}}" bindinput='showClear' value='{{inputVal}}' placeholder='输入标题搜索' placeholder-style="font-size:30rpx;" bindfocus='focus' bindblur='focus' confirm-type="search"></input>
+      <view class='clear-view' hidden='{{clear}}'>
+        <icon class='clear' type='clear' size='13' hidden='{{clear}}' bindtap='clearVal'></icon> 
+      </view>
+    </view>
+    <!-- 取消字样 -->
+    <view class="{{isFocus?'change-cancel':''}}" hidden='{{!isFocus}}' bindtap='cancel'><text>取消</text></view>
+  </view>
+      <!--下拉内容  -->
+      <view class="{{open?'display_show':'display_none'}}">
+        <button class='btn' size='mini' data-current="1">全部</button>
+        <button class='btn' size='mini' data-current="2">支部党员大会</button>
+        <button class='btn' size='mini' data-current="3">党支部委员会</button>
+        <button class='btn' size='mini' data-current="4">小组</button>
+        <button class='btn' size='mini' data-current="5">党课</button>
+        <button class='btn' size='mini' data-current="6">其它</button>
+      </view>
+      <!--蒙层  -->
+      <view class='shadow' hidden='{{!open}}' bindtap='hiddenShadow'></view>
+  <view class='head'>
+    <view class="option">
+        <view class="option-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">待参加</view>
+        <view class="option-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">已结束</view>
+    </view>
+  </view>
+  <!--滑动区域-待参加会议与已结束会议  -->
+  <swiper class='all' current="{{currentTab}}" bindchange="swiperTab">
+    <swiper-item class='item'>
+      <view class='meetings'>
+        <view class='oneMeeting' wx:for='{{willMeetings}}' wx:key='*this'>
+          <view class='meeting-title'>
+            <view class='meetingTitle-text'>{{item.title}}</view>
+            <image src='{{item.img}}' class='meetingTitle-img'></image>
+          </view>
+          <view class='meeting-content'>
+            <view class='meeting-desc'>{{item.desc}}</view>
+            <view class='meeting-date'>{{item.date}}</view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class='did'>
+        <image class='null-img' src='/images/partySchool_icon/null.png'></image>
+        <view class='null-text'>暂无预约会议信息</view>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>

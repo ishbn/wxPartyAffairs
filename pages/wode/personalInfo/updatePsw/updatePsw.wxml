@@ -1,0 +1,40 @@
+<!--pages/wode/personalInfo/updatePsw/updatePsw.wxml-->
+
+  <view class='header'>
+   <image src='{{bgImage}}'></image>
+  </view>
+
+<view class='container'>
+    <view class='top'>
+      <view class='one_list'>
+        <view class='change'>
+          <text>旧密码：</text>
+          <input type='password' placeholder="请输入旧密码" maxlength='20' focus='{{oldPswFocus}}' bindinput='oldPswInput' value='{{oldPsw}}'></input>
+        </view>
+         <icon type="clear" bindtap='resetPswBtn' data-inputLocal='old'  size="15"/>
+      </view>
+
+      <view class='x_line'></view>
+
+      <view class='one_list'>
+        <view class='change'>
+          <text>新密码：</text>
+          <input type='password' placeholder="请输入新密码" maxlength='20' focus='{{newPswFocus}}' bindinput='newPswInput'  value='{{newPsw}}'></input>
+        </view>
+        <icon type="clear" bindtap='resetPswBtn' data-inputLocal='new' size="15"/>
+      </view>
+
+      <view class='x_line'></view>
+
+      <view class='one_list'>
+        <view class='change'>
+          <text>确认密码：</text>
+          <input type='password' placeholder="请再次输入新密码" maxlength='20' focus='{{newPsw1Focus}}' bindinput='newPsw1Input' value='{{newPsw1}}'></input>
+        </view>
+          <icon type="clear" bindtap='resetPswBtn' data-inputLocal='new1'  size="15"/>
+      </view>
+    </view>
+
+    <view class='btn' bindtap='updatePsw'>确定</view>
+</view>
+

@@ -1,0 +1,67 @@
+<!--pages/organization/eventAlbum/eventAlbum.wxml-->
+<!-- 整体 -->
+<view class='index'>
+  <!-- 顶部 -->
+  <view class='header'>
+    <!-- 分类折叠选项卡 -->
+    <view class='fold' catchtap='foldclick' data-show='{{isShow}}'>
+      <image class='foldimg' src='{{foldimg}}' data-show='{{isShow}}'></image>
+    </view>
+
+    <!-- 搜索框 -->
+    <view class='searchfa'>
+      <view class='search'>
+        <icon class='searchicon' size='17' type='search'></icon>
+        <input class='searchinput' type='text' confirm-type='search' placeholder='输入相册名称搜索'></input>
+      </view>
+    </view>
+  </view>
+
+  <!-- 折叠内容 -->
+  <view class='foldContent' style='display:{{isShow}}'>
+
+    <view class='title'>
+      <text>分类</text>
+    </view>
+
+    <view class='species' catchtap='selectspecies' wx:for='{{species}}'>
+      <button class='spaciesbtn' data-targetword='{{item.targetword}}'>{{item.btnName}}</button>
+    </view>
+
+  </view>
+
+  <!-- 内容区域 -->
+  <view class='contentBody' catchtap='targetToDetails' data-detailsID='{{item.albumId}}' data-num='{{item.quantity}}' wx:for="{{contents}}" wx:key="*this">
+
+    <!-- 内容标题 -->
+    <view class='contentTitle' data-detailsID='{{item.albumId}}'>
+      <text>{{item.albumTitle}}</text>
+    </view>
+
+    <!-- 上传时间 -->
+    <view class='contentTime'>
+      <text>{{item.stringCreateDate}}</text>
+    </view>
+
+    <!-- 相册首页 -->
+    <view class='contentIndex' data-detailsID='{{item.albumId}}'>
+
+      <!-- 左边布局 -->
+      <view class='left'>
+        <image class='leftimg' src='{{imgurl}}{{item.coverImage}}'></image>
+      </view>
+
+      <!-- 右边布局 -->
+      <view class='right'>
+        <image class='rightimg' src='{{imgurl}}{{item.coverImage}}'></image>
+        <image class='coverageArea' src='{{imgurl}}{{item.coverImage}}'></image>
+        <view class='num'>{{item.quantity}}</view>
+      </view>
+
+    </view>
+
+  </view>
+
+
+
+</view>

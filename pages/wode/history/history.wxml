@@ -1,0 +1,20 @@
+<!--pages/wode/history/history.wxml-->
+<view class='index'>
+
+  <view class='selection'>
+    <!--遍历列表-->
+    <view class='content' catchtap='targetTo' data-id='{{item.id}}' wx:for='{{contents}}' wx:key="*this">
+      <view class='list_item' data-id='{{item.id}}'>
+        <view class='list_item_images'>
+          <image src='{{item.img}}' class='list_item_images-img'></image>
+        </view>
+        <view class='list_item_text' data-id='{{item.id}}'>
+          <view class='list_item_text-title'>{{item.title}}</view>
+          <view class='list_item_text-date'>{{item.time}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class='tail'>没有更多内容了...</view>
+</view>

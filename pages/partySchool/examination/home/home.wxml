@@ -1,0 +1,54 @@
+<!--头部  -->
+<view class='head'>
+  <view class="menu">
+      <view class="menu-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">待考</view>
+      <view class="menu-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">已考</view>
+  </view>
+</view>
+<!--下面  -->
+<view class='content' current="{{currentTab}}">
+  <!-- 进行中的考试 -->
+  <view class='examing-under' wx:if='{{currentTab==0}}'>
+    <view class='examing-inner' wx:if='{{examing.length>0}}'>
+    <!-- 一条考试 -->
+      <view class='oneExam' wx:for='{{examing}}' wx:key='{{index}}' catchtap='menuTargetTo'>
+      <!-- 左半部分 -->
+        <view class='left' data-targeturl='{{examDescUrl}}' data-examId='{{item.examId}}'>
+          <view class='title' data-targeturl='{{examDescUrl}}' data-examId='{{item.examId}}'>{{item.examTitle}}</view>
+          <view class='endTime' data-targeturl='{{examDescUrl}}' data-examId='{{item.examId}}'>{{item.endTime}}截止</view>
+        </view>
+        <!-- 右半部分 -->
+        <view class='right' data-targeturl='{{examDescUrl}}' data-examId='{{item.examId}}'>
+          <image class='image' src='/images/partySchool_icon/doing.png' data-targeturl='{{examDescUrl}}' data-examId='{{item.examId}}'></image>
+        </view>
+      </view>
+    </view>
+    <view class='did' wx:else>
+      <image class='null-img' src='/images/partySchool_icon/null.png'></image>
+      <view class='null-text'>暂无考试记录</view>
+    </view>
+    <view class='load' wx:if='{{examing.length>0}}'>没有更多了~</view>
+  </view>
+<!-- 已结束的考试 -->
+  <view class='examed-under' wx:if='{{currentTab==1}}'>
+    <view class='examed-inner' wx:if='{{examed.length>0}}'>
+    <!-- 一条考试 -->
+      <view class='oneExam' wx:for='{{examed}}' wx:key='{{index}}'>
+      <!-- 左半部分 -->
+        <view class='left'>
+          <view class='title'>{{item.examTitle}}</view>
+          <view class='endTime'>{{item.endTime}}截止</view>
+        </view>
+        <!-- 右半部分 -->
+        <view class='right'>
+          <image class='image' src='/images/partySchool_icon/end.png'></image>
+        </view>
+      </view>
+    </view>
+    <view class='did' wx:else>
+      <image class='null-img' src='/images/partySchool_icon/null.png'></image>
+      <view class='null-text'>暂无考试记录</view>
+    </view>
+    <view class='load' wx:if='{{examed.length>0}}'>没有更多了~</view>
+  </view>
+</view>

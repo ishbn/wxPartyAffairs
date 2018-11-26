@@ -1,0 +1,57 @@
+<!--pages/organization/activity/activity.wxml-->
+<view class='index'>
+  <!--顶部导航栏-->
+  <view class="swiper-tab">
+    <view class="tab-item {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">可报名</view>
+    <view class="tab-item {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已报名</view>
+    <view class="tab-item {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">所有活动</view>
+  </view>
+
+  <!--内容主体-->
+  <swiper style='height:{{events_list.length*160+70}}rpx' class="swiper" current="{{currentTab}}" duration="200" bindchange="swiperChange">
+    <!-- 待报名 -->
+    <swiper-item>
+
+      <view class="notices_item" catchtap='targetToDetail' data-id='{{item.        activityId}}' data-state='{{item.state}}' wx:for='{{events_list}}' wx:key='*this' wx:if='{{item.state == 1}}'>
+        <view class='title'>{{item.name}}</view>
+        <view class='deadline'>{{item.registrationEnd}} 报名截止</view>
+      </view>
+
+      <view class='tail'>没有更多内容了...</view>
+
+    </swiper-item>
+
+    <!--已报名-->
+    <swiper-item>
+      <view class="notices_item" catchtap='targetToDetail' data-id='{{item.        activityId}}' data-deletenum='{{item.allowDelete}}'  wx:for='{{registered}}' wx:key='*this'>
+        <view class='title'>{{item.name}}</view>
+        <view class='deadline'>
+          <text>报名时间：{{item.submitTime}}</text>
+          <text style='color: #f44236'>{{item.checkInfo}}</text>
+        </view>
+      </view>
+      <view class='tail'>没有更多内容了...</view>
+    </swiper-item>
+
+    <!--所有活动-->
+    <swiper-item>
+      <view class="notices_item" catchtap='targetToDetail' data-id='{{item.        activityId}}' data-state='{{item.state}}' wx:for='{{events_list}}' wx:key='*this'>
+        <view class='title'>
+          <view class='titlecontent'>{{item.name}}</view>
+          <!-- <view class='icon' wx:if='{{item.state == 0}}'>
+            <icon type='success' size='21'></icon>
+          </view> -->
+          <view class='icon' wx:if='{{item.state == 1}}'>
+            <icon type='waiting' color='#ffc928' size='21'></icon>
+          </view>
+          <view class='icon' wx:if='{{item.state == 0}}'>
+            <icon type='warn' color='grey' size='21'></icon>
+          </view>
+        </view>
+
+        <view class='deadline'>{{item.registrationEnd}} 报名截止</view>
+      </view>
+      <view class='tail'>没有更多内容了...</view>
+    </swiper-item>
+  </swiper>
+</view>

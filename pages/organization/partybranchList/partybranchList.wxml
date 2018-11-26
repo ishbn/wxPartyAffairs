@@ -1,0 +1,11 @@
+<!--pages/organization/partybranchList/partybranchList.wxml-->
+<view class='index'>
+<view class='title'>肇庆学院计算机科学与软件学院、大数据学院各党支部</view>
+  <view class='content'>
+    <view class='branch' catchtap='targetTo' data-branchid='1'>软件工程专业党支部</view>
+    <view class='branch' catchtap='targetTo' data-branchid='2'>计算机科学与技术专业党支部</view>
+    <view class='branch' catchtap='targetTo' data-branchid='3'>网络工程专业党支部</view>
+    <view class='branch' catchtap='targetTo' data-branchid='4'>物联网工程专业党支部</view>
+    <view class='branch' catchtap='targetTo' data-branchid='5'>数据科学与大数据技术专业党支部</view>
+  </view>
+</view>

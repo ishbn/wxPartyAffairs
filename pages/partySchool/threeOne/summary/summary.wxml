@@ -1,0 +1,1 @@
+<input placeholder='占位符' class="yu {{check?'col':''}}" bindfocus='focus' bindblur='focus'></input>

@@ -1,0 +1,14 @@
+<!--pages/partySchool/partySchool_home/partySchool_home.wxml-->
+<view class='header'>
+  <image src='{{imges}}'></image>
+</view>
+<!--党校菜单  -->
+<view class='wrapper'>
+  <view class='box' wx:for="{{menu.imgUrls}}" wx:key="*this">
+    <view class='menu' catchtap='menuTargetTo' data-targeturl='{{menu.targetPages[index]}}'>
+      <image class="menu-img" src="{{item}}" data-targeturl='{{menu.targetPages[index]}}'></image>
+      <view  class="menu-desc" data-targeturl='{{menu.targetPages[index]}}'>{{menu.descs[index]}}</view>
+      <view  class="menu-explain" data-targeturl='{{menu.targetPages[index]}}'>{{menu.explain[index]}}</view>
+    </view>
+    </view>
+</view>

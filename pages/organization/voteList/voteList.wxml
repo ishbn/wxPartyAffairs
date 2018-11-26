@@ -1,0 +1,21 @@
+<!--pages/organization/voteList/voteList.wxml-->
+<view class='index'>
+
+  <view class='title'>以下投票正在进行</view>
+
+  <!-- 投票列表 -->
+  <view class='content'>
+
+    <view class='block' wx:for='{{content}}' wx:key='*this' catchtap='targetTo' data-id='{{item.voteId}}' >
+      <view class='one'>
+        <view class='votetitle'>{{item.title}}</view>
+        <view class='type' wx:if='{{item.type == 0}}' >单选</view>
+        <view class='type' wx:elif='{{item.type == 1}}' >多选</view>
+        <view class='type' wx:elif='{{item.type == 2}}' >排序</view>
+      </view>
+      <view class='time'>{{item.stringStartTime}} 到 {{item.stringEndTime}}</view>
+    </view>
+  
+  </view>
+
+</view>

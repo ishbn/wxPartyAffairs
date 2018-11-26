@@ -1,0 +1,57 @@
+<view class='content'>
+<!--考试标题  -->
+  <view class='head'>{{exam.examTitle}}</view>
+  <!--考试基本信息  -->
+  <view class='basic'>
+    <view class='inner'>
+      <view class='total'>
+        <view class='total-head'>试卷总分：</view>
+        <!-- 单选一道1分，多选一道2分 -->
+        <view class='total-content'>{{exam.singleQuantity+exam.multipleQuantity*2}}分</view>
+      </view>
+      <view class='pass'>
+        <view class='pass-head'>及格分：</view>
+        <view class='pass-content'>{{exam.passScore}}分</view>
+      </view>
+      <view class='count'>
+        <view class='count-head'>总题数：</view>
+        <!-- 单选题数+多选题数 -->
+        <view class='count-content'>{{exam.singleQuantity+exam.multipleQuantity}}题</view>
+      </view>
+      <view class='length'>
+        <view class='length-head'>考试时长：</view>
+        <view class='length-content'>{{exam.examPeriod}}分钟</view>
+      </view>
+      <view class='singleScore'>
+        <view class='singleScore-head'>单选分数(/道)：</view>
+        <view class='singleScore-content'>{{exam.singleScore}}分</view>
+      </view>
+      <view class='multipleScore'>
+        <view class='multipleScore-head'>多选分数(/道)：</view>
+        <view class='multipleScore-content'>{{exam.multipleScore}}分</view>
+      </view>
+    </view>
+  </view>
+  <!--考试时间  -->
+  <view class='time'>
+    <view class='time-head'>
+      <view class='head-line'></view>
+      <view class='middle'>考试时间</view>
+      <view class='end-line'></view>
+    </view>
+    <view class='between'>{{exam.startTime}}至{{exam.endTime}}</view>
+  </view>
+  <!--考试说明  -->
+  <view class='desc'>
+    <view class='desc-head'>
+      <view class='head-line'></view>
+      <view class='middle'>考试说明</view>
+      <view class='end-line'></view>
+    </view>
+    <view class='between'>{{desc}}</view>
+  </view>
+  <!--开始答题按钮  -->
+  <view class='start'>
+     <button class='button' bindtap='targetTo'>开始答题</button> 
+  </view>
+</view>

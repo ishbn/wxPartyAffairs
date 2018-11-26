@@ -1,0 +1,32 @@
+<!--注意，template不适合多用，使用太多会提高耦合性-->
+
+<!--新闻列表模板-->
+<template name="article_list_item">
+  <navigator url="/pages/news/news/new_detail/new_detail?news_id={{ news_id }}">
+    <view class='list_item' >
+        <view class='list_item_images'>
+          <image src='{{image}}' class='list_item_images-img'></image>
+        </view>
+        <view class='list_item_text'>
+          <view class='list_item_text-title'>{{title}}</view>
+          <view class='list_item_text-date'>{{date}}</view>
+        </view>
+      </view>
+      </navigator>
+</template>
+
+
+<!--公告列表模板-->
+<template name="notices_list_item">
+  <navigator url="/pages/news/notices/notice_detail/notice_detail?notice_id={{ notice_id }}">
+    <view class='list_item' >
+        <view class='list_item_images'>
+          <image src='{{image}}' class='list_item_images-img'></image>
+        </view>
+        <view class='list_item_text'>
+          <view class='list_item_text-title'>{{title}}</view>
+          <view class='list_item_text-date'>{{date}}</view>
+        </view>
+      </view>
+      </navigator>
+</template>

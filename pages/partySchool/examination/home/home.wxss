@@ -1,0 +1,119 @@
+.head{
+  width: 750rpx;
+  height: 85rpx;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  border-bottom: thin solid darkgray;  
+  background: white;
+}
+.menu{
+  width: 90%;
+  height: 60%;
+  background: white;
+  display: flex;
+}
+.menu-item{
+  color: blue;
+  border: 1rpx solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32rpx;
+  width: 50%;
+  height: 100%;
+}
+.menu-item.active{
+  background: blue;
+  color: white;
+}
+.content{
+  width: 750rpx;
+}
+.examing-under{
+  width: 750rpx;
+  background: white;
+}
+.examing-inner{
+  width: 720rpx;
+  float: right;
+}
+.examed-under{
+  width: 750rpx;
+  background: white;
+}
+.examed-inner{
+  width: 720rpx;
+  float: right;
+}
+.oneExam{
+  width: 100%;
+  height: 120rpx;
+  border-bottom: thin solid darkgray;
+  display: flex;
+  align-items: center;
+}
+.left{
+  width: 66%;
+  height: 100%;
+}
+.right{
+  width: 33%;
+  height: 100%;
+}
+.image{
+  width: 100rpx;
+  height: 40rpx;
+  position: relative;
+  left: 115rpx;
+  top: 15rpx;
+}
+.title{
+  height: 50%;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.endTime{
+  height: 50%;
+  line-height: 60rpx;
+  font-size: 25rpx;
+  color: darkgray;
+}
+.join{
+  height: 50%;
+  line-height: 60rpx;
+  font-size: 25rpx;
+  color: darkgray;
+  position: relative;
+  left: 100rpx;
+  bottom: -10rpx;
+}
+.load{
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 35rpx;
+  color: rgb(189, 187, 187);
+}
+/* 记录为空时 */
+.did{
+  width: 750rpx;
+  height: 750rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.null-img{
+  width: 120rpx;
+  height: 110rpx;
+}
+.null-text{
+  font-size: 30rpx;
+  color: #e6e6e6;
+}
+

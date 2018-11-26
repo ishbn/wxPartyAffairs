@@ -1,0 +1,71 @@
+/* pages/organization/activity/activity.wxss */
+.index {  
+  margin-left: 10rpx;  
+  margin-right: 10rpx;  
+}  
+
+.swiper-tab {  
+  display: flex;  
+  flex-direction: row;  
+  line-height: 80rpx;  
+  border-bottom: 2rpx solid #f44236;  
+}  
+  
+.tab-item {  
+  width: 33.3%;  
+  text-align: center;  
+  font-size: 15px;  
+  color: #f44236;  
+}  
+  
+.swiper {  
+  background: #fff; 
+}  
+  
+.on {  
+  color: #f44236;  
+  border-bottom: 5rpx solid #f44236;  
+} 
+
+.notices_item{
+  width: 100%;
+  height: 160rpx;
+  border-bottom: 2rpx solid rgb(238, 238, 238);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.title{
+  padding-top: 20rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  font-size: 35rpx;
+}
+
+.titlecontent{
+  width: 90%;
+}
+
+.deadline{
+  width: 100%;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  color: grey;
+  font-size: 24rpx;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.tail{
+  font-size: 24rpx;
+  color: grey;
+  text-align: center;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx; 
+  border-bottom: 2rpx solid rgb(238, 238, 238);
+}

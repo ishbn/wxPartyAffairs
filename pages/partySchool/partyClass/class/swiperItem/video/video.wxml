@@ -1,0 +1,40 @@
+<view class='main'>
+  <view class='content'>
+  <!--课程头部  -->
+    <view class='head'>
+      <view class='title'>{{videoList[num].videoTitle}}</view>
+      <view class='time'>{{videoList[num].updateTime}} {{videoList[num].uploadUser}}</view>
+    </view>
+    <!--正文 -->
+    <view class='contain'>
+    <!-- 介绍 -->
+      <view class='text'>{{videoList[num].videoIntroduction}}</view>
+      <view class='video-content'>
+        <video class='video' src='{{videoList[num].videoPath}}' objectFit='fill' enable-progress-gesture='false' bindtimeupdate='videoTimeUpdate' initial-time='{{currentTime}}'></video>
+        <view class='explain'>视频</view>
+      </view>
+    </view> 
+    <!--页脚  -->
+    <view class='footer'>
+    <!--收藏效果  -->
+      <view class='icon'>
+        <view class='col' hidden='{{colShow}}'>收藏成功</view> 
+        <view class='col' hidden='{{colCancelShow}}'>取消收藏</view> 
+      </view>
+      <!--收藏图标  -->
+      <view class='inner'>
+        <image class='collect' src='{{collect}}' bindtap="{{clickCol?'colOne':''}}"></image>
+      </view> 
+      <!--上一篇  -->
+      <view class='pre' wx:if='{{videoList[pre]!=null}}'>
+        <view>上一篇：</view>
+        <view class='footer-title' data-index='{{pre}}' bindtap='targetTo'>{{videoList[pre].videoTitle}}</view>
+      </view>
+      <!--下一篇  -->
+      <view class='next' wx:if='{{videoList[next]!=null}}'>
+        <view>下一篇：</view>
+        <view class='footer-title' data-index='{{next}}' bindtap='targetTo'>{{videoList[next].videoTitle}}</view>
+      </view>
+    </view>
+  </view> 
+</view>

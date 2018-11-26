@@ -1,0 +1,171 @@
+<!--pages/organization/partyMemberFile/partyMemberFile.wxml-->
+<view class='index'>
+
+  <!-- 大头照 -->
+  <view class='mugshot'>
+    <image class='msimg' src='{{userinfo.imgHead}}'></image>
+  </view>
+
+  <!-- 所属党支部 -->
+  <view class='partybranch'>
+    所属党支部：{{userinfo.branchName}}
+  </view>
+  
+
+  <view class="table">
+
+    <view class="tr">
+      <view class="td">姓名</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.name}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">曾用名</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.nameFormer}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">性别</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.sex}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">民族</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.national}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">籍贯</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.nativePlace}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">出生地</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.birthPlace}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">户口所在地</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.placeRegistered}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">家庭住址</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.homeAddress}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">手机号</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.tel}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">家庭出身</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.familyBackground}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">出生日期</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.birthDate}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">政治身份</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.politicalStatus}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">身份证号</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.idCard}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">婚姻状况</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.maritalStatus}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">组织所在单位</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.organizationUnit}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">个人身份</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.personalIdentity}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">学历</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.educationalBackground}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">专业</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.professional}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">毕业院校</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.graduateSchool}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">提交入党申请书</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.timeApplicationforparty}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">入党时间</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.timeIntoparty}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">转正时间</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.timePositive}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">发展类型</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.typeDevelopment}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">转出组织单位</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.totot}}</text>
+      </view>
+    </view>
+    <view class="tr">
+      <view class="td">转出单位</view>
+      <view class="td right">
+      <text class='rightcontent'>{{content.data.outUnit}}</text>
+      </view>
+    </view>
+
+</view>
+
+
+</view>

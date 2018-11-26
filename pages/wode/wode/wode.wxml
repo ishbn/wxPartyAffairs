@@ -1,0 +1,48 @@
+<!--pages/wode/wode/wode.wxml-->
+<view class='wholePage'>
+  <view class='header'>
+      <image src='{{headerimg}}'></image>
+  </view>
+
+  <view class='info'>
+      <image src='{{headImg}}'></image>
+      <view class='user'>
+        <view class='useridentity'>
+          <view class='username'>{{username}}</view>
+          <view class='followdate'>{{roleName}}</view>
+        </view>
+        <view class='partybranch'>{{partybranch}}</view>
+      </view>
+  </view>
+
+
+  <block wx:if='{{false}}'>
+    <!--网格功能区-->
+    <view class='wrapper'>
+          <block wx:for="{{menu}}" wx:key="{{index}}">
+              <navigator url='{{item.url}}'>
+                  <view class='box'>
+                      <view class='item'>
+                        <view class="menu-img"> <image src="{{item.icon}}" ></image></view>
+                        <view  class="menu-desc" >{{item.name}}</view>
+                        <view  class="menu-explain">{{item.explain}}</view>
+                      </view>
+                  </view>
+              </navigator>
+            </block>
+    </view>
+  </block>
+  <block wx:else>
+    <view class='menuList'>
+        <block wx:for='{{menu}}' wx:key="{{index}}">
+
+          <navigator hover-class="none" bindtap='cancelRedDot' data-index='{{index}}' url='{{item.url}}'>
+            <view class='menu'>
+                <image src='{{item.icon}}'></image>
+                <text class='{{item.dot}}'>{{item.name}}</text>
+            </view>
+          </navigator>
+        </block>
+    </view>
+  </block>
+</view>

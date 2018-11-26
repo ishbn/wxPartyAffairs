@@ -1,0 +1,49 @@
+<view class='main'>
+  <!-- 下拉首部 -->
+  <view class='head' catchtouchmove='banSlide'>
+    <view class='inner' bindtap='clickTap'>
+      <view class='text'>{{content}}</view>
+      <image class="arrow {{rotate?'':'display_up'}}" src='/images/partySchool_icon/arrow.png'></image>
+    </view>
+  </view>
+  <!-- 下拉框 -->
+  <view id='box' class="{{!rotate?'display_show':'display_none'}} {{first_click?'show':'hide'}}" catchtouchmove='banSlide'>
+    <view class='type'>
+      <view class='out'><view data-current='1' class="in {{checked1?'change':''}}" bindtap='checkTap'>全部</view></view>
+      <view class='out'><view data-current='2' class="in {{checked2?'change':''}}" bindtap='checkTap'>专题教育</view></view>
+      <view class='out'><view data-current='3' class="in {{checked3?'change':''}}" bindtap='checkTap'>反腐倡廉</view></view>
+      <view class='out'><view data-current='4' class="in {{checked4?'change':''}}" bindtap='checkTap'>政策法规</view></view>
+    </view>
+    <scroll-view class='label'>
+      <view class='label-item' hidden='{{!checked2}}' wx:for='{{list.education}}' wx:key='{{index}}' data-father='专题教育' data-self='{{item}}' data-index='{{index+3}}' bindtap='checked'>{{item}}</view>
+      <view class='label-item' hidden='{{!checked3}}' wx:for='{{list.antiCorruption}}' wx:key='{{index}}' data-father='反腐倡廉' data-self='{{item}}' data-index='{{index+10}}' bindtap='checked'>{{item}}     </view>
+      <view class='label-item' hidden='{{!checked4}}' wx:for='{{list.law}}' wx:key='{{index}}' data-father='政策法规' data-index='{{index+7}}' data-self='{{item}}' bindtap='checked'>{{item}}</view>
+    </scroll-view>
+  </view>
+  <!--蒙层  -->
+  <view class='shadow' style='height:1200rpx;' hidden='{{rotate}}' bindtap='clickTap' catchtouchmove='banSlide'></view>
+  <!-- 视频 -->
+  <view class='contain'>
+    <view class='all' wx:if='{{vedioList.length>0}}'>
+      <view wx:for='{{vedioList}}' wx:key='{{index}}' class='oneVedio' bindtap='toDetails'>
+        <view class='vedioImg'>
+          <image class='img' src='{{item.coverImg}}' data-index='{{index}}'></image>
+        </view>
+        <view class='message'>
+          <view class='title' data-index='{{index}}'>{{item.videoTitle}}</view>
+          <view class='Text' data-index='{{index}}'>{{item.videoIntroduction}}</view>
+          <view class='update'>
+            <view class='updatetime' data-index='{{index}}'>{{item.updateTime}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='null' wx:else>
+      <image class='null-img' src='/images/partySchool_icon/null.png'></image>
+      <view class='null-text'>暂无文档记录</view>
+    </view>
+    <!--底部  -->
+    <view class='more' wx:if='{{vedioList.length>0}}' hidden='{{isHaveMore}}'>没有更多了~</view>
+    <view class='more' wx:if='{{vedioList.length>0}}' hidden='{{!isHaveMore}}'>正在加载</view>
+  </view>
+</view>

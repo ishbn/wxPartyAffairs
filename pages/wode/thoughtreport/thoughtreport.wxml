@@ -1,0 +1,41 @@
+<!--pages/wode/thoughtreport/thoughtreport.wxml-->
+
+<view class="page" >  
+  <!--顶部导航栏-->  
+  <view class="swiper-tab">  
+    <view class="tab-item {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">思想汇报</view>  
+    <view class="tab-item {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">提交记录</view>  
+  </view>  
+  
+  <!--内容主体-->  
+    <block wx:if='{{currentTab==0}}'>
+      <view class='title'>
+        <text>标题*</text>
+        <input type='text' value='{{report.title}}' placeholder='请输入标题，64字以内' bindinput='titleInput'></input>
+      </view>
+      <view class='content'>
+        <text>内容*</text>
+        <textarea auto-height='true' placeholder='请输入内容，{{maxlength}}字以内' value='{{report.content}}' bindinput='contentInput' maxlength='{{maxlength}}'>
+        </textarea>
+      </view>   
+      <view class='btn'>
+       <button bindtap='dosubmit' type='primary' >提交</button>
+      </view>
+    </block>  
+    
+     <block wx:else >
+        <view class="notices_item" wx:for="{{myreports}}" wx:key="{{item.id}}" bindtap='toDetail' data-report_id='{{item.id}}'>
+              <view class='report_title'>{{item.title}}</view>
+              <view class='report_date'>{{item.date}}</view>
+        </view>
+        <block wx:if='{{!havedata}}'>
+          <view class="tail"><text>暂无数据</text></view>
+        </block>
+        <block wx:else>
+        <!-- 加载更多 -->
+        <view class="tail" hidden="{{!more}}">正在加载</view>
+        <view class="tail" hidden="{{more}}">没有更多数据了</view>
+        </block>
+    </block>   
+
+</view>  

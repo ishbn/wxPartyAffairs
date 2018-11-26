@@ -1,0 +1,39 @@
+<!--pages/news/noticeInner/noticesInner_list/noticesInner_list.wxml-->
+<block wx:if='{{canShow}}'>
+<view class='main'>
+ 
+<!--头部  -->
+<view class='head'></view>
+  <!--轮播图 -->
+  <swiper class="swiper" autoplay="true" previous-margin="75rpx" next-margin="75rpx" bindchange="swiperChange" current='{{currentTab}}' circular="true">
+    <block class="block" wx:for="{{broadcast}}" wx:key="{{item.id}}">
+     <navigator  hover-class="none" url="/pages/news/noticesInner/noticeInner_detail/noticeInner_detail?notice_id={{ item.id }}">
+      <swiper-item class="swiper-item">
+        <image src="{{serverAddress}}{{item.coverpath}}" class="slide-image {{currentTab == index ? 'active' : ''}}"/>
+      </swiper-item>
+       </navigator>
+    </block>
+  </swiper>
+
+ <view class='swp-info' bindtap='toNoticeDetail' data-id='{{broadcast[currentTab].id}}'>
+      <view class='swp-title'>{{broadcast[currentTab].title}}</view>
+  </view>
+</view>
+
+<view class='content' wx:for='{{notices_list}}' wx:key="{{item.id}}">
+        <navigator url="/pages/news/noticesInner/noticeInner_detail/noticeInner_detail?notice_id={{ item.id }}">
+          <view class='list_item' >
+              <view class='list_item_images'>
+                <image src='{{serverAddress}}{{item.coverpath}}' class='list_item_images-img'></image>
+              </view>
+              <view class='list_item_text'>
+                <view class='list_item_text-title'>{{item.title}}</view>
+                <view class='list_item_text-date'>{{item.date}}</view>
+              </view>
+            </view>
+            </navigator>
+      </view>
+<!-- 加载更多 -->
+<view class="tail" hidden="{{!more}}">正在加载</view>
+<view class="tail" hidden="{{more}}">我是有底线的</view>
+</block>

@@ -1,0 +1,14 @@
+/* pages/wode/personalInfo/aboutme/aboutme.wxss */
+.wholePage{
+  background: #fff;
+}
+.header{
+  width: 100%;
+  height: 460rpx;
+}
+
+.header image{
+  width: 100%;
+  height: 100%;
+}
+

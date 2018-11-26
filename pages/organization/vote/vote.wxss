@@ -1,0 +1,108 @@
+/* pages/organization/vote/vote.wxss */
+.index{
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+
+.votingtheme{
+  text-align: center;
+  padding-top: 50rpx;
+}
+
+.description{
+  font-size: 30rpx;
+  padding-top: 20rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+.content{
+  margin-top: 30rpx;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  margin-bottom: 40rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-bottom: 40rpx;
+  font-size: 35rpx;
+  border: 1rpx solid #cccccc;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 5px 2px 1px #cccccc;
+}
+
+.option{
+  display: flex;
+  flex-wrap: nowrap;
+  padding-top: 20rpx;
+  transform:scale(0.9);
+  padding-bottom: 30rpx;
+  border-bottom: 2rpx solid #cccccc;
+}
+
+.left{
+  width: 100%;
+  padding-right: 10rpx;
+}
+
+.btnvote{
+  font-size: 35rpx;
+  margin-top: 30rpx;
+  height: 70rpx;
+  width: 40%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center
+}
+
+.nothing{
+  font-size: 50rpx;
+  text-align: center;
+  margin-top: 200rpx;
+}
+
+/* 以下是排序投票的css内容 */
+.touchView{z-index: 200; width: 100px;position: absolute;top: 0;left:275px; top: 0;}
+
+.edit_row{ width: 100%; overflow: hidden; font-size: 12px; height: 65px; box-sizing: border-box; padding: 15px 0; border-bottom: 1px #ddd solid;}
+.edit_col1{ float: left; width: 12%; text-align: center;}
+.edit_col2{ float: left; width: 40%;}
+.edit_col3{ float: left; width: 24%; text-align: center;}
+.edit_col4{ float: left; width: 23%; text-align: center; position: relative;}
+.edit_del{ float: left;padding-right: 10px; color: #fd7736;}
+.edit_finish{ float: right; padding-right: 10px; width: 24%;height:40px;color: #fd7736;}
+
+.edit_row_title .edit_col4:before{ content:''; position: absolute; width: 1px; height: 18px; background-color: #e8e8e8; left: 0%; top: 50%; margin-top: -9px; }
+
+.edit_title_col1{ position: relative; left: 10px; }
+
+.stay_top{ height: 47px; line-height: 47px;}
+.stay_top .edit_row{ height: 47px; padding: 0; z-index: 99; left: 0; top: 100; width: 100%; color: rgba(89,89,89,.8); font-size: 14px;}
+
+.edit_row_holder{ background-color: #fff;}
+
+.edit_row_on .ico_checker{ background-position: 0 -17px;}
+
+.moveable_row{ width: 100%; position: absolute;top: 0;left: 0; z-index: 100;}
+.moveable_row .edit_row{ box-shadow: 0 0 12px rgba(0,0,0,.2)}
+
+.dragSelected{  background-color: #ccc;}
+
+.placeholder{ display: inline-block; width: 1px; height: 1px; }
+
+
+.ico_drag{ display: inline-block; width: 24px; height: 12px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAYCAYAAAC8/X7cAAAAAXNSR0IArs4c6QAAAEtJREFUWAnt1cEJACAMA0B1/506moIr5FEK51+Jl0d2Vd01+JzB2X90H5jeoPwECBDIBLYlzgDj25Y4JvQAAQIERgtY4u76LHF3Aw8rGQnK3sYAXQAAAABJRU5ErkJggg==) 0 0 no-repeat; -webkit-background-size: 100% auto; background-size: 100% auto; margin-top: 10px;}
+
+.secname{ font-size: 17px; line-height: 1.2;}
+.seccode{ font-size: 13px; color: rgba(89,89,89,.6); line-height: 1.2;}
+
+
+.stay_bottom{ height: 50px; }
+.bottom_row{ width: 100%; overflow: hidden; background-color: #fff; line-height: 49px; height: 49px; border-top: 1px #a5a5a5 solid; position: fixed; z-index: 99; left: 0; bottom: 0; font-size: 17px; color: #929292;}
+
+.stay_bottom .all_select  .ico_checker{background-position: 0 -17px;}
+
+/* 缺少这一段会缺失效果 */
+.hidden,.none{display: none!important;}
+.unvisible { visibility: hidden!important; pointer-event: none!important; }
+.clearfix:after{content:".";display:block;visibility:hidden;clear:both;height:0}

@@ -1,0 +1,31 @@
+<!--pages/news/news/new_detail/new_detail.wxml-->
+<import src="/utils/wxParse/wxParse.wxml"/>
+
+<view class="page__detail">
+
+<view class="detail">
+        <view class="detail__title">
+            {{ article.title }}
+        </view>
+        <view class="article__desc">
+          <view class='source_and_time'>
+            <text class="article__source" wx:if="{{ article.source !=null }}">{{ article.source }}</text>
+            <text class="article__time">{{ article.date }}</text>
+          </view>
+          <view class="article__count">
+                <!--新闻点击数-->
+                <image src="{{icon_priaze}}"></image>
+                <text>{{ article.click }}</text>
+          </view>
+        </view>
+
+    </view>
+
+</view>
+
+<!--新闻内容-->
+<view class="wxParse article__content ">
+    <template is="wxParse" data="{{wxParseData:article.content.nodes}}"/>
+</view>
+
+<view class='tail'>-- The End --</view>

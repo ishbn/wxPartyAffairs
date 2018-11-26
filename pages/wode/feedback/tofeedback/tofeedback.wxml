@@ -1,0 +1,18 @@
+<!--pages/wode/feedback/tofeedback/tofeedback.wxml-->
+
+<view class='feedback_type'>
+  <text>类型*</text>
+  <input type='text' value='{{feedback.feedback_type}}' bindtap='selecttype' ></input>
+</view>
+<view class='title'>
+  <text>标题*</text>
+  <input type='text' value='{{feedback.title}}' placeholder='请输入标题，64字以内' bindinput='titleInput'></input>
+</view>
+<view class='content'>
+  <text>内容*</text>
+  <textarea placeholder='请输入内容，{{maxlength}}字以内' value='{{feedback.content}}' bindinput='contentInput' maxlength='{{maxlength}}'>
+  </textarea>
+</view>   
+  <view class='btn'>
+    <button bindtap='dosubmit' type='primary' >提交</button>
+  </view>

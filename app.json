@@ -1,0 +1,98 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/common/testTemplate/testTemplate",
+    "pages/news/news_home/news_home",
+    "pages/news/news/news_list/news_list",
+    "pages/news/news/new_detail/new_detail",
+    "pages/news/notices/notices_list/notices_list",
+    "pages/news/notices/notice_detail/notice_detail",
+    "pages/news/noticesInner/noticesInner_list/noticesInner_list",
+    "pages/news/noticesInner/noticeInner_detail/noticeInner_detail",
+    "pages/organization/organization_home/organization_home",
+    "pages/organization/partyMemberFile/partyMemberFile",
+    "pages/organization/eventAlbum/eventAlbum",
+    "pages/organization/detailsAibum/detailsAlbum",
+    "pages/organization/vote/vote",
+    "pages/organization/activity/activity",
+    "pages/organization/bbs/bbs",
+    "pages/organization/detailsActivity/detailsActivity",
+    "pages/organization/detailsAlbum/detailsAlbum",
+    "pages/partySchool/partySchool_home/partySchool_home",
+    "pages/partySchool/partyClass/class/class_home/class_home",
+    "pages/partySchool/threeOne/home/home",
+    "pages/partySchool/threeOne/myMeeting/myMeeting",
+    "pages/partySchool/threeOne/summary/summary",
+    "pages/partySchool/education/home/home",
+    "pages/partySchool/anti-corruption/home/home",
+    "pages/partySchool/laws/home/home",
+    "pages/partySchool/examination/home/home",
+    "pages/partySchool/examination/content/content",
+    "pages/partySchool/partyClass/class/swiperItem/swiperItem_home/swiperItem_home",
+    "pages/partySchool/partyClass/mySelf/mySelf",
+    "pages/partySchool/partyClass/selectClass/selectClass_home/selectClass_home",
+    "pages/partySchool/partyClass/menu/menu",
+    "pages/partySchool/partyClass/class/swiperItem/chapter/chapter",
+    "pages/partySchool/partyClass/selectClass/details/detail",
+    "pages/wode/wode/wode",
+    "pages/wode/history/history",
+
+    "pages/wode/feedback/feedback_home/feedback_home",
+    "pages/wode/feedback/tofeedback/tofeedback",
+    "pages/wode/feedback/feedback_detail/feedback_detail",
+    "pages/wode/feedback/feedback_list/feedback_list",
+    "pages/wode/collection/collection",
+    "pages/wode/thoughtreport/thoughtreport",
+    "pages/wode/thoughtreport_detail/thoughtreport_detail",
+    "pages/test/test",
+    "pages/partySchool/examination/exampaper/exampaper",
+    "pages/organization/partybranchList/partybranchList",
+    "pages/organization/voteList/voteList"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "e网党建",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#bfbfbf",
+    "selectedColor": "#f4ea2a",
+    "backgroundColor": "red",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首 页",
+        "iconPath": "/images/icon_tabBar/preHome.png",
+        "selectedIconPath": "/images/icon_tabBar/home.png"
+      },
+      {
+        "pagePath": "pages/news/news_home/news_home",
+        "text": "新 闻",
+        "iconPath": "/images/icon_tabBar/preNews.png",
+        "selectedIconPath": "/images/icon_tabBar/news.png"
+      },
+      {
+        "pagePath": "pages/partySchool/partySchool_home/partySchool_home",
+        "text": "党 校",
+        "iconPath": "/images/icon_tabBar/prePartySchool.png",
+        "selectedIconPath": "/images/icon_tabBar/partySchool.png"
+      },
+      {
+        "pagePath": "pages/organization/organization_home/organization_home",
+        "text": "组 织",
+        "iconPath": "/images/icon_tabBar/preOrganization.png",
+        "selectedIconPath": "/images/icon_tabBar/organization.png"
+      },
+      {
+        "pagePath": "pages/wode/wode/wode",
+        "text": "个 人",
+        "iconPath": "/images/icon_tabBar/preMine.png",
+        "selectedIconPath": "/images/icon_tabBar/mine.png"
+      }
+    ]
+  }
+}

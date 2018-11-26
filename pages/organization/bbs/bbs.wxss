@@ -1,0 +1,13 @@
+/* pages/organization/bbs/bbs.wxss */
+
+.index{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.indeximg{
+  width: 250rpx;
+  height: 250rpx;
+  margin: 160rpx auto;
+}

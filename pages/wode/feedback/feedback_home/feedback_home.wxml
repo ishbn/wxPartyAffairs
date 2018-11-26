@@ -1,0 +1,49 @@
+<!--pages/wode/feedback/feedback_home/feedback_home.wxml-->
+<view class="page" >  
+  <!--顶部导航栏-->  
+  <view class="swiper-tab">  
+    <view class="tab-item {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">我要反馈</view>  
+    <view class="tab-item {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">反馈记录</view>  
+  </view>  
+  
+  <!--内容主体-->  
+    <block wx:if='{{currentTab==0}}'>
+      <view class='feedback_type'>
+        <text>类型*</text>
+        <picker bindchange="bindPickerChange" value="{{feedback_type_index}}" range="{{feedback_type}}">
+
+           {{feedback_type[feedback_type_index]}}＞
+
+        </picker>
+      </view>
+      <view class='title'>
+        <text>标题*</text>
+        <input type='text' value='{{feedback.title}}' placeholder='请输入标题，64字以内' bindinput='titleInput'></input>
+      </view>
+      <view class='content'>
+        <text>内容*</text>
+        <textarea auto-height='true'  placeholder='请输入内容，{{maxlength}}字以内' value='{{feedback.content}}' bindinput='contentInput' maxlength='{{maxlength}}'>
+        </textarea>
+      </view>   
+      <view class='btn'>
+        <button bindtap='dosubmit' type='primary' >提交</button>
+      </view>
+
+    </block>  
+    
+    <block wx:else >
+      <view name="feedback_list_item" wx:for='{{feedback_list}}' wx:key='{{item.feedback_id}}'>
+        <navigator url="../feedback_detail/feedback_detail?feedback_id={{ item.feedback_id }}">
+          <view class='list_item' >
+            <view class='list_item_title'>{{item.title}}</view>
+            <view class='list_item_text'>
+              <view class='list_item_type'>{{item.feedback_type}}</view>
+              <view class='list_item_date'>{{item.date}}</view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+      <view class="tail">没有更多数据了</view>
+    </block>   
+
+</view>  

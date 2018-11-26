@@ -1,0 +1,17 @@
+<!--pages/news/news_home/news_home.wxml-->
+<view class='header'>
+  <image src='{{imges}}'></image>
+</view>
+<view class='wrapper'>
+  <block wx:for="{{menu.imgUrls}}" wx:key="*this">
+    <navigator url='{{menu.targetPages[index]}}'>
+      <view class='box'>
+          <view class='item'>
+            <view class="menu-img"> <image src="{{item}}" ></image></view>
+            <view  class="menu-desc" >{{menu.descs[index]}}</view>
+            <view  class="menu-explain">{{menu.explain[index]}}</view>
+          </view>
+      </view>
+   </navigator>
+  </block>
+</view>

@@ -1,0 +1,9 @@
+
+.yu{
+  width: 80%;
+  height: 80%;
+  background: yellow;
+}
+.col{
+  background: red;
+}

@@ -1,0 +1,55 @@
+<!--pages/organization/detailsActivity/detailsActivity.wxml-->
+<import src="../../../utils/wxParse/wxParse.wxml"/>
+
+<view class='index'>
+  <!-- 顶部栏 包括标题和发布时间 -->
+  <view class='header'>
+    <view class='title'>{{details.name}}</view>
+    <view class='time'>{{details.registrationStart}}</view>
+  </view>
+
+  <!-- 活动事项 -->
+  <view class='block'>
+    <view>活动地址：{{details.address}}</view>
+    <view>组织单位：{{details.unit}}</view>
+    <view>开始时间：{{details.activityStart}}</view>
+    <view>结束时间：{{details.activityEnd}}</view>
+    <view>已报名{{details.alreadyJoinNum}}人，上限为{{details.num}}人</view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class='content'>
+    <view class="article__content wxParse">
+      <template is="wxParse" data="{{wxParseData:details.content.nodes}}" />
+    </view>
+  </view>
+
+  <!-- 按扭区 -->
+  <view class='btn'>
+    <block wx:if='{{deletenum == 1}}'>
+      <button class='cancel' catchtap='cancel' type='primary'>取消报名</button>
+    </block>
+    <block wx:if='{{state == 1}}'>
+      <button class='confirm' catchtap='confirm' type='warn'>点击报名</button>
+    </block>
+    <block wx:if='{{state == 0}}'>
+      <button class='out' disabled='{{true}}' type='default'>已过期</button>
+    </block>
+  </view>
+
+<!-- 模态框 -->
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-title">请输入你的手机号</view>
+  <view class="modal-content">
+    <view class="modal-input">
+      <input placeholder-class="input-holder" type="number" maxlength="11" bindinput="inputChange" class="input" placeholder="请输入你的手机号"></input>
+    </view>
+  </view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+    <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+  </view>
+</view>
+
+</view>

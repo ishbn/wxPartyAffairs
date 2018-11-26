@@ -1,0 +1,5 @@
+<!--pages/common/testTemplate/testTemplate.wxml-->
+<!--引入模板xml-->
+<import src="../template/article.wxml"/>
+<!--使用newsStyle0模板，传入数据，并使用'...'符号展开json数据-->
+<template is="newsStyle0" data="{{...article}}"/>

@@ -1,0 +1,72 @@
+/* pages/wode/history/history.wxss */
+.selection{
+  width: 100%;
+}
+
+.text-all{
+  color: green;
+  font-size: 15px;
+}
+
+.content{
+  max-height: 425px;
+  overflow-y: auto;
+  border-bottom:2rpx solid rgb(238, 238, 238); 
+}
+
+.list_item{
+    display: block;
+    padding: 15px 15px 10px 10px;
+    overflow: hidden;
+    position: relative;
+    cursor: default;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.list_item_images{
+    float: left;
+    margin-right: 10px;
+}
+.list_item_images image{
+    display: block;
+    width: 80px;
+    height: 60px;
+}
+
+.list_item_text{
+  overflow: hidden;
+}
+
+.list_item_text-title{
+    font-weight: normal;
+    font-size: 16px;
+    color: #000;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+
+.list_item_text-date{
+  padding-top: 50rpx;
+  font-size: 13px;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.3;
+  max-height: 36px\9;
+}
+
+.tail{
+  font-size: 24rpx;
+  color: grey;
+  text-align: center;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx; 
+  border-bottom: 2rpx solid rgb(238, 238, 238);
+}

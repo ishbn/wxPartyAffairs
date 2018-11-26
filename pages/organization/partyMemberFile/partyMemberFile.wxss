@@ -1,0 +1,64 @@
+/* pages/organization/partyMemberFile/partyMemberFile.wxss */
+/* .index{
+  background-color: whitesmoke;
+} */
+
+.mugshot{
+  width: 180rpx;
+  height: 180rpx;
+  margin: 20rpx auto;
+}
+
+.msimg{
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 100rpx;
+}
+
+.partybranch{
+  font-size: 26rpx;
+  text-align: center;
+  padding-top: 20rpx;
+  color: yellowgreen;
+}
+
+
+.right{
+  width: 38%;  
+  font-size: 27rpx;
+  word-wrap:break-word;
+  color: gray;
+}
+
+.rightcontent{
+  /* 防溢出，限制行数 */
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* 新增 */
+.table {
+  font-size: 32rpx;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 2rem;
+  align-items: center;
+}
+.td {
+    width:45%;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+
+
+

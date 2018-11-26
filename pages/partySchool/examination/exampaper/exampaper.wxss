@@ -1,0 +1,126 @@
+/* pages/partySchool/examination/exampaper/exampaper.wxss */
+
+.countdown{
+  background-color: #FFFBCB;
+  color: #EEA82C;
+  font-size: 24rpx;
+  line-height: 60rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.countdown_content{
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+.showit{
+  padding-right: 20rpx;
+}
+
+.tab{
+  background-color:#F2F2F2;
+  padding-top: 20rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tabnum{
+  font-size: 30rpx;
+  height: 50rpx;
+  width: 70rpx;
+  border: 3rpx solid gainsboro;
+  border-radius: 10rpx;
+  text-align: center;
+  margin-right: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.content{
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-top: 30rpx;
+}
+
+.radiocontent{
+  margin-bottom: 50rpx;
+  border-bottom: 3rpx solid rgb(211, 206, 206);
+  padding-bottom: 30rpx;
+}
+
+.checkcontent{
+  margin-bottom: 50rpx;
+  border-bottom: 3rpx solid rgb(211, 206, 206);
+  padding-bottom: 30rpx;
+}
+
+.title{
+  font-size: 32rpx;
+  letter-spacing: 2px;
+  line-height: 40rpx;
+}
+
+.radio-group{
+  padding-top: 20rpx;
+  font-size: 32rpx;
+}
+
+.checkbox-group{
+  padding-top: 20rpx;
+  font-size: 32rpx;
+}
+
+
+.option{
+  display: flex;
+  line-height: 50rpx;
+  border: 2rpx solid whitesmoke;
+  justify-content: flex-start;
+  margin-bottom: 30rpx;
+  border-radius: 10rpx;
+}
+
+.radio{
+  padding-top: 20rpx;
+  padding-left: 20rpx;
+  padding-right: 10rpx;
+  padding-bottom: 20rpx;
+  transform:scale(0.9);
+}
+
+.radiotext{
+  width: 100%;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+
+.checkbox{
+  padding-top: 20rpx;
+  padding-left: 20rpx;
+  padding-right: 10rpx;
+  padding-bottom: 20rpx;
+  transform:scale(0.9);
+}
+
+.checkboxtext{
+  width: 100%;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+
+.btn{
+  padding-top: 50rpx;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-bottom: 100rpx;
+}
+
+.button{
+  background-color: rgb(11, 114, 211);
+  color: white;
+}
+
+

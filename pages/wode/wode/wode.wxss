@@ -1,0 +1,137 @@
+/* pages/wode/wode/wode.wxss */
+.wholePage{
+  background: rgb(241, 237, 237);
+}
+.header{
+  width: 100%;
+  height: 420rpx;
+}
+
+.header image{
+  width: 100%;
+  height: 100%;
+}
+
+.info{
+  width: 100%;
+  height: 130rpx;
+  display: flex;
+  background: #fff;
+  margin-bottom: 32rpx;
+
+}
+.info image{
+  width:120rpx;
+  height: 120rpx;
+  border-radius: 15rpx;
+  margin-left:40rpx;
+  z-index:2;
+  position: relative;
+  top:-25rpx;
+  background: gray;
+}
+
+.user{
+  margin: 0 20rpx;
+  height: 95rpx;
+}
+
+.useridentity{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.username{
+  padding: 10rpx 10rpx 10rpx 0;
+  font-size: 36rpx;
+  /* font-weight:bold; */
+}
+.followdate{
+  height: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  padding: 10rpx 10rpx 10rpx 10rpx;
+  margin-left: 10rpx;
+  color: #f44236;
+  font-size: 18rpx;
+  border: 2rpx solid #f44236;
+  border-radius: 30rpx;
+}
+.partybranch{
+  font-size:24rpx;
+  color: #969696 
+}
+
+/* 网格样式 */
+.wrapper{
+  display: flex;
+  background: #fff;
+  flex-wrap: wrap;
+}
+.wrapper navigator{
+  width: 50%;
+  height: 250rpx;
+}
+.box {
+  height: 100%;
+  width: 100%;
+  border: 2rpx solid rgb(238, 238, 238);
+  border-top:none; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.menu-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.menu-img image{
+  width:32px;
+  height:32px;
+}
+.menu-desc{
+  font-size: 16px;
+  font-weight:bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.menu-explain{
+  color:#bfbfbf; 
+  font-size:12px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+/* 列表样式 */
+.menuList{
+  width: 100%;
+  background: #fff;
+}
+.menu{
+  width:90%;
+  height: 100rpx;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1rpx solid rgb(241, 237, 237);
+  margin: 10rpx 40rpx;
+}
+.menu image{
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 25rpx;
+}
+.menu text{
+  font-size: 32rpx;
+  color:darkcyan;
+  /* margin: 0 15rpx; */
+}

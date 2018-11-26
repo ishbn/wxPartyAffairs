@@ -1,0 +1,21 @@
+<!--pages/news/noticesInner/noticeInner_detail/noticeInner_detail.wxml-->
+<import src="/utils/wxParse/wxParse.wxml"/>
+
+<view class="page__detail">
+    <view class="detail">
+        <view class="detail__title">{{ article.title }}</view>
+        <view class="article__desc">
+            <text class="article__time">{{ article.date }}</text>
+            <view class="article__count">
+                  <image class="article__icon" src="{{icon_click}}"></image>
+                  <text>{{ article.click }}</text>
+            </view>
+        </view>
+    </view>
+</view>
+<!--公告内容-->
+<view class="article__content wxParse">
+    <template is="wxParse" data="{{wxParseData:article.content.nodes}}"/>
+</view>
+
+<view class='tail'>-- The End --</view>

@@ -1,0 +1,21 @@
+<!--pages/organization/organization_home/organization_home.wxml-->
+<view class='index'>
+<!--顶部图-->
+  <view class='headimg'>
+    <image class='headimg' src='{{headimg}}'></image>
+  </view>
+
+  <!-- 分类 -->
+  <view class='classification' >
+  <view class='box' wx:for="{{menu_messages}}" wx:key="*this">
+    <view class='menu_list'  catchtap='targetTo' data-targeturl='{{item.targeturl}}'>
+      <image class='menu_img' src='{{item.menu_img}}' data-targeturl='{{item.targeturl}}'></image>
+      <text class='menu_name' data-targeturl='{{item.targeturl}}'>{{item.name}}</text>
+      <text class='description' data-targeturl='{{item.targeturl}}'>{{item.description}}</text>
+    </view>
+  </view>
+  </view>
+
+  
+
+</view>

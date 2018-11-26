@@ -1,0 +1,137 @@
+<!--pages/organization/vote/vote.wxml-->
+<view class='index'>
+  <!-- 投票主题 -->
+  <view class='votingtheme'>
+    <text>{{voteInfo.title}}</text>
+  </view>
+
+  <!-- 投票描述 -->
+  <view class='description'>
+    <text>{{voteInfo.description}}</text>
+  </view>
+
+  <!-- 单项选项区 -->
+  <block wx:if='{{voteInfo.type == 0}}'>
+
+  <view class='content'>
+
+    <radio-group class="radio-group" bindchange="radioChange">
+
+      <label class="option" wx:for='{{choice}}' wx:key='*this'>
+
+        <view class='left'>
+          <radio value="{{item.choiceId}}" disabled='{{btnvote}}' hidden='{{iscarryout}}' /> {{item.choiceContent}}
+        </view>
+
+      </label>
+
+    </radio-group>
+
+    <!-- 提交按钮 -->
+    <button class='btnvote' disabled='{{btnvote}}' catchtap='confirmvote' type='primary'>{{btnnews}}</button>
+
+    <button class='btnvote' disabled='{{btnvote}}' catchtap='abandon'>弃票</button>
+
+  </view>
+
+  </block>
+
+  <!-- 多项选项区 -->
+  <block wx:if='{{voteInfo.type == 1}}'>
+
+  <view class='content'>
+
+    <checkbox-group bindchange="checkboxChange">
+
+      <label class="option" wx:for='{{choice}}' wx:key='*this'>
+        <view class='left'>
+          <checkbox value="{{item.choiceId}}" disabled='{{btnvote}}' hidden='{{iscarryout}}' />{{item.choiceContent}}
+        </view>
+      </label>
+
+    </checkbox-group>
+
+    <!-- 提交按钮 -->
+    <button class='btnvote' disabled='{{btnvote}}' catchtap='confirmvote' type='primary'>{{btnnews}}</button>
+
+    <button class='btnvote' disabled='{{btnvote}}' catchtap='abandon'>弃票</button>
+    
+  </view>
+
+  </block>
+
+
+  <!-- 排序 -->
+    <block wx:if='{{voteInfo.type == 2}}'>
+
+      <view class="stay_top">
+  <view class="edit_row edit_row_title">
+    <view class="edit_col1">
+      <!-- <view class="edit_title_col1">删除</view> -->
+      <view class="placeholder"></view>
+    </view>
+    <view class="edit_col2">
+      <view class="placeholder"></view>
+    </view>
+    <view class="edit_col3"><view class="placeholder"></view></view>
+    <view class="edit_col4">拖动排序</view>
+  </view>
+</view>
+<view style="position: relative; z-index: 199;">
+  <view class="touchView" style="height:{{scrollPosition.everyOptionCell*choice.length}}px;" catchtouchstart="draggleTouch" catchtouchmove="draggleTouch" catchtouchend="draggleTouch">
+  </view>
+  <movable-area class="moveable_row {{movableViewPosition.className}}" style="height: {{scrollPosition.everyOptionCell*choice.length}}px;">
+    <movable-view style="height: {{scrollPosition.everyOptionCell}}px; width: 100%; background-color: #fff;" direction="vertical" x="{{movableViewPosition.x}}" y="{{movableViewPosition.y}}" inertia="false" damping="9999" friction="9999">
+      <view class="edit_row ">
+        <view class="edit_col1" data-seccode="{{movableViewPosition.data.choiceId}}">
+          <view class="placeholder"></view>
+        </view>
+        <view class="edit_col2">
+          <view class="secname">{{movableViewPosition.data.choiceContent}}</view>
+        </view>
+        <view class="edit_col3" data-seccode="{{movableViewPosition.data.choiceId}}">
+          <view class="placeholder"></view>
+        </view>
+        <view class="edit_col4" data-seccode="{{movableViewPosition.data.choiceId}}">
+          <view class="ico_drag"></view>
+        </view>
+      </view>
+    </movable-view>
+  </movable-area>
+  <scroll-view class="edit_row_holder" scroll-y="{{scrollPosition.scrollY}}" style="height: {{scrollPosition.scrollViewHeight}}px;" bindscroll="bindscroll">
+    <block wx:for="{{choice}}" wx:key="choiceId">
+      <view class="edit_row  {{item.selectClass}}">
+        <view class="edit_col1" data-seccode="{{item.choiceId}}" >
+          {{index+1}}
+        </view>
+        <view class="edit_col2">
+          <view class="secname">{{item.choiceContent}}</view>
+          <!-- <view class="seccode">{{item.sCode}}</view> -->
+        </view>
+        <view class="edit_col3" data-seccode="{{item.choiceId}}" >
+          <!-- <view class="ico_stay_top"></view> -->
+          <view class="placeholder"></view>
+        </view>
+        <view class="edit_col4" data-seccode="{{item.choiceId}}">
+          <view class="ico_drag"></view>
+        </view>
+      </view>
+    </block>
+
+  <!-- 提交按钮 -->
+    <button class='btnvote' disabled='{{btnvote}}' catchtap='confirmvote' type='primary'>{{btnnews}}</button>
+
+    <button class='btnvote' disabled='{{btnvote}}' catchtap='abandon'>弃票</button>
+
+  </scroll-view>
+</view>
+
+    </block>
+
+      <!-- 没有投票时显示的内容 -->
+    <block wx:if='{{flag}}'>
+      <view class='nothing'>暂无投票</view>
+    </block>
+    
+
+</view>

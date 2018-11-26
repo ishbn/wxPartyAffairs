@@ -1,0 +1,26 @@
+<!--pages/wode/collection/collection.wxml-->
+<!--空数据-->
+<block  wx:if='{{voiddata}}'>
+  <view class='voiddata'>
+    <image src="{{voidicon}}"></image>
+    <text>暂无数据</text>
+  </view>
+</block>
+
+<!--非空数据显示-->
+<block wx:if='{{!voiddata}}'>
+  <view class='article_list_item' wx:for='{{collections}}' wx:key='{{item.data_id}}' >
+    <!--页面路径待修改-->
+    <navigator url="/pages/partyScholl/detail?id={{ data_id }}">
+      <view class='list_item' >
+          <view class='list_item_images'>
+            <image src='{{item.image}}' class='list_item_images-img'></image>
+          </view>
+          <view class='list_item_text'>
+            <view class='list_item_text-title'>{{item.title}}</view>
+            <view class='list_item_text-date'>{{item.date}}</view>
+          </view>
+        </view>
+    </navigator>
+  </view>
+</block>

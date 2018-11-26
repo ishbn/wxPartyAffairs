@@ -1,0 +1,42 @@
+/* pages/wode/feedback/tofeedback/tofeedback.wxss */
+
+
+.feedback_type, .title{
+  width: 100%;
+  display: flex;
+  margin: 20rpx 0;
+  border-bottom: 2rpx solid rgb(238, 238, 238); 
+  font-size: 36rpx;
+}
+text{
+  width: 120rpx;
+  display: flex;
+  color:#bfbfbf; 
+  align-items: center;
+  margin: 0 10rpx; 
+}
+input{
+  width: 100%;
+  margin: 0 10rpx;
+}
+
+textarea{
+  width: 95%;
+  margin: 10rpx auto;
+  font-size: 36rpx;
+  border-bottom: 2rpx solid rgb(238, 238, 238); 
+  overflow-y:visible ;
+
+}
+.btn{
+  width: 80%;
+  margin: 20rpx auto;
+  text-align: center;
+} 
+.btn button{
+  display: flex;
+  height: 80rpx;  
+  align-items: center;
+  justify-content: center;
+  font-size: 38rpx;
+} 

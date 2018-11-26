@@ -1,0 +1,65 @@
+/* pages/login/login.wxss */
+.page{
+  margin: 10rpx 30rpx 10rpx 30rpx;
+}
+.header{
+  text-align: center;
+  margin-top: 70rpx; 
+  margin-bottom: 20rpx; 
+}
+.header image{
+    width: 128px;
+    height: 128px;
+}
+.user{
+  height: 70rpx;
+   font-size: 32rpx;
+  display: flex;
+  border-top:1rpx solid rgb(238,238,238); 
+  border-bottom:1rpx solid rgb(238,238,238); 
+  align-items: center;
+}
+
+.password{
+  height: 70rpx;
+  font-size: 32rpx;
+  display: flex;
+  border-bottom:1rpx solid rgb(238,238,238); 
+  align-items: center;
+  margin-bottom:30rpx; 
+}
+input{
+  height: 32rpx;
+  width: 100%;
+  /* background: black; */
+}
+text{
+  width: 20%;
+  display: flex;
+ 
+  padding-left:30rpx; 
+  padding-right:30rpx; 
+  align-items: center;
+}
+ .btn{
+  width: 75%;
+  margin: auto;
+  text-align: center;
+} 
+.btn button{
+  display: flex;
+  height: 75rpx;  
+  align-items: center;
+  justify-content: center;
+  font-size: 38rpx;
+  margin-top:70rpx; 
+  background: #f44236;
+  color: #fff;
+} 
+
+navigator{
+  margin-top:50rpx;
+  font-size: 32rpx; 
+  text-align: center;
+  color: grey;
+}

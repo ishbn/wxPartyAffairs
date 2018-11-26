@@ -1,0 +1,18 @@
+<!--pages/wode/thoughtreport_detail/thoughtreport_detail.wxml-->
+<import src="../../../utils/wxParse/wxParse.wxml"/>
+
+<view class='index'>
+  <!-- 顶部栏 包括标题和发布时间 -->
+  <view class='header'>
+    <view class='title'>{{article.title}}</view>
+    <view class='time'>{{article.date}}</view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class='content'>
+    <view class="article__content wxParse">
+      <template is="wxParse" data="{{wxParseData:article.content.nodes}}" />
+    </view>
+  </view>
+
+</view>

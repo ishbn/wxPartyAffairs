@@ -1,0 +1,19 @@
+<!--pages/wode/feedback/mysubmit/mysubmit.wxml-->
+<import src="/utils/wxParse/wxParse.wxml"/>
+
+<view class="page__detail">
+    <view class="detail">
+        <view class="detail__title">  {{ title }} </view>
+        <view class="article__desc">
+           <text class="article__type">{{ feedback_type }}</text>
+           <text class="article__time">{{ date }}</text>
+        </view>
+    </view>
+</view>
+
+<!--反馈内容-->
+<view class="wxParse article__content">
+    <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+</view>
+
+<view class='tail'>-- The End --</view>

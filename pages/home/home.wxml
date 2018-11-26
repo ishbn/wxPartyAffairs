@@ -1,0 +1,94 @@
+<!--pages/home/home.wxml-->
+<import src="/pages/common/template/article.wxml"/>
+<block wx:if='{{canShow}}'>
+<view class="index">
+  <!--首页轮播图-->
+  <view class="headswiper">
+    <swiper class="swiper" indicator-dots="{{false}}" autoplay="{{true}}" circular="{{true}}" interval="3000" duration="800" > 
+        <block wx:for="{{list_news}}" wx:for-index="index" wx:key="{{ item.id }}">  
+          <swiper-item class='item'>  
+            <image src="{{item.coverpath}}" class="slide-image" mode="aspectFill"/>
+            <view class='item_index'>
+              <text class='text_index'> {{index+1}}</text>
+              <text class='text_length'> /{{list_news.length}}</text>
+            </view>
+          </swiper-item>  
+        </block>  
+    </swiper>  
+  </view>
+
+  <!--功能菜单-->
+  <view  class="menu-wrp">
+    <block  wx:for="{{menu}}" wx:key="{{index}}">
+      <navigator  hover-class="none" url='{{item.target_page}}'>
+        <view class="menu-list">
+            <image class="menu-img" src="{{item.imgUrls}}"></image>
+            <view  class="menu-desc">{{item.descs}}</view>
+        </view>
+      </navigator>
+      </block>
+  </view>
+
+  <!--灰色分割线0-->
+  <view class="gap-1"></view >
+
+  <!--简要新闻-->
+  <!--判断新闻是否为空-->
+  <block wx:if="{{list_news.length!=0}}">
+    <view class='selection' >
+      <navigator  hover-class="none" url="/pages/news/news/news_list/news_list" >
+          <view class='header'>
+            <text>党建要闻</text>
+            <text  class='text-all' >更多</text>
+          </view>
+      </navigator>
+          <!--遍历新闻列表-->
+          <view class='content' wx:for='{{list_news}}' wx:key="{{item.id}}">
+               <navigator  hover-class="none" url="/pages/news/news/new_detail/new_detail?news_id={{ item.id }}">
+      <view class='list_item' >
+          <view class='list_item_images'>
+            <image src='{{item.coverpath}}' class='list_item_images-img'></image>
+          </view>
+          <view class='list_item_text'>
+            <view class='list_item_text-title'>{{item.title}}</view>
+            <view class='list_item_text-date'>{{item.date}}</view>
+          </view>
+        </view>
+        </navigator>
+          </view>
+    </view>
+  </block>
+  <!--灰色分割线1-->
+ <view class="gap-1"></view >
+  
+  <!--通知公告-->
+  <!--判断通知公告是否为空-->
+  <block wx:if="{{list_notices.length!=0}}">
+    <view class='selection' >
+      <navigator  hover-class="none" url="/pages/news/notices/notices_list/notices_list" >
+          <view class='header'>
+            <text>通知公告</text>
+            <text  class='text-all' >更多</text>
+          </view>
+      </navigator>
+         
+        <!--遍历通知公告-->
+        <view class='content' wx:for='{{list_notices}}' wx:key="{{ item.id }}">
+            <navigator  hover-class="none" url="/pages/news/notices/notice_detail/notice_detail?notice_id={{ item.id }}">
+          <view class='list_item' >
+              <view class='list_item_images'>
+                <image src='{{serverAddress}}{{item.coverpath}}' class='list_item_images-img'></image>
+              </view>
+              <view class='list_item_text'>
+                <view class='list_item_text-title'>{{item.title}}</view>
+                <view class='list_item_text-date'>{{item.date}}</view>
+              </view>
+            </view>
+            </navigator>
+      </view>
+    </view>
+  </block>
+  <!--灰色分割线0-->
+  <view class="gap-1"></view >
+</view>
+</block>
