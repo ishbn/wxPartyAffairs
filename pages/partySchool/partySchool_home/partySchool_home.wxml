@@ -1,8 +1,7 @@
 <!--pages/partySchool/partySchool_home/partySchool_home.wxml-->
-<view class='header'>
+<!-- <view class='header'>
   <image src='{{imges}}'></image>
 </view>
-<!--党校菜单  -->
 <view class='wrapper'>
   <view class='box' wx:for="{{menu.imgUrls}}" wx:key="*this">
     <view class='menu' catchtap='menuTargetTo' data-targeturl='{{menu.targetPages[index]}}'>
@@ -11,4 +10,21 @@
       <view  class="menu-explain" data-targeturl='{{menu.targetPages[index]}}'>{{menu.explain[index]}}</view>
     </view>
     </view>
+</view> -->
+<view class='index'>
+<!--顶部图-->
+  <view class='headimg'>
+    <image class='headimg' src='{{headimg}}'></image>
+  </view>
+
+  <!-- 分类 -->
+  <view class='classification' >
+  <view class='box' wx:for="{{menu_messages}}" wx:key="*this">
+    <view class='menu_list'  catchtap='targetTo' data-targeturl='{{item.targeturl}}'>
+      <image class='menu_img' src='{{item.menu_img}}' data-targeturl='{{item.targeturl}}'></image>
+      <text class='menu_name' data-targeturl='{{item.targeturl}}'>{{item.name}}</text>
+      <text class='description' data-targeturl='{{item.targeturl}}'>{{item.description}}</text>
+    </view>
+  </view>
+  </view>
 </view>

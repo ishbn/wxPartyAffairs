@@ -5,41 +5,45 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imges: '/images/background/news/img_header.png',
-    menu: {
-      imgUrls: [
-        '/images/icon_function/partyClass.png',
-        '/images/icon_function/threeOne.png',
-        '/images/partySchool_icon/education.png',
-        '/images/partySchool_icon/corruption.png',
-        '/images/partySchool_icon/laws.png',
-        '/images/icon_function/examination.png'
-      ],
-      descs: [
-        '微党课',
-        '三会一课',
-        '专题教育',
-        '反腐倡廉',
-        "政策法规",
-        "在线考试"
-      ],
-      explain: [
-        '掌上党课，碎片时间巧利用',
-        '提醒&签到，参会准时高效',
-        '专题汇总，重点学习',
-        '弘扬廉政，警钟长鸣',
-        '牢记党章，党规，党纪',
-        '随机抽题，智能分析'
-      ],
-      targetPages: [
-        "./../partyClass/menu/menu",
-        "./../threeOne/myMeeting/myMeeting",
-        "./../education/home/home",
-        "./../anti-corruption/home/home",
-        "./../laws/home/home",
-        "./../examination/home/home"
-      ]
-    },
+    headimg: "/images/background/news/img_header.png",
+    menu_messages: [
+      {
+        menu_img: "/images/icon_function/partyClass.png",
+        targeturl: "./../partyClass/menu/menu",
+        name: "微党课",
+        description: "掌上党课，碎片时间巧利用"
+      },
+      {
+        menu_img: "/images/icon_function/threeOne.png",
+        targeturl: "./../threeOne/myMeeting/myMeeting",
+        name: "三会一课",
+        description: "提醒&签到，参会准时高效"
+      },
+      {
+        menu_img: "/images/partySchool_icon/corruption.png",
+        targeturl: "./../education/home/home",
+        name: "专题教育",
+        description: "专题汇总，重点学习"
+      },
+      {
+        menu_img: "/images/icon_function/activity.png",
+        targeturl: "./../anti-corruption/home/home",
+        name: "反腐倡廉",
+        description: "弘扬廉政，警钟长鸣"
+      },
+      {
+        menu_img: "/images/partySchool_icon/laws.png",
+        targeturl: "./../laws/home/home",
+        name: "政策法规",
+        description: "牢记党章，党规，党纪"
+      },
+      {
+        menu_img: "/images/icon_function/examination.png",
+        targeturl: "./../examination/home/home",
+        name: "在线考试",
+        description: "随机抽题，智能分析"
+      }
+    ]
   },
 
   /**
@@ -97,10 +101,25 @@ Page({
   onShareAppMessage: function () {
   
   },
-  menuTargetTo: function (e) {
-    var src = e.target.dataset.targeturl;
+
+  // 新增函数,页面跳转
+  targetTo: function (e) {
+    console.log(e);
+    var targeturl = e.target.dataset.targeturl;
     wx.navigateTo({
-      url: src
+      url: targeturl,
+      fail: function (res) {
+        showError();
+      }
+    })
+  },
+  showError: function () {
+    wx.showToast({
+      title: '跳转失败',
+      icon: 'fail',
+      duration: 1000
     })
   }
+
+
 })

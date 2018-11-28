@@ -5,29 +5,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imges:'/images/background/news/img_header.png',
-    menu: {
-      imgUrls: [
-        '/images/icon_base_new/governmentNews.png',
-        '/images/icon_base_new/notice.png',
-        '/images/icon_function/publicity.png'
-      ],
-      descs: [
-        '党内要闻',
-        '通知公示',
-        '党内公示'
-      ],
-      explain:[
-        '新闻直播间，了解党内事',
-        '最新通知，一键查看',
-        '党内动态，即时了解'
-      ],
-      targetPages:[
-        "./../news/news_list/news_list",
-        "./../notices/notices_list/notices_list",
-        "./../noticesInner/noticesInner_list/noticesInner_list"
-      ]
-    },
+    headimg: "/images/background/news/img_header.png",
+    menu_messages: [
+      {
+        menu_img: "/images/icon_base_new/governmentNews.png",
+        targeturl: "./../news/news_list/news_list",
+        name: "党内要闻",
+        description: "新闻直播间，了解党内事"
+      },
+      {
+        menu_img: "/images/icon_base_new/notice.png",
+        targeturl: "./../notices/notices_list/notices_list",
+        name: "通知公示",
+        description: "最新通知，一键查看"
+      },
+      {
+        menu_img: "/images/icon_function/publicity.png",
+        targeturl: "./../noticesInner/noticesInner_list/noticesInner_list",
+        name: "党内公示",
+        description: "党内动态，即时了解"
+      }]
   },
 
   /**
@@ -85,6 +82,25 @@ Page({
   onShareAppMessage: function () {
   
   },
+   // 新增函数,页面跳转
+  targetTo: function (e) {
+    console.log(e);
+    var targeturl = e.target.dataset.targeturl;
+    wx.navigateTo({
+      url: targeturl,
+      fail: function (res) {
+        showError();
+      }
+    })
+  },
+  showError: function () {
+    wx.showToast({
+      title: '跳转失败',
+      icon: 'fail',
+      duration: 1000
+    })
+  }
+  ,
   menuTargetTo:function(e){
     console.log(e);
     var src=e.target.dataset.targeturl;

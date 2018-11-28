@@ -12,7 +12,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    serverAddress:'http://192.168.43.67:8080/PartyAffairs/',
+    serverAddress:'http://120.77.40.163:8080/PartyAffairs/',
     dropDownTime:800,
     hadLogin:false,
     header:{

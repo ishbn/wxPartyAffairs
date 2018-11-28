@@ -97,11 +97,16 @@ Page({
     var targeturl = e.target.dataset.targeturl;
     wx.navigateTo({
       url: targeturl,
-      success: function(res) {
-        console.log("跳转成功")
-      },
-      fail: function(res) {},
-      complete: function(res) {},
+      fail: function(res) {
+        showError();
+      }
+    })
+  },
+  showError:function(){
+    wx.showToast({
+      title: '跳转失败',
+      icon: 'fail',
+      duration: 1000
     })
   }
 
