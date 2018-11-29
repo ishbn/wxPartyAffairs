@@ -50,6 +50,7 @@
     "pages/wode/thoughtreport/thoughtreport",
     "pages/wode/thoughtreport_detail/thoughtreport_detail",
     "pages/wode/personalInfo/menu/menu",
+    "pages/wode/personalInfo/updatePsw/updatePsw",
     "pages/test/test",
     "pages/common/testTemplate/testTemplate"
   ],

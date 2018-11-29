@@ -10,52 +10,67 @@ Page({
     canShow:false,
     menu: [
       {
-        imgUrls: '/images/icon_function/file.png',
+        // imgUrls: '/images/icon_function/file.png',
+        imgUrls: '/images/icon/档案 (1).png',
         descs: '党员档案',
         target_page:'/pages/organization/partyMemberFile/partyMemberFile'
       }, 
       {
-        imgUrls: '/images/icon_function/partyClass.png',
+        // imgUrls: '/images/icon_function/partyClass.png',
+        imgUrls: '/images/icon/课程r.png',
         descs: '微党课',
         target_page: "/pages/partySchool/partyClass/class/class_home/class_home"
       },
       {
-        imgUrls: '/images/icon_function/threeOne.png',
+        
+        imgUrls: '/images/icon/文章.png',
+        // imgUrls: '/images/icon_function/threeOne.png',
         descs: '三会一课',
         target_page:'/pages/partySchool/threeOne/home/home'
       },
       {
-        imgUrls: '/images/icon_function/taskManagement.png',
+        
+        imgUrls: '/images/icon/教育.png',
+        // imgUrls: '/images/icon_function/taskManagement.png',
         descs: '专题教育',
         target_page:'/pages/partySchool/education/home/home'
       },
       {
-        imgUrls: '/images/icon_base_new/notice.png',
+        imgUrls: '/images/icon/公告2.png',
+        // imgUrls: '/images/icon_base_new/notice.png',
         descs: '通知公示',
         target_page:'/pages/news/notices/notices_list/notices_list'
       },
       {
-        imgUrls: '/images/icon_base_new/governmentNews.png',
+        imgUrls: '/images/icon/新闻 (1).png',
+        // imgUrls: '/images/icon_base_new/governmentNews.png',
         descs: '党建要闻',
         target_page:'/pages/news/news/news_list/news_list'
       },
       {
-        imgUrls: '/images/icon_function/examination.png',
+        imgUrls: '/images/icon/考试 (1).png',
+        // imgUrls: '/images/icon_function/examination.png',
         descs: 'e起考试',
         target_page:'/pages/partySchool/examination/home/home'
       },
       {
-        imgUrls: '/images/icon_function/thoughtReport.png',
+        
+        imgUrls: '/images/icon/档案推送r.png',
+        // imgUrls: '/images/icon_function/thoughtReport.png',
         descs: '思想汇报',
         target_page:'/pages/wode/thoughtreport/thoughtreport'
       },
       {
-        imgUrls: '/images/icon_function/eventAlbum.png',
+        
+        imgUrls: '/images/icon/相册r.png',
+        // imgUrls: '/images/icon_function/eventAlbum.png',
         descs: '活动相册',
         target_page:'/pages/organization/eventAlbum/eventAlbum'
       },
       {
-        imgUrls: '/images/icon_base_new/message.png',
+        
+        imgUrls: '/images/icon/消息 (4).png',
+        // imgUrls: '/images/icon_base_new/message.png',
         descs: '我的消息',
         target_page:'/pages/test/test'
       }
