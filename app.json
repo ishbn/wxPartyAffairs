@@ -4,7 +4,6 @@
     "pages/login/login",
     "pages/index/index",
     "pages/logs/logs",
-    
     "pages/news/news_home/news_home",
     "pages/news/news/news_list/news_list",
     "pages/news/news/new_detail/new_detail",
@@ -52,7 +51,8 @@
     "pages/wode/personalInfo/menu/menu",
     "pages/wode/personalInfo/updatePsw/updatePsw",
     "pages/test/test",
-    "pages/common/testTemplate/testTemplate"
+    "pages/common/testTemplate/testTemplate",
+    "pages/organization/partyUserInfo/partyUserInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",

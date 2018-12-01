@@ -1,0 +1,90 @@
+/* pages/organization/partyUserInfo/partyUserInfo.wxss */
+
+page {
+  font-size: 14px;
+  color: #333;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+}
+
+.mugshot {
+  width: 180rpx;
+  height: 180rpx;
+  margin: 20rpx auto;
+}
+
+.msimg {
+  width: 180rpx;
+  height: 200rpx;
+  /* border-radius: 100rpx; */
+}
+
+.partybranch {
+  font-size: 26rpx;
+  text-align: center;
+  padding-top: 20rpx;
+  color: yellowgreen;
+}
+
+.table {
+  border: 1px solid #dadada;
+  border-right: 0;
+  border-bottom: 0;
+  width: 98%;
+}
+
+.tr {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.th, .td {
+  padding: 10px;
+  border-bottom: 1px solid #dadada;
+  border-right: 1px solid #dadada;
+  text-align: center;
+  width: 100%;
+}
+
+.th {
+  font-weight: 400;
+  background-color: #dadada;
+}
+
+.td-h {
+  width: 40%;
+}
+
+.td-4 {
+  width: 28%;
+}
+
+.td-5 {
+  width: 35%;
+}
+
+.tdr {
+  width: 60%;
+}
+
+.tr-base {
+  width: 100%;
+  height: 120px;
+}
+
+.td-msg {
+  width: 100%;
+}
+
+.td-img {
+  width: 30%;
+}
+.text-f{
+  font-weight: 20rpx;
+}

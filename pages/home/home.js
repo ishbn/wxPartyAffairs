@@ -13,7 +13,8 @@ Page({
         // imgUrls: '/images/icon_function/file.png',
         imgUrls: '/images/icon/档案 (1).png',
         descs: '党员档案',
-        target_page:'/pages/organization/partyMemberFile/partyMemberFile'
+        // target_page:'/pages/organization/partyMemberFile/partyMemberFile'
+        target_page:'/pages/organization/partyUserInfo/partyUserInfo'
       }, 
       {
         // imgUrls: '/images/icon_function/partyClass.png',
@@ -72,7 +73,7 @@ Page({
         imgUrls: '/images/icon/消息 (4).png',
         // imgUrls: '/images/icon_base_new/message.png',
         descs: '我的消息',
-        target_page:'/pages/test/test'
+        target_page:'/pages/organization/partyUserInfo/partyUserInfo'
       }
      
     ],

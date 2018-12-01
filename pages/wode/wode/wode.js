@@ -17,7 +17,7 @@ Page({
         icon: '/images/icon_base_new/personalInfo.png',
         name: '个人信息',
         explain: '最新通知，一键查看',
-        url: "/pages/organization/partyMemberFile/partyMemberFile",
+        url: "/pages/organization/partyUserInfo/partyUserInfo",
         dot:''
       },
       {

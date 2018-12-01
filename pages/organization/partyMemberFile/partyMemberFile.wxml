@@ -13,7 +13,6 @@
   
 
   <view class="table">
-
     <view class="tr">
       <view class="td">姓名</view>
       <view class="td right">
