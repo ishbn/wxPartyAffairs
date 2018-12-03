@@ -1,7 +1,7 @@
 <!--pages/login/login.wxml-->
 <view class='page'>
   <view class='header'>
-    <image src='/images/icon_base/user.png'></image>
+    <image src='/images/bg/user.png'></image>
   </view>
   <view class='user'>
     <text>账号</text>

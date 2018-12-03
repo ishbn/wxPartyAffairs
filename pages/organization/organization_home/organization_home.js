@@ -5,29 +5,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-    headimg:"/images/organization/organization_home.png",
+    headimg:"/images/bg/bg_time.png",
     menu_messages:[
       {
         menu_img: "/images/icon_function/file.png",
-        targeturl:"./../partyMemberFile/partyMemberFile",
+        targeturl:"/pages/organization/partyUserInfo/partyUserInfo",
         name: "党员档案",
         description:"电子名片，信息共享"
       },
       {
         menu_img: "/images/icon_function/eventAlbum.png",
-        targeturl: "./../partybranchList/partybranchList",
+        targeturl: "/pages/organization/partybranchList/partybranchList",
         name: "活动相册",
         description: "永久保留，随时查看"
       },
       {
         menu_img: "/images/icon_function/vote.png",
-        targeturl: "./../voteList/voteList",
+        targeturl: "/pages/organization/voteList/voteList",
         name: "投票",
         description: "图文并茂，结果立现"
       },
       {
         menu_img: "/images/icon_function/activity.png",
-        targeturl: "./../activity/activity",
+        targeturl: "/pages/organization/activity/activity",
         name: "活动报名",
         description: "党内活动，不容错过"
       }

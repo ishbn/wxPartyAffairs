@@ -117,7 +117,7 @@ Page({
   targetToDetails: function(e) {
     //console.log(e);
     var that = this;
-    var targeturl = "./../detailsAlbum/detailsAlbum";
+    var targeturl = "/pages/organization/detailsAlbum/detailsAlbum";
     var id = e.currentTarget.dataset.detailsid;
     var num = e.currentTarget.dataset.num;
     console.log(targeturl);

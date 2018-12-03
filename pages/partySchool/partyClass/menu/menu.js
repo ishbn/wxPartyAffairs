@@ -4,7 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imges: '/images/background/news/img_header.png',
+    imges: '/images/bg/bg_time.png',
     menu:[
       {
         imgUrls: '/images/partySchool_icon/onclass.png',

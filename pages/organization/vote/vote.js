@@ -262,7 +262,7 @@ Page({
       }
 
     var that = this;
-    app.checkLogin("../organization/vote/vote", "redirectTo");
+    app.checkLogin("/pages/organization/organization/vote/vote", "redirectTo");
     wx.request({
       url: that.data.serverurl + "voteinfo/"+voteId,
       method: 'GET',

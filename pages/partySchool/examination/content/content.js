@@ -9,7 +9,7 @@ Page({
     desc: "在规定时间内完成考试考试期间，个人认真答题，切勿作弊。",//考试说明
     exam: {},//一场考试信息
     localUrl: '/pages/partySchool/examination/content/content',
-    targetUrl: '../exampaper/exampaper',//考试详情页地址
+    targetUrl: '/pages/partySchool/exampaper/exampaper',//考试详情页地址
     turnToWay:'navigateTo'
   },
 

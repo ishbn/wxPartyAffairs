@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    headimg: "/images/background/news/img_header.png",
+    headimg: "/images/bg/bg_time.png",
     menu_messages: [
       {
         menu_img: "/images/icon_base_new/governmentNews.png",

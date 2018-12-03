@@ -67,7 +67,7 @@ Page({
   targetTo: function(e){
     var branchid = e.currentTarget.dataset.branchid;
     wx.navigateTo({
-      url: '../eventAlbum/eventAlbum?branchid='+branchid
+      url: '/pages/organization/eventAlbum/eventAlbum?branchid='+branchid
     })
   }
 })

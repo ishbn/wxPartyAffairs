@@ -8,7 +8,7 @@ Page({
     loadLength:60,//加载区域高度值
     localUrl:'/pages/partySchool/examination/home/home',//当前文件所在地址
     turnToWay:'navigateTo',//跳转方式
-    examDescUrl:'../content/content', //考试说明地址
+    examDescUrl:'/pages/partySchool/examination/content/content', //考试说明地址
   },
   //点击切换
   clickTab: function (e) {

@@ -7,7 +7,7 @@ Page({
    */
   data: {
     localUrl: '/pages/wode/wode/wode',
-    headerimg:'/images/background/followParty.jpg',
+    headerimg:'/images/bg/followParty.jpg',
     headImg:'',
     username:'我是党员',
     partybranch: '软件工程支部',

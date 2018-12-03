@@ -27,8 +27,8 @@
     </view>
     <view class="td td-img">
       <!-- <view class='msimg'> -->
-      <!-- <image class='msimg' src='{{userinfo.imgHead}}'></image> -->
-      <image class='msimg' src='/images/background/news/img_header.png'></image>
+      <image class='msimg' src='{{userinfo.imgHead}}'></image>
+      <!-- <image class='msimg' src='/images/bg/bg_time.png'></image> -->
       <!-- </view> -->
     </view>
 

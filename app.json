@@ -22,6 +22,7 @@
     "pages/organization/detailsAlbum/detailsAlbum",
     "pages/organization/partybranchList/partybranchList",
     "pages/organization/voteList/voteList",
+    "pages/organization/partyUserInfo/partyUserInfo",
     "pages/partySchool/partySchool_home/partySchool_home",
     "pages/partySchool/partyClass/class/class_home/class_home",
     "pages/partySchool/threeOne/home/home",
@@ -51,8 +52,8 @@
     "pages/wode/personalInfo/menu/menu",
     "pages/wode/personalInfo/updatePsw/updatePsw",
     "pages/test/test",
-    "pages/common/testTemplate/testTemplate",
-    "pages/organization/partyUserInfo/partyUserInfo"
+    "pages/common/testTemplate/testTemplate"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

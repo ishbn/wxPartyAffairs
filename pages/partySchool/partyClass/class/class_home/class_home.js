@@ -7,7 +7,7 @@ Page({
   data: {
     currentTab: 0,//中间轮播图的编号
     count:0, //必学课程数
-    classTargetUrl:"../swiperItem/chapter/chapter",//课程跳转地址
+    classTargetUrl:"/pages/partySchool/partyClass/class/swiperItem/chapter/chapter",//课程跳转地址
     look: "/images/partySchool_icon/look.png", //浏览图标
     localUrl:'/pages/partySchool/partyClass/class/class_home/class_home',//本地路径
     turnToWay:'navigateTo',//跳转方式
@@ -34,7 +34,7 @@ Page({
     var index = e.target.dataset.index;
     data = JSON.stringify(data);
     wx.navigateTo({
-      url: '../swiperItem/video/video?data=' + data + '&index=' + index,
+      url: '/pages/partySchool/partyClass/class/swiperItem/video/video?data=' + data + '&index=' + index,
     })
   },
 

@@ -16,28 +16,28 @@ Page({
         time: "2017-11-08 新华社",
         people: "300",
         state: '未完成',
-        targetUrl:'./../chapter/chapter'
+        targetUrl:'/pages/partySchool/partyClass/class/swiperItem/chapter/chapter'
       },
       {
         title: '第一章 党员',
         time: "2018-1-08 党建网",
         people: "949",
         state: '未完成',
-        targetUrl: './../chapter/chapter'
+        targetUrl: '/pages/partySchool/partyClass/class/swiperItem/chapter/chapter'
       },
       {
         title: '第二章 党的组织制度',
         time: "2017-1-08 新华社",
         people: "54",
         state: '未完成',
-        targetUrl: './../chapter/chapter'
+        targetUrl: '/pages/partySchool/partyClass/class/swiperItem/chapter/chapter'
       },
       {
         title: '第三章 党的中央组织',
         time: "2017-01-04 党建网",
         people: "450",
         state: '未完成',
-        targetUrl: './../chapter/chapter'
+        targetUrl: '/pages/partySchool/partyClass/class/swiperItem/chapter/chapter'
       }
     ]
   },

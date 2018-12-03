@@ -94,7 +94,7 @@ Page({
   targetTo: function(e){
     var voteId = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '../vote/vote?voteId='+voteId
+      url: '/pages/organization/vote/vote?voteId='+voteId
     })
   }
 

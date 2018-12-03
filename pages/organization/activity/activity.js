@@ -104,7 +104,7 @@ Page({
     var this_state = e.currentTarget.dataset.state;
     var deletenum = e.currentTarget.dataset.deletenum;
     wx.navigateTo({
-      url: './../detailsActivity/detailsActivity?id='+this_id+'&state='+this_state+'&deletenum='+deletenum
+      url: '/pages/organization/detailsActivity/detailsActivity?id='+this_id+'&state='+this_state+'&deletenum='+deletenum
     })
   },
 
@@ -112,7 +112,7 @@ Page({
   askForServer: function(pagenum,num){
     var that = this;
     //检验登录
-    app.checkLogin("../organization/activity/activity", "redirectTo");
+    app.checkLogin("/pages/organization/activity/activity", "redirectTo");
     //开始请求 
     wx.request({
       url: that.data.serverurl +'partyActivity/menu/'+pagenum+'/'+num,
