@@ -52,8 +52,8 @@
     "pages/wode/personalInfo/menu/menu",
     "pages/wode/personalInfo/updatePsw/updatePsw",
     "pages/test/test",
-    "pages/common/testTemplate/testTemplate"
-    
+    "pages/common/testTemplate/testTemplate",
+    "pages/partySchool/anti-corruption/anti-corruption"
   ],
   "window": {
     "backgroundTextStyle": "light",

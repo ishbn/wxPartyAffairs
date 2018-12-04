@@ -39,9 +39,10 @@
 			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "sss",
-					"pathName": "pages/organization/partyUserInfo/partyUserInfo"
+					"pathName": "pages/partySchool/anti-corruption/anti-corruption",
+					"query": ""
 				}
 			]
 		}

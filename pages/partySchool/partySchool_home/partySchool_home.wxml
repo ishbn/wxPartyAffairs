@@ -1,30 +1,21 @@
-<!--pages/partySchool/partySchool_home/partySchool_home.wxml-->
-<!-- <view class='header'>
-  <image src='{{imges}}'></image>
-</view>
-<view class='wrapper'>
-  <view class='box' wx:for="{{menu.imgUrls}}" wx:key="*this">
-    <view class='menu' catchtap='menuTargetTo' data-targeturl='{{menu.targetPages[index]}}'>
-      <image class="menu-img" src="{{item}}" data-targeturl='{{menu.targetPages[index]}}'></image>
-      <view  class="menu-desc" data-targeturl='{{menu.targetPages[index]}}'>{{menu.descs[index]}}</view>
-      <view  class="menu-explain" data-targeturl='{{menu.targetPages[index]}}'>{{menu.explain[index]}}</view>
-    </view>
-    </view>
-</view> -->
 <view class='index'>
-<!--顶部图-->
+  <!--顶部图-->
   <view class='headimg'>
     <image class='headimg' src='{{headimg}}'></image>
   </view>
 
   <!-- 分类 -->
-  <view class='classification' >
-  <view class='box' wx:for="{{menu_messages}}" wx:key="*this">
-    <view class='menu_list'  catchtap='targetTo' data-targeturl='{{item.targeturl}}'>
-      <image class='menu_img' src='{{item.menu_img}}' data-targeturl='{{item.targeturl}}'></image>
-      <text class='menu_name' data-targeturl='{{item.targeturl}}'>{{item.name}}</text>
-      <text class='description' data-targeturl='{{item.targeturl}}'>{{item.description}}</text>
-    </view>
-  </view>
+  <view class='classification'>
+    <block wx:for="{{menu_messages}}" wx:key="*this">
+      <navigator url='{{item.targeturl}}'>
+        <view class='box'>
+          <view class='menu_list'>
+            <image class='menu_img' src='{{item.menu_img}}'></image>
+            <text class='menu_name'>{{item.name}}</text>
+            <text class='description'>{{item.description}}</text>
+          </view>
+        </view>
+      </navigator>
+    </block>
   </view>
 </view>

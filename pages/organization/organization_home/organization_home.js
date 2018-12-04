@@ -89,25 +89,6 @@ Page({
    */
   onShareAppMessage: function () {
   
-  },
-
-  // 新增函数,页面跳转
-  targetTo: function(e){
-    console.log(e);
-    var targeturl = e.target.dataset.targeturl;
-    wx.navigateTo({
-      url: targeturl,
-      fail: function(res) {
-        showError();
-      }
-    })
-  },
-  showError:function(){
-    wx.showToast({
-      title: '跳转失败',
-      icon: 'fail',
-      duration: 1000
-    })
   }
 
 })
