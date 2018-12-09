@@ -73,7 +73,7 @@ Page({
         imgUrls: '/images/icon/消息 (4).png',
         // imgUrls: '/images/icon_base_new/message.png',
         descs: '我的消息',
-        target_page:'/pages/organization/partyUserInfo/partyUserInfo'
+        target_page:'/pages/test/test'
       }
      
     ],

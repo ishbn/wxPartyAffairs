@@ -132,6 +132,7 @@ Page({
       url: add + 'study/get_labels.do',
       method: 'POST',
       success: function (res) {
+        console.log( res);
         if (res.statusCode == 200 && res.data.status == 0) {
           that.setData({
             labelList: res.data.data

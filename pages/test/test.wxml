@@ -1,17 +1,18 @@
-
-
-<!--pages/test/test.wxml-->
-<view class="page-body">
-  <view class="page-section tc">
-    <live-player id="player" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" mode="RTC" autoplay bindstatechange="statechange" binderror="error" />
-
-    <view class="btn-area">
-      <button bindtap="bindPlay" class="page-body-button" type="primary">播放</button>
-      <button bindtap="bindPause" class="page-body-button" type="primary">暂停</button>
-      <button bindtap="bindStop" class="page-body-button" type="primary">停止</button>
-      <button bindtap="bindResume" class="page-body-button" type="primary">恢复</button>
-      <button bindtap="bindMute" class="page-body-button" type="primary">静音</button>
+<loading hidden="{{hiddenLoading}}">数据加载中</loading>
+<view class="wrapper">
+  <!--repeat-->
+  <view wx:for="{{ articleList }}" wx:for-item="group" wx:key="{{ group.date }}" class="group">
+    <view class="group-bar">
+      <view class="group-title {{ group.formateDate === '今日' ? 'on' : ''}}">{{ group.formateDate }}</view>
+    </view>
+    <view class="group-content">
+      <!--repeat-->
+      <view wx:for="{{ group.articles }}" wx:for-item="item" wx:key="{{ item.documentId }}" data-item="{{ item }}" bindtap="showDetail" class="group-content-item {{ item.hasVisited ? 'visited' : '' }}">
+        <view class="group-content-item-desc ellipsis-multi-line ellipsis-line-3">{{ item.documentTitle }}</view>
+        <image mode="aspectFill" class="group-content-item-img" src="{{ item.coverImg || defaultImg }}"></image>
+      </view>
     </view>
   </view>
-</view>
 
+  <view hidden="{{ hasMore }}" class="no-more">暂时没有更多内容</view>
+</view>
