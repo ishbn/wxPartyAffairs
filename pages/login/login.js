@@ -28,8 +28,6 @@ Page({
       targetPage: options.targetPage,
       turnToWay: options.turnToWay
     });
-
-    
     //同步获取本地缓存
     try {
 

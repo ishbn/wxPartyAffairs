@@ -7,7 +7,7 @@ Page({
    */
   data: {
     serverurl: app.globalData.serverAddress,
-
+    nowPageUrl: "/pages/organization/activity/activity",
     // 关于页数的变量
     pageNum: 1,
     totalInfoNum: 3,
@@ -28,7 +28,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.askForServer(1, 100)
+    var that = this;
+    that.askForServer(that.data.pageNum, 15);
   },
 
   /**
@@ -112,7 +113,7 @@ Page({
   askForServer: function(pagenum,num){
     var that = this;
     //检验登录
-    app.checkLogin("/pages/organization/activity/activity", "redirectTo");
+    app.checkLogin(that.data.nowPageUrl, "redirectTo");
     //开始请求 
     wx.request({
       url: that.data.serverurl +'partyActivity/menu/'+pagenum+'/'+num,
