@@ -19,6 +19,39 @@ function checkCover(res){
   }
   return res;
 }
+/**校验登录态，并以相应的方式登录跳转到该页面 */
+function checkLogin(url, ftype) {
+  ftype = getForwordType(ftype);
+  if (!app.globalData.hadLogin) {
+    wx.redirectTo({
+      url: "/pages/login/login?targetPage=" + url + "&turnToWay=" + ftype
+    })
+  }
+}
+/**获取跳转方式 */
+const getForwordType = (code)=>{
+  switch (code) {
+    case 1:
+      return "navigateTo";
+      break;
+    case 2:
+      return "redirectTo";
+      break;
+    case 3:
+      return "switchTab";
+      break;
+    case 4:
+      return "reLaunch";
+      break;
+    case 5:
+      return "navigateBack";
+      break;
+    default:
+      return "navigateTo";
+      break;
+  }
+}
 module.exports = {
-  checkImgPath: checkCover
+  checkImgPath: checkCover,
+  checkLogin: checkLogin
 }

@@ -1,5 +1,5 @@
 // pages/news/noticesInner/noticeInner_detail/noticeInner_detail.js
-//引入wxparse进行富文本解析
+var commonUtils = require("../../../../utils/commonUtil.js");
 var WxParse = require('../../../../utils/wxParse/wxParse.js');
 var app = getApp();
 Page({
@@ -8,8 +8,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-   serverAdress: null,
-    notice_id:null,
     article: null,
     icon_click:'/images/partySchool_icon/look.png'
   },
@@ -20,13 +18,8 @@ Page({
   onLoad: function (options) {
     var that = this;
     var notice_id = options.notice_id;
-    var addr = app.globalData.serverAddress;
-    that.setData({
-      serverAddress: addr,
-      notice_id: notice_id
-    });
-    //请求数据
-    that.getTheNoticeData();
+    var url = 'notices/party/' + notice_id;
+    commonUtils.commonAjax(url, "", 1).then(that.getTheDetailData);
   },
 
   /**
@@ -77,34 +70,17 @@ Page({
   onShareAppMessage: function () {
   
   },
-  getTheNoticeData: function () {
+  getTheDetailData:function(res) {
     var that = this;
-    var addr = that.data.serverAddress;
-    var notice_id = that.data.notice_id;
-    wx.request({
-      url: addr + 'notices/party/' + notice_id,
-      success: function (res) {
-        console.log(res);
-        if (res.statusCode == 200 && res.data.status == 0) {
-          //设置数据
-          that.setData({
-            article: res.data.data
-          });
-          //进行富文本解析
-          WxParse.wxParse('article.content', 'html', that.data.article.content, that);
-        }else{
-          that.showError();
-        }
-      },
-      fail: function (res) {
-        that.showError();
-      }
-    })
-  },
-  showError:function(){
-    wx.showToast({
-      title: '加载出错，请稍后再试',
-      icon: 'none'
-    })
+    if (res.statusCode == 200 && res.data.status == 0) {
+      //设置数据
+      that.setData({
+        article: res.data.data
+      });
+      //进行富文本解析
+      WxParse.wxParse('article.content', 'html', that.data.article.content, that);
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
   }
 })

@@ -1,4 +1,6 @@
 // pages/news/notices/notices_list/notices_list.js
+var commonUtils = require("../../../../utils/commonUtil.js");
+var paValidUtil = require("../../../../utils/paValidUtil.js");
 var app = getApp();
 Page({
 
@@ -6,21 +8,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    serverAddress:null,
     notices_list:null,
     canShow: false,
     pageNum: 1,     //当前页数
     totalPageNum: '',//总页数
     notices_length: 6,   //一页的条数
     more: true,
-    requestWay: 'more',//请求方式为more or reflush,判断加载更多还是刷新，刷新方式跟初次请求一样
     currentTab: 0,//中间轮播图的编号
-    broadcast: [
-      { id: 17, title: "研究鸡蛋6有什么好吃论文成果研究鸡蛋6有什么好吃论文成果", date: "07/23", coverpath: "file/news/cover/1-1.jpg" },
-      { id: 16, title: "研究鸡蛋5有什么好吃论文成果", date: "07/23", coverpath: "file/news/cover/1-1.jpg" },
-      { id: 11, title: "研究枣有什么好吃论文成果", date: "07/23", coverpath: "file/news/cover/1-1.jpg" }
-    ]
-
+    broadcast: [],
+    noticeDetailUrl:"/pages/news/notices/notice_detail/notice_detail"
   },
   //轮播图中间图片的编号
   swiperChange(e) {
@@ -33,15 +29,13 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var addr = app.globalData.serverAddress;  
-    that.setData({
-      serverAddress: addr,
-      requestWay: "reflush"
-    });
-    // 查询网络并发起查询请求
-    that.checkNetWork();
+    that.doRequestData();
   },
-
+  doRequestData:function(){
+    var that = this;
+    // 发起数据刷新网络请求
+    that.getNoticesList();
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -75,20 +69,8 @@ Page({
    */
   onPullDownRefresh: function () {
     var that = this;
-    // 下拉刷新时间
-    var time = app.globalData.dropDownTime;
-
-    that.setData({
-      requestWay: "reflush"
-    });
-    //检查网络状态并查询数据
-    that.checkNetWork();
-
-    //设置dropDownTime之后停止刷新，下拉框恢复原位
-    setTimeout(function () {
-      wx.stopPullDownRefresh();
-    }, time);
-
+    that.doRequestData();
+    commonUtils.commonPullDownRefresh();
   },
 
   /**
@@ -102,11 +84,8 @@ Page({
         more: false
       });
     } else {
-      that.setData({
-        requestWay: "more"
-      });
-      //检查网络状态并查询数据
-      that.checkNetWork();
+      // 发起加载更多网络请求
+      that.getMoreNotices();
     }
   },
 
@@ -116,23 +95,6 @@ Page({
   onShareAppMessage: function () {
   
   },
-  
-
-  
-  /**转发到详情页 */
-  toDetail:function(e){
-    var that = this;
-    //获取通知编号
-    var notice_id = e.currentTarget.dataset.notice_id;
-    //console.log(e.currentTarget.dataset.notice_id);
-    //转发
-    wx.navigateTo({
-      url: '../notice_detail/notice_detail?notice_id='+notice_id,
-      fail: function(res) {
-        that.showFail();
-      }
-    })
-  },
   /**提示错误信息 */
   showFail:function(){
     wx.showToast({
@@ -140,38 +102,8 @@ Page({
       icon:'none'
     })
   },
-  /**检查网络信息并提示 */
-  checkNetWork() {
-    var that = this;
-    var reqWay = that.data.requestWay;
-    wx.getNetworkType({
-      success: function (res) {
-        // 返回网络类型, 有效值：
-        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
-        var networkType = res.networkType;
-        if (networkType == 'none') {
-          // 提示网络出错
-          wx.showToast({
-            title: '加载失败，请检查网络',
-            icon: 'none'
-          });
-        } else {
-          if (reqWay == 'more') {
-            // 发起加载更多网络请求
-            that.getMoreNotices();
-          } else if (reqWay == 'reflush') {
-            // 发起数据刷新网络请求
-            that.getNoticesList();
-          }
-
-        }
-      }
-    })
-  },
   getNoticesList:function(){
     var that = this;
-    // 获取服务器地址
-    var addr = that.data.serverAddress;
     // 刷新恢复第一页
     that.setData({
       pageNum: 1
@@ -180,41 +112,31 @@ Page({
     var notices_length = that.data.notices_length;
     //页数
     var noticesPage = that.data.pageNum;
-    // 请求数据列表
-    wx.request({
-      url: addr + 'noticesMenu/public/' + noticesPage + '/' + notices_length,
-      success: function (res) {
-        // console.log(res);
-        if (res.statusCode == 200 && res.data.status == 0) {
-          //获取到的数据
-          var list = that.checkCover(res.data.data.list);
-          // var list = res.data.data.list;
-          //更新滑块的数据
-          that.setBroadcast(list);
-
-          // 更新数据
-          that.setData({
-            canShow:true,
-            notices_list: list,
-            pageNum: res.data.data.pageNum,
-            totalPageNum: res.data.data.totalPageNum,
-            more: true
-          });
-        }
-      },
-      fail: function (res) {
-        // console.log('请求通知列表出错！' + res);
-        wx.showToast({
-          title: '加载失败，请稍后重试',
-          icon: 'none'
-        })
-      }
-    })
+    var url = 'noticesMenu/public/' + noticesPage + '/' + notices_length;
+    commonUtils.commonAjax(url, "", 1).then(that.getDataSuccessfull);
   }, 
+  getDataSuccessfull: function (res) {
+    var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      //获取到的数据
+      var list = paValidUtil.checkImgPath(res.data.data.list);
+      //更新滑块的数据
+      that.setBroadcast(list);
+      // 更新数据
+      that.setData({
+        canShow: true,
+        notices_list: list,
+        pageNum: res.data.data.pageNum,
+        totalPageNum: res.data.data.totalPageNum,
+        more: true
+      });
+    }else{
+      commonUtils.commonTips(res.statusCode);
+    }
+  },
   /**更新滑块部分的数据 */
   setBroadcast: function (array) {
     var that = this;
-    // console.log('broadcast');
     //原来的数组
     var borad = [];
     // 取四条数据或者更小
@@ -224,7 +146,6 @@ Page({
     for (var i = 0; i < maxLength; i++) {
       borad.push(array[i]);
     }
-    // console.log(borad);
     // 更新数据
     that.setData({
       broadcast: borad
@@ -233,49 +154,34 @@ Page({
   /**加载更多数据 */
   getMoreNotices() {
     var that = this;
-    // 获取服务器地址
-    var addr = that.data.serverAddress;
     //显示新闻条数
     var notices_length = that.data.notices_length;
     // 新闻页数
     var noticesPage = that.data.pageNum + 1;
-    // 请求新闻列表
-    wx.request({
-      url: addr + 'noticesMenu/public/' + noticesPage + '/' + notices_length,
-      success: function (res) {
-        // console.log(res);
-        if (res.statusCode == 200 && res.data.status == 0) {
-          //获取到的数据
-          var list = that.checkCover(res.data.data.list);
-          // var list = res.data.data.list;
-          //原来的数组
-          var array = that.data.notices_list;
-          //加进原来的数组
-          for (var i = 0; i < list.length; i++) {
-            array.push(list[i]);
-          }
-          // 更新数据
-          that.setData({
-            notices_list: array,
-            pageNum: res.data.data.pageNum,
-            totalPageNum: res.data.data.totalPageNum
-          });
-        }
-      },
-      fail: function (res) {
-        // console.log('请求新闻列表出错！' + res);
-        wx.showToast({
-          title: '加载失败，请稍后重试',
-          icon: 'none'
-        })
-      }
-    })
+    var url = 'noticesMenu/public/' + noticesPage + '/' + notices_length;
+    commonUtils.commonAjax(url, "", 1).then(that.getTheResponseData);
+  },
+  getTheResponseData: function (res) {
+    var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      //获取到的数据
+      var list = paValidUtil.checkImgPath(res.data.data.list);
+      var array = commonUtils.commonArrayAdd(that.data.notices_list, list);
+      // 更新数据
+      that.setData({
+        notices_list: array,
+        pageNum: res.data.data.pageNum,
+        totalPageNum: res.data.data.totalPageNum
+      });
+    }else{
+      commonUtils.commonTips(res.statusCode);
+    }
   },
   toNoticeDetail:function(res){
-    // console.log(res);
     var id = res.currentTarget.dataset.id;
+    var pageUrl = this.data.noticeDetailUrl;
     wx.navigateTo({
-      url: '/pages/news/notices/notice_detail/notice_detail?notice_id='+id,
+      url: pageUrl+'?notice_id='+id,
       fail:function(res){
         wx.showToast({
           title: '加载失败，请稍后重试',
@@ -283,14 +189,6 @@ Page({
         })
       }
     })
-  },
-  /**检查封面图片是否为空 */
-  checkCover: function (res) {
-    for (var i = 0; i < res.length; i++) {
-      if (res[i].coverpath == "#默认#" || res[i].coverpath == null || res[i].coverpath == '') {
-        res[i].coverpath = app.globalData.defulatImg;
-      }
-    }
-    return res;
   }
+ 
 })

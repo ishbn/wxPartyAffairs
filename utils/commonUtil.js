@@ -109,6 +109,7 @@ function paArrayAddEle(array1, array2){
     }
   return array1;
 }
+
 module.exports = {
   commonAjax: commonAjax,
   commonTips: commonTips,

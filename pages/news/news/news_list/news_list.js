@@ -118,6 +118,8 @@ Page({
         totalPageNum: res.data.data.totalPageNum,
         more: true
       });
+    }else{
+      commonUtils.commonTips(res.statusCode);
     }
   },
 
@@ -149,7 +151,7 @@ Page({
   },
   getTheReturnNews:function(res) {
     var that = this;
-    console.log(res);
+    // console.log(res);
     if (res.statusCode == 200 && res.data.status == 0) {
       //获取到的数据，进行图片路径处理
       var list = paValidUtil.checkImgPath(res.data.data.list);

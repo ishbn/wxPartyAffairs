@@ -7,9 +7,9 @@
   <!--轮播图 -->
   <swiper class="swiper" autoplay="true" previous-margin="75rpx" next-margin="75rpx" bindchange="swiperChange" current='{{currentTab}}' circular="true">
     <block class="block" wx:for="{{broadcast}}" wx:key="{{item.id}}">
-     <navigator  hover-class="none" url="/pages/news/notices/notice_detail/notice_detail?notice_id={{ item.id }}">
+     <navigator  hover-class="none" url="{{noticeDetailUrl+'?notice_id='+ item.id }}">
       <swiper-item class="swiper-item">
-        <image src="{{serverAddress}}{{item.coverpath}}" class="slide-image {{currentTab == index ? 'active' : ''}}"/>
+        <image src="{{item.coverpath}}" class="slide-image {{currentTab == index ? 'active' : ''}}"/>
       </swiper-item>
        </navigator>
     </block>
@@ -21,10 +21,10 @@
 </view>
 
 <view class='content' wx:for='{{notices_list}}' wx:key="{{item.id}}">
-        <navigator url="/pages/news/notices/notice_detail/notice_detail?notice_id={{ item.id }}">
+        <navigator url="{{noticeDetailUrl+'?notice_id='+item.id }}">
           <view class='list_item' >
               <view class='list_item_images'>
-                <image src='{{serverAddress}}{{item.coverpath}}' class='list_item_images-img'></image>
+                <image src='{{item.coverpath}}' class='list_item_images-img'></image>
               </view>
               <view class='list_item_text'>
                 <view class='list_item_text-title'>{{item.title}}</view>
