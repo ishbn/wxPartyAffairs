@@ -11,13 +11,13 @@ Page({
 
         icon: '/images/icon_base_new/psw.png',
         name: '修改密码',
-        url: "/pages/wode/personalInfo/updatePsw/updatePsw"
+        url: "/pages/wode/setting/updatePsw/updatePsw"
       },
       {
 
         icon: '/images/icon_base_new/about.png',
         name: '关于e网党建',
-        url: "/pages/wode/personalInfo/aboutme/aboutme"
+        url: "/pages/wode/setting/aboutme/aboutme"
       },
       {
 

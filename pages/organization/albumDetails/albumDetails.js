@@ -1,4 +1,6 @@
 // pages/organization/detailsAibum/detailsAlbum.js
+var commonUtils = require("../../../utils/commonUtil.js");
+var paValidUtil = require("../../../utils/paValidUtil.js");
 var app = getApp();
 Page({
 
@@ -14,7 +16,7 @@ Page({
     description: "肇庆学院智慧党建系统建设完成",
     num: 4,
     photowalls: {
-      
+
     },
     photos: []
 
@@ -100,39 +102,33 @@ Page({
   /**
    * 请求对应ID的相册详情
    */
-  getDetails: function(albumID){
+  getDetails: function(albumID) {
     var that = this;
-    wx.request({
-      url: that.data.serverurl + 'partyalbum/picture/' + albumID,
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res);
-
-        if(res.data.status == 0 && res.statusCode == 200)
-        {
-          if(res.data.data.pictures.length == 0)
-          {
-            that.setData({
-              nothing: true
-            })
-          }
-
-          that.setData({
-            photowalls: res.data.data
-          });
-          /**
-           * 将照片单独集合成一个数组，供图片预览用
-           */
-              for(var i = 0; i < that.data.photowalls.pictures.length; i++)
-              {
-                var imgurl = that.data.imgurl + that.data.photowalls.pictures[i].image;
-                that.data.photos.push(imgurl)
-              }
-        }
+    var url = 'partyalbum/picture/' + albumID;
+    commonUtils.commonAjax(url, "", 1).then(that.getTheData);
+  },
+  getTheData: function(res) {
+    console.log(res);
+    var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      if (res.data.data.pictures.length == 0) {
+        that.setData({
+          nothing: true
+        })
       }
-    })
+
+      that.setData({
+        photowalls: res.data.data
+      });
+      /**
+       * 将照片单独集合成一个数组，供图片预览用
+       */
+      for (var i = 0; i < that.data.photowalls.pictures.length; i++) {
+        var imgurl = that.data.imgurl + that.data.photowalls.pictures[i].image;
+        that.data.photos.push(imgurl)
+      }
+    }else{
+      commonUtils.commonTips(res.statusCode);
+    }
   }
 })

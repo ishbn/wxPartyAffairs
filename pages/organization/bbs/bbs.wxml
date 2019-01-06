@@ -1,4 +1,0 @@
-<!--pages/organization/bbs/bbs.wxml-->
-<view class='index'>
-<image class='indeximg' src='{{img}}'></image>
-</view>

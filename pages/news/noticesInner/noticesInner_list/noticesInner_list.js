@@ -33,10 +33,11 @@ Page({
   onLoad: function (options) {
     var that = this;
     //检查登录
-    paValidUtil.checkLogin(that.data.localUrl,2);
-
-    // 发起数据刷新网络请求
-    that.getNoticesList();
+    if (paValidUtil.checkLogin(that.data.localUrl, 2)) {
+      // 发起数据刷新网络请求
+      that.getNoticesList();
+    }
+    
   },
 
   /**

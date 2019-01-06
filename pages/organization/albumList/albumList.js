@@ -1,31 +1,33 @@
 // pages/organization/eventAlbum/eventAlbum.js
+var commonUtils = require("../../../utils/commonUtil.js");
+var paValidUtil = require("../../../utils/paValidUtil.js");
+var pahelper = require("../../../utils/pahelper.js");
 var app = getApp();
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imgurl:'http://172.21.95.5:19091/',
-
-    serverurl: app.globalData.serverAddress,
-
     foldimg: "/images/icon_function/preFold.png",
     isShow: "none",
     species: [{
+        id:1,
         btnName: "全部",
         targetword: "all"
       },
       {
+        id: 2,
         btnName: "党委",
         targetword: "party"
       },
       {
+        id: 3,
         btnName: "工会",
         targetword: "union"
       },
       {
+        id: 4,
         btnName: "团委",
         targetword: "league"
       }
@@ -92,9 +94,7 @@ Page({
   // 菜单折叠
   foldclick: function(e) {
     var preShow = e.currentTarget.dataset.show;
-    console.log("之前的状态为: " + preShow);
     var nowShow = (preShow == "flex" ? "none" : "flex");
-    console.log("点击后状态改变为: " + nowShow);
     this.setData({
       isShow: nowShow
     });
@@ -115,36 +115,31 @@ Page({
 
   // 进入对应的详情页
   targetToDetails: function(e) {
-    //console.log(e);
     var that = this;
-    var targeturl = "/pages/organization/detailsAlbum/detailsAlbum";
+    var targeturl = "/pages/organization/albumDetails/albumDetails";
     var id = e.currentTarget.dataset.detailsid;
     var num = e.currentTarget.dataset.num;
-    console.log(targeturl);
-    wx.navigateTo({
-      url: targeturl+"?id="+id+"&num="+num,
-    })
+    var url = targeturl + "?id=" + id + "&num=" + num;
+    pahelper.navigateTo(url);
   },
 
   //发起网络请求
   askforalbumlist: function(branchID)
   {
     var that = this;
-    wx.request({
-      url: that.data.serverurl +'partyalbum/'+branchID,
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res);
-        if (res.data.status == 0 && res.statusCode == 200){
-        that.setData({
-          contents:res.data.data
-        })
-        }
-      }
-    })
+    var url = 'partyalbum/' + branchID;
+    commonUtils.commonAjax(url, "", 1).then(that.getTheData);
+  },
+  getTheData: function (res) {
+    var that = this;
+    if (res.statusCode == 200 &&res.data.status == 0 ) {
+      var list = paValidUtil.checkImgPath(res.data.data);
+      that.setData({
+        contents: list
+      })
+    }else{
+      commonUtils.commonTips(res.statusCode);
+    }
   }
 
 })

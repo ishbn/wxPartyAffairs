@@ -19,14 +19,27 @@ function checkCover(res){
   }
   return res;
 }
-/**校验登录态，并以相应的方式登录跳转到该页面 */
-function checkLogin(url, ftype) {
+
+const valid = (url, ftype) =>{
   ftype = getForwordType(ftype);
-  if (!app.globalData.hadLogin) {
     wx.redirectTo({
       url: "/pages/login/login?targetPage=" + url + "&turnToWay=" + ftype
-    })
-  }
+    });
+
+}
+/**校验登录态，并以相应的方式登录跳转到该页面 */
+function checkLogin(url, ftype) {
+    var flag = app.globalData.hadLogin;
+    if (flag) {
+        return true;
+    } else {
+      valid(url, ftype);
+    }
+}
+const turnTo = (url, ftype)=>{
+  wx.redirectTo({
+    url: "/pages/login/login?targetPage=" + url + "&turnToWay=" + ftype
+  });
 }
 /**获取跳转方式 */
 const getForwordType = (code)=>{

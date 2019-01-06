@@ -1,4 +1,5 @@
 // pages/wode/wode/wode.js
+var paValidUtil = require("../../../utils/paValidUtil.js");
 var app = getApp();
 Page({
 
@@ -8,7 +9,7 @@ Page({
   data: {
     localUrl: '/pages/wode/wode/wode',
     headerimg:'/images/bg/followParty.jpg',
-    headImg:'',
+    headImg:'/images/bg/followParty.jpg',
     username:'我是党员',
     partybranch: '软件工程支部',
     roleName:'普通党员',
@@ -66,7 +67,7 @@ Page({
         icon: '/images/icon_base_new/setting.png',
         name: '设置',
         explain: '',
-        url: "/pages/wode/personalInfo/menu/menu",
+        url: "/pages/wode/setting/menu/menu",
         dot: ''
       }]
   },
@@ -76,9 +77,10 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    // 验证登陆并读取缓存
-    app.checkLogin(that.data.localUrl, 'tabbar');
-    
+    //检查登录
+    if (!paValidUtil.checkLogin(that.data.localUrl, 3)) {
+      return;
+    }
   },
 
   /**
@@ -133,9 +135,7 @@ Page({
   },
   /**功能按钮跳转页面 */
   menuTargetTo: function (e) {
-    console.log(e);
     var src = e.target.dataset.targeturl;
-    console.log(src);
     wx.navigateTo({
       url: src
     })
@@ -166,7 +166,6 @@ Page({
     }
   },
   cancelRedDot:function(e){
-    // console.log(e);
     var index = e.currentTarget.dataset.index;
     var that = this;
     var menu = that.data.menu;

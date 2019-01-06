@@ -1,15 +1,14 @@
 // pages/wode/thoughtreport/thoughtreport.js
+var commonUtils = require("../../../utils/commonUtil.js");
+var paValidUtil = require("../../../utils/paValidUtil.js");
 var app =getApp(); 
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     local: '/pages/wode/thoughtreport/thoughtreport',
     havedata:false,
-    serverAddress:'',
-    header:'',
     maxlength:4000,
     currentTab: 0,
     report: {
@@ -20,9 +19,8 @@ Page({
     myreports:[],
     pageNum: 1,     //当前页数
     totalPageNum: '',//总页数
-    num: 7,   //一页的条数
-    more: true,
-    requestWay: 'reflush',//请求方式为more or reflush,判断加载更多还是刷新，刷新方式跟初次请求一样
+    num: 10,   //一页的条数
+    more: true
   },
 
   /**
@@ -30,14 +28,10 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    
-    that.setData({
-      serverAddress: app.globalData.serverAddress,
-      header: app.globalData.header
-    })
     // 验证登录
-    app.checkLogin(that.data.local,'redirectTo');
-
+    if (!paValidUtil.checkLogin(that.data.local, 2)) {
+      return;
+    }
   },
 
   /**
@@ -78,19 +72,9 @@ Page({
       wx.stopPullDownRefresh();
       return;
     }
-    // 下拉刷新时间
-    var time = app.globalData.dropDownTime;
-
-    that.setData({
-      requestWay: "reflush"
-    });
-    //检查网络状态并查询数据
-    that.checkNetWork();
-
-    //设置dropDownTime之后停止刷新，下拉框恢复原位
-    setTimeout(function () {
-      wx.stopPullDownRefresh();
-    }, time);
+    // 请求查询思想报告列表
+    that.getReportData();
+    commonUtils.commonPullDownRefresh();
   },
 
   /**
@@ -108,11 +92,8 @@ Page({
         more: false
       });
     } else {
-      that.setData({
-        requestWay: "more"
-      });
-      //检查网络状态并查询数据
-      that.checkNetWork();
+      // 发起加载更多网络请求
+      that.getMoreReportData();
     }
   },
 
@@ -125,7 +106,6 @@ Page({
 
   /*更新选中的tab的值 */
   swichNav: function (e) {
-    //sconsole.log(e);
     var that = this;
     if (this.data.currentTab === e.target.dataset.current) {
       return false;
@@ -134,11 +114,7 @@ Page({
         currentTab: e.target.dataset.current,
       })
       if(that.data.currentTab == 1){
-        that.setData({
-          requestWay: "reflush"
-        });
-        //检查网络状态并执行 数据查询请求
-        that.checkNetWork();
+        that.getReportData();
       }
     }
 
@@ -146,7 +122,6 @@ Page({
 
   /**标题输入处理 */
   titleInput: function (e) {
-    // console.log(e)
     var that = this;
     var fb = that.data.report;
     var data = e.detail.value;
@@ -169,7 +144,6 @@ Page({
   docheck: function () {
     var that = this;
     var data = that.data.report;
-
     if (data.title === '') {
       that.showCannotNull('标题');
       return true;
@@ -191,56 +165,39 @@ Page({
     that.setData({
       report: chdata
     });
-    // console.log(error);
     if (error) {
       return;
     }
     console.log(that.data.report);
-    var addr = that.data.serverAddress;
-    
-    // 进行提交
-    wx.request({
-      url: addr +'report/insertReport/',
-      method:'post',
-      data: that.data.report,
-      header:{
-        Cookie:app.globalData.header.Cookie,
-        'Content-type': 'application/json'
-      },
-      success:function(res){
-        if (res.statusCode == 200 && res.data.status ==0){
-          // 提示提交成功
-          that.showSuccessfull();
-          var rep = {
-            title: '',
-            content: '',
-            date: ''
-          };
-          // 清空输入框
-          that.setData({
-            report: rep
-          });
-        }else{
-          that.showError('提交出错，请稍后再试');
-        }
-      },
-      fail:function(res){
-        that.showError('提交失败，请稍后再试');
-      }
-
-    })
+    var url = 'report/insertReport/';
+    commonUtils.commonAjax(url, that.data.report, 2).then(that.doReqSubmitResult);
+  },
+  doReqSubmitResult: function (res) {
+    var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      // 提示提交成功
+      that.showSuccessfull();
+      var rep = {
+        title: '',
+        content: '',
+        date: ''
+      };
+      // 清空输入框
+      that.setData({
+        report: rep
+      });
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
   },
   showCannotNull: function (e) {
-    // console.log(e);
     wx.showToast({
       title: e + '不能为空',
       icon: 'none'
     })
   },
   toDetail:function(e){
-    console.log(e);
     var report_id = e.currentTarget.dataset.report_id;
-    console.log(report_id);
     wx.navigateTo({
       url: '/pages/wode/thoughtreport_detail/thoughtreport_detail?report_id='+report_id,
     })
@@ -249,139 +206,73 @@ Page({
     wx.showToast({
       title: '提交成功',
       icon: 'success',
-      // image: '',
       duration: 500,
-      mask: true,
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
+      mask: true
     })
   },
   showError:function(tips){
     wx.showToast({
       title: tips,
       icon: 'none',
-      // image: '',
       duration: 500,
-      mask: true,
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
+      mask: true
     })
   },
-  checkNetWork:function(){
-    var that = this;
-    var reqWay = that.data.requestWay;
-    wx.getNetworkType({
-      success: function (res) {
-        // 返回网络类型, 有效值：
-        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
-        var networkType = res.networkType;
-        if (networkType == 'none') {
-          // 提示网络出错
-          wx.showToast({
-            title: '加载失败，请检查网络',
-            icon: 'none'
-          });
-        } else {
-          
-          if (reqWay == 'more') {
-            // 发起加载更多网络请求
-            that.getMoreReportData();
-          } else if (reqWay == 'reflush') {
-            // 请求查询思想报告列表
-            that.getReportData();
-          }
-
-        }
-      }
-    })
-  },
+  
   getReportData: function () {
-    // console.log('在这里请求数据');
     var that = this;
-    // 获取服务器地址
-    var addr = that.data.serverAddress;
     // 刷新恢复第一页
     that.setData({
       pageNum: 1
     });
     var page = that.data.pageNum;
     var num = that.data.num;
-    wx.request({
-      url: addr + 'report/myReports/' + page + '/' + num,
-      method: 'post',
-      header: {
-        Cookie: app.globalData.header.Cookie,
-        'Content-type': 'application/json'
-      },
-      success: function (res) {
-        if (res.statusCode == 200 && res.data.status == 0) {
-          var data = res.data.data.list;
-          var flag = true;
-          if (data.length < that.data.num){
-            flag = false;
-          }
-          that.setData({
-            myreports: data,
-            pageNum: res.data.data.pageNum,
-            totalPageNum: res.data.data.totalPageNum,
-            more: flag,
-            havedata: true
-          });
-
-        } else {
-          that.setData({
-            havedata: false
-          });
-          // that.showError('查询出错，请稍后再试');
-        }
-      },
-      fail: function (res) {
-        that.showError('查询失败，请稍后再试');
+    var url = 'report/myReports/' + page + '/' + num;
+    commonUtils.commonAjax(url, "", 2).then(that.getTheListData);
+  },
+  getTheListData: function (res) {
+    var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      var data = res.data.data.list;
+      var flag = true;
+      if (data.length < that.data.num) {
+        flag = false;
       }
-    })
-
+      that.setData({
+        myreports: data,
+        pageNum: res.data.data.pageNum,
+        totalPageNum: res.data.data.totalPageNum,
+        more: flag,
+        havedata: true
+      });
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
   },
   getMoreReportData:function(){
     var that = this;
-    // 获取服务器地址
-    var addr = that.data.serverAddress;
     //显示新闻条数
     var length = that.data.num;
     // 新闻页数
     var page = that.data.pageNum + 1;
-    // 请求新闻列表
-    wx.request({
-      url: addr + 'report/myReports/' + page + '/' + length,
-      header: {
-        Cookie: app.globalData.header.Cookie,
-        'Content-type': 'application/json'
-      },
-      success: function (res) {
-        // console.log(res);
-        if (res.statusCode == 200 && res.data.status == 0) {
-          //获取到的数据
-          var list = res.data.data.list;
-          //原来的数组
-          var array = that.data.myreports;
-          //加进原来的数组
-          for (var i = 0; i < list.length; i++) {
-            array.push(list[i]);
-          }
-          // 更新数据
-          that.setData({
-            myreports: array,
-            pageNum: res.data.data.pageNum,
-            totalPageNum: res.data.data.totalPageNum
-          });
-        }else{
-          that.showError('查询出错，请稍后再试');
-        }
-      },
-      fail: function (res) {
-        that.showError('查询失败，请稍后再试');
-      }
-    })
+    var url = 'report/myReports/' + page + '/' + length;
+    commonUtils.commonAjax(url, "", 2).then(that.getTheMoreData);
+  },
+  getTheMoreData: function (res) {
+    var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      //获取到的数据
+      var list = res.data.data.list;
+      //合并数据
+      var array = commonUtils.commonArrayAdd(that.data.myreports, list);
+      // 更新数据
+      that.setData({
+        myreports: array,
+        pageNum: res.data.data.pageNum,
+        totalPageNum: res.data.data.totalPageNum
+      });
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
   }
 })

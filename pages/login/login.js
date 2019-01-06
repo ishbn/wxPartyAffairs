@@ -222,7 +222,7 @@ Page({
   },
   turnToPage:function(){
     var that = this;
-    if (that.data.turnToWay == 'tabbar'){
+    if (that.data.turnToWay == 'switchTab'){
         wx.switchTab({
           url: that.data.targetPage,
           fail: function (res) {

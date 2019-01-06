@@ -24,7 +24,7 @@
       <text>分类</text>
     </view>
 
-    <view class='species' catchtap='selectspecies' wx:for='{{species}}'>
+    <view class='species' catchtap='selectspecies' wx:for='{{species}}' wx:key="{{item.id}}">
       <button class='spaciesbtn' data-targetword='{{item.targetword}}'>{{item.btnName}}</button>
     </view>
 
@@ -48,13 +48,13 @@
 
       <!-- 左边布局 -->
       <view class='left'>
-        <image class='leftimg' src='{{imgurl}}{{item.coverImage}}'></image>
+        <image class='leftimg' src='{{item.coverpath}}'></image>
       </view>
 
       <!-- 右边布局 -->
       <view class='right'>
-        <image class='rightimg' src='{{imgurl}}{{item.coverImage}}'></image>
-        <image class='coverageArea' src='{{imgurl}}{{item.coverImage}}'></image>
+        <image class='rightimg' src='{{item.coverpath}}'></image>
+        <image class='coverageArea' src='{{item.coverpath}}'></image>
         <view class='num'>{{item.quantity}}</view>
       </view>
 
