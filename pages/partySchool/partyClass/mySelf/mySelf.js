@@ -1,3 +1,6 @@
+var commonUtils = require("../../../../utils/commonUtil.js");
+var paValidUtil = require("../../../../utils/paValidUtil.js");
+var pahelper = require("../../../../utils/pahelper.js");
 var app = getApp();
 Page({
 
@@ -9,8 +12,7 @@ Page({
     rotate:true,//未学下拉箭头状态
     rotate1: false,//已学下拉箭头状态
     localUrl: '/pages/partySchool/partyClass/mySelf/mySelf',//当前文件所在地址
-    documentUrl: "../../document/document",//文档详情路径
-    turnToWay: 'navigateTo',//跳转方式
+    documentUrl: "/pages/partySchool/document/document",//文档详情路径
     mustLearnDocumentList:[],//必学文档集合
     mustLearnVedioList:[],//必学视频集合
     isEncode: false,//编码标识符
@@ -19,7 +21,10 @@ Page({
     learningCount:0,//未学视频数量
     learnedCount:0,//已学视频数量
     learningHeight:0,//未学视频高度
-    learnedHeight:0//已学视频高度
+    learnedHeight:0,//已学视频高度
+    downIcon:"/images/partySchool_icon/arrow.png",
+    nullIcon:"/images/partySchool_icon/null.png",
+    requiredIcon:"/images/partySchool_icon/required.png"
   },
   //点击切换
   clickTab: function (e) {
@@ -41,7 +46,6 @@ Page({
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'linear'
-
     })
     if (that.data.rotate) {
       animation.height(0).step()
@@ -59,7 +63,6 @@ Page({
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'linear'
-
     })
     if (that.data.rotate1) {
       animation.height(0).step()
@@ -74,21 +77,24 @@ Page({
   //点击课程跳转
   targetTo: function(e){
     var that = this;
-    var index = e.target.dataset.index
-    var docList = that.data.mustLearnDocumentList;
-    if (that.data.isEncode == false) {
-      for (var i = 0; i < docList.length; i++) {
-        docList[i].filePath = encodeURIComponent(docList[i].filePath);
-      }
-      //编码判断符
-      that.setData({
-        isEncode: true
-      })
-    }
-    docList = JSON.stringify(docList);
-    wx.navigateTo({
-      url: that.data.documentUrl + '?data=' + docList + '&index=' + index,
-    })
+    var index = e.target.dataset.index;
+    var dId = that.data.mustLearnDocumentList[index].documentId;
+    var url = that.data.documentUrl + '?document_id=' + dId;
+    pahelper.navigateTo(url);
+    // var docList = that.data.mustLearnDocumentList;
+    // if (that.data.isEncode == false) {
+    //   for (var i = 0; i < docList.length; i++) {
+    //     docList[i].filePath = encodeURIComponent(docList[i].filePath);
+    //   }
+    //   //编码判断符
+    //   that.setData({
+    //     isEncode: true
+    //   })
+    // }
+    // docList = JSON.stringify(docList);
+    // wx.navigateTo({
+    //   url: that.data.documentUrl + '?data=' + docList + '&index=' + index,
+    // })
   },
 
   /**
@@ -96,129 +102,77 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var isLogin = app.globalData.hadLogin;
-    //检查登录状态
-    if (!isLogin) {
-      var localUrl = that.data.localUrl;
-      var turnToWay = that.data.turnToWay;
-      app.checkLogin(localUrl, turnToWay);
-    }
-    else {
-      //弹出“加载”框
-      wx.showLoading({
-        title: '加载中',
-      })
-      //检查网络状态并发起数据请求 
-      that.checkNetAndDoRequest();
+    var localUrl = that.data.localUrl;
+    if (!paValidUtil.checkLogin(localUrl,1)){
+      return;
+    }else {
+      that.getMustLearnVideoList();
+      that.getMustLearnDocumentList();
     }
     
   },
-  //隐藏加载框
-  hideLoading: function () {
-    wx.hideLoading()
-  },
-  //检查网络状态并发起数据请求
-  checkNetAndDoRequest: function () {
-    var that = this;
-    wx.getNetworkType({
-      success: function (res) {
-        //获取网络类型
-        var networkType = res.networkType;
-        //如果为空
-        if (networkType == null) {
-          wx.showToast({
-            title: '加载失败，网络出现问题',
-            icon: 'none'
-          });
-        } else {
-          //确认网络正常，加载必学文档集合
-          that.getMustLearnVideoList();
-        }
-      },
-    })
-  }, 
+ 
   //获取必学视频
   getMustLearnVideoList: function () {
     var that = this;
-    //获取服务器地址
-    var add = app.globalData.serverAddress;
-    wx.request({
-      url: add + 'study/get_study_videos_must.do',
-      method: 'POST',
-      data: {
-        page: '1',
-        pageNum: '1000'
-      },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Cookie": app.globalData.header.Cookie
-      },
-      success: function (res) {
-        console.log(res)
-        if (res.statusCode == 200 && res.data.status == 0) {
-          that.setData({
-            mustLearnVedioList: res.data.data.list
-          })
-          var learningCount = 0, learnedCount = 0;
-          var list = that.data.mustLearnVedioList
-          for (var i = 0; i < list.length; i++) {
-            if (list[i].schedule < 100)
-              learningCount++;
-            else
-              learnedCount++;
-          }
-          that.setData({
-            learningCount: learningCount,
-            learnedCount: learnedCount,
-            learningHeight: (learningCount?learningCount:1)*150,
-            learnedHeight: (learnedCount?learnedCount:1)*150
-          })
-          //获取必学文档
-          that.getMustLearnDocumentList();
-        }
-      },
-      fail: function (res) {
-        console.log('标签获取失败' + res);
+    var url = 'study/get_study_videos_must.do';
+    var data = {
+      page: '1',
+      pageNum: '15'
+    };
+    commonUtils.ajaxRequest(url,data,2,1).then(that.getTheDataList);
+  },
+  getTheDataList: function(res) {
+     var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      that.setData({
+        mustLearnVedioList: res.data.data.list
+      })
+      var learningCount = 0, learnedCount = 0;
+      var list = that.data.mustLearnVedioList
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].schedule < 100)
+          learningCount++;
+        else
+          learnedCount++;
       }
-    })
+      that.setData({
+        learningCount: learningCount,
+        learnedCount: learnedCount,
+        learningHeight: (learningCount ? learningCount : 1) * 150,
+        learnedHeight: (learnedCount ? learnedCount : 1) * 150
+      })
+    }else{
+      commonUtils.commonTips(res.statusCode);
+    }
   },
   //获取文档集合
   getMustLearnDocumentList: function () {
     var that = this;
-    //获取服务器地址
-    var add = app.globalData.serverAddress;
-    wx.request({
-      url: add + 'study/get_study_documents_must.do',
-      data:{
-        page: that.data.currentPage,//当前页码
-        pageNum: 12//每页显示8条记录
-      },
-      method: 'POST',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Cookie": app.globalData.header.Cookie
-      },
-      success: function (res) {
-        console.log(res);
-        if (res.statusCode == 200 && res.data.status == 0) {
-          if (res.data.data.totalPage == that.data.currentPage) {
-            that.setData({
-              isHaveMore: false
-            })
-          }
-          that.setData({
-            mustLearnDocumentList: that.data.mustLearnDocumentList.concat(res.data.data.list)
-          })
-        }
-        //确认所有数据加载完毕，隐藏加载框
-        that.hideLoading();
-      },
-      fail: function (res) {
-        console.log('必学文档获取失败' + res);
-      }
-    })
+    var url = 'study/get_study_documents_must.do';
+    var data = {
+      page: that.data.currentPage,//当前页码
+      pageNum: 12//每页显示8条记录
+    };
+    commonUtils.ajaxRequest(url, data, 2, 1).then(that.getTheDocumentList);
   },
-
+  getTheDocumentList: function (res) {
+    var that = this;
+    console.log(res);
+    if (res.statusCode == 200 && res.data.status == 0) {
+      if (res.data.data.totalPage == that.data.currentPage) {
+        that.setData({
+          isHaveMore: false
+        })
+      }
+      that.setData({
+        mustLearnDocumentList: that.data.mustLearnDocumentList.concat(res.data.data.list)
+      })
+    }else{
+      commonUtils.commonTips(res.statusCode);
+    }
+   
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -264,12 +218,8 @@ Page({
       that.setData({
         currentPage: that.data.currentPage + 1
       })
-      //弹出“加载”框
-      wx.showLoading({
-        title: '加载中',
-      })
-      //检查网络状态并发起数据请求
-      that.checkNetAndDoRequest();
+      that.getMustLearnVideoList();
+      that.getMustLearnDocumentList();
     }
   },
 

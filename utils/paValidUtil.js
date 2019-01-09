@@ -64,7 +64,15 @@ const getForwordType = (code)=>{
       break;
   }
 }
+function checkSingleImgPath(path){
+  if ((!path) || path == "#默认#") {
+    path =  app.globalData.defulatImg;
+  } 
+  path = app.globalData.defulatImg;
+  return path;
+}
 module.exports = {
   checkImgPath: checkCover,
+  checkSingleImgPath: checkSingleImgPath,
   checkLogin: checkLogin
 }

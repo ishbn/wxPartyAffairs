@@ -1,3 +1,7 @@
+var commonUtils = require("../../../utils/commonUtil.js");
+var paValidUtil = require("../../../utils/paValidUtil.js");
+var pahelper = require("../../../utils/pahelper.js");
+
 var app = getApp();
 Page({
 
@@ -8,12 +12,15 @@ Page({
     colShow: true,//收藏出现效果
     colCancelShow: true,//取消收藏效果
     clickCol: true,//收藏是否可点击
-    collect: "/images/partySchool_icon/collect.png",//收藏图标
     documentList:[],//文档
+    document:'',
     num:'',//当前文档的数组下标
     pre:'',//上一篇索引
     next:'',//下一篇索引
-    localUrl: '/pages/partySchool/document/document',//当前文件所在地址
+    localUrl: '/pages/partySchool/document/document',
+    collect: "/images/partySchool_icon/collect.png",//收藏图标
+    downloadIcon:"/images/partySchool_icon/download.png",
+    lookIcon:"/images/partySchool_icon/look.png",
     turnToWay: 'navigateTo',//跳转方式
     isDownload: true,//是否显示下载进度
     percent: '',//下载进度
@@ -109,34 +116,28 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    // if (options.index==null&&options.data==null){
-    //   var docList = wx.getStorageSync('list');
-    //   var index = JSON.parse(wx.getStorageSync('index'));
-    // }else{
-      var index = parseInt(options.index);
-      var docList = JSON.parse(options.data);
-      for (var i = 0; i < docList.length; i++) {
-        docList[i].filePath = decodeURIComponent(docList[i].filePath);
-      }
-      // wx.setStorageSync('list', docList);
-      // wx.setStorageSync('index', index);
-    // }
-    //弹出“加载”框
-    wx.showLoading({
-      title: '加载中',
-    })
-    that.setData({
-      documentList:docList,
-      num:index,
-      pre:index-1,
-      next:index+1
-    })
-    //调用隐藏加载框方法
-    that.hideLoading();
+    var document_id = options.document_id;
+    var thisUrl = that.data.localUrl;
+    if (!paValidUtil.checkLogin(thisUrl,2)){
+      return;
+    }
+    var reqUrl = "study/get_study_document_details.do";
+    var data={
+      document_id: document_id
+    }
+    commonUtils.commonAjax(reqUrl,data,1).then(that.getTheDetail);    
   },
-  //隐藏加载框
-  hideLoading: function () {
-    wx.hideLoading()
+  getTheDetail:function(res){
+    var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      var detail = res.data.data;
+      detail.coverImg = paValidUtil.checkSingleImgPath(detail.coverImg);
+      that.setData({
+        document: detail
+      });
+    }else{
+      commonUtils.commonTips(res.statusCode);
+    }
   },
   //跳转
   targetTo: function(e){

@@ -22,6 +22,7 @@
     "pages/organization/voteList/voteList",
     "pages/organization/partyUserInfo/partyUserInfo",
     "pages/partySchool/partySchool_home/partySchool_home",
+    "pages/partySchool/document/document",
     "pages/partySchool/partyClass/class/class_home/class_home",
     "pages/partySchool/threeOne/home/home",
     "pages/partySchool/threeOne/myMeeting/myMeeting",

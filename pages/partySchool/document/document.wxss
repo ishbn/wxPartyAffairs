@@ -64,6 +64,12 @@
   text-indent: 60rpx;
   word-wrap: break-word; 
 }
+.imgBox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .download-view{
   width: 95%;
   height: 50rpx;
