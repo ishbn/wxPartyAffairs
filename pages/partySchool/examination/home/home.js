@@ -1,3 +1,6 @@
+var commonUtils = require("../../../../utils/commonUtil.js");
+var paValidUtil = require("../../../../utils/paValidUtil.js");
+var pahelper = require("../../../../utils/pahelper.js");
 var app = getApp();
 Page({
 
@@ -23,92 +26,55 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var isLogin = app.globalData.hadLogin;
-    //检查登录状态
-    if(!isLogin){
-      var localUrl = that.data.localUrl;
-      var turnToWay = that.data.turnToWay;
-      app.checkLogin(localUrl,turnToWay);
-    }
-    else{
-      //弹出“加载”框
-      wx.showLoading({
-        title: '加载中',
-      })
-    //检查网络状态并发起数据请求 
-      that.checkNetAndDoRequest();
+    var localUrl = that.data.localUrl;
+    if (!paValidUtil.checkLogin(localUrl,1)){
+      return;
+    }else{
+      //加载待考考试集合
+      that.getExamingList();
+      //加载完待考，加载已考
+      that.getExamedList();
     }
   },
   //隐藏加载框
   hideLoading: function () {
     wx.hideLoading()
   },
-  //检查网络状态并发起数据请求
-  checkNetAndDoRequest:function(){
-    var that = this;
-    wx.getNetworkType({
-      success: function(res) {
-        //获取网络类型
-        var networkType = res.networkType;
-        //如果为空
-        if(networkType == null){
-          wx.showToast({
-            title: '加载失败，网络出现问题',
-            icon: 'none'
-          });
-        }else{
-          //确认网络正常，加载待考考试集合
-          that.getExamingList();
-        }
-
-      },
-    })
-  },
+  
   //获取待考考试数据集合
   getExamingList: function(){
     var that = this;
-    //获取服务器地址
-    var add = app.globalData.serverAddress;
-    wx.request({
-      url: add +'examlist/unfinish',
-      header: app.globalData.header,
-      success: function(res){
-        console.log(res);
-        if (res.statusCode == 200 && res.data.status == 0){
-          that.setData({
-            examing: res.data.data
-          })
-        }
-        //加载完待考，加载已考
-        that.getExamedList();
-      },
-      fail: function(res){
-        console.log('待考数据请求失败'+ res);
-      }
-    })
+    var url = 'examlist/unfinish';
+    commonUtils.commonAjax(url, "", 1).then(that.getTheUnfinish);
+  },
+  getTheUnfinish: function (res) {
+    console.log(res);
+    var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      that.setData({
+        examed: res.data.data
+      })
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
   },
   //获取已考考试数据集合
   getExamedList: function(){
     var that = this;
-    //获取服务器地址
-    var add = app.globalData.serverAddress;
-    wx.request({
-      url: add + 'examlist/finish',
-      header: app.globalData.header,
-      success: function (res) {
-        console.log(res);
-        if (res.statusCode == 200 && res.data.status == 0) {
-          that.setData({
-            examed: res.data.data
-          })
-        }
-        //确认所有数据加载完毕，隐藏加载框
-        that.hideLoading();
-      },
-      fail: function (res) {
-        console.log('已考数据请求失败' + res);
-      }
-    })
+    var url = 'examlist/finish';
+    commonUtils.commonAjax(url, "", 1).then(that.getTheFinish);
+  },
+  getTheFinish: function (res) {
+    var that = this;
+    console.log(res);
+
+    if (res.statusCode == 200 && res.data.status == 0) {
+      that.setData({
+        examed: res.data.data
+      })
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -163,8 +129,7 @@ Page({
     var that = this;
     var url = e.target.dataset.targeturl;
     var examId = e.target.dataset.examid;
-    wx.navigateTo({
-      url: url+'?examId='+examId
-    })
+    var targetUrl = url + '?examId=' + examId;
+    pahelper.navigateTo(url);
   }
 })

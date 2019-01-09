@@ -73,11 +73,26 @@ const getType = (code) => {
 /**根据状态码，显示提示信息，（待完善）*/
 function commonTips(code) {
   switch (code) {
+    case 400:
+      showTips("错误请求");
+      break;
+    case 401:
+      showTips("未登录");
+      break;
+    case 403:
+      showTips("拒绝请求");
+      break;
     case 404:
       showTips("404!");
       break;
     case 500:
       showTips("服务出错！");
+      break;
+    case 504:
+      showTips("网关超时");
+      break;
+    case 200:
+      showTips("数据出错!");
       break;
     default:
       showTips("出了点问题！");
