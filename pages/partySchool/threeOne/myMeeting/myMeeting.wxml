@@ -38,10 +38,10 @@
   <swiper class='all' current="{{currentTab}}" bindchange="swiperTab">
     <swiper-item class='item'>
       <view class='meetings'>
-        <view class='oneMeeting' wx:for='{{willMeetings}}' wx:key='*this'>
+        <view class='oneMeeting' wx:for='{{willMeetings}}' wx:key='{{item.id}}'>
           <view class='meeting-title'>
             <view class='meetingTitle-text'>{{item.title}}</view>
-            <image src='{{item.img}}' class='meetingTitle-img'></image>
+            <image src='{{notStartIcon}}' class='meetingTitle-img'></image>
           </view>
           <view class='meeting-content'>
             <view class='meeting-desc'>{{item.desc}}</view>
@@ -52,7 +52,7 @@
     </swiper-item>
     <swiper-item>
       <view class='did'>
-        <image class='null-img' src='/images/partySchool_icon/null.png'></image>
+        <image class='null-img' src='{{endedIcon}}'></image>
         <view class='null-text'>暂无预约会议信息</view>
       </view>
     </swiper-item>

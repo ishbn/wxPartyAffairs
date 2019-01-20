@@ -1,9 +1,9 @@
 <view class='background'>
   <!--头部  -->
-  <view class='inner'>
+  <!-- <view class='inner'>
     <image class='meeting-image' src='{{head.image}}'></image>
     <view class='meeting-info'>{{head.info}}</view>
-  </view>
+  </view> -->
   <!--底部  -->
   <view class='under'>
     <view class='content1'>
