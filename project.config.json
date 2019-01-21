@@ -36,13 +36,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
 					"name": "sss",
 					"pathName": "pages/partySchool/anti-corruption/anti-corruption",
 					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "sss",
+					"pathName": "pages/partySchool/examination/content/content",
+					"query": "examId=4"
 				}
 			]
 		}

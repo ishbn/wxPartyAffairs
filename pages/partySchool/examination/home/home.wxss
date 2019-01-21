@@ -54,19 +54,19 @@
   align-items: center;
 }
 .left{
-  width: 66%;
+  width: 80%;
   height: 100%;
 }
 .right{
-  width: 33%;
+  width: 20%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .image{
-  width: 100rpx;
-  height: 40rpx;
-  position: relative;
-  left: 115rpx;
-  top: 15rpx;
+  width: 32px;
+  height: 32px;
 }
 .title{
   height: 50%;
@@ -116,4 +116,9 @@
   font-size: 30rpx;
   color: #e6e6e6;
 }
-
+navigator{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}

@@ -30,7 +30,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    serverAddress:'http://120.77.40.163:8080/PartyAffairs/',
+    serverAddress:'http://192.168.31.12:8080/PartyAffairs/',
     ftpAddress:"",
     dropDownTime:800,
     hadLogin:false,

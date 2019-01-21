@@ -1,4 +1,7 @@
 var app = getApp();
+var commonUtils = require("../../../../utils/commonUtil.js");
+var paValidUtil = require("../../../../utils/paValidUtil.js");
+var pahelper = require("../../../../utils/pahelper.js");
 Page({
 
   /**
@@ -9,7 +12,7 @@ Page({
     desc: "在规定时间内完成考试考试期间，个人认真答题，切勿作弊。",//考试说明
     exam: {},//一场考试信息
     localUrl: '/pages/partySchool/examination/content/content',
-    targetUrl: '/pages/partySchool/exampaper/exampaper',//考试详情页地址
+    targetUrl: '/pages/partySchool/examination/exampaper/exampaper',//考试详情页地址
     turnToWay:'navigateTo'
   },
 
@@ -18,65 +21,33 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var isLogin = app.globalData.hadLogin;
-    //检查登录状态
-    if (!isLogin) {
-      var localUrl = that.data.localUrl;
-      var turnToWay = that.data.turnToWay;
-      app.checkLogin(localUrl, turnToWay);
-    }else{
-      //弹出“加载”框
-      wx.showLoading({
-        title: '加载中',
-      })
-      //检查网络状态并发起数据请求 
-      that.checkNetAndDoRequest(options.examId);
-      //延迟1秒后隐藏“加载”框
-      setTimeout(function () {
-        wx.hideLoading()
-      },1000)
+    if (!paValidUtil.checkLogin(that.data.localUrl,1)){
+      return;
     }
+    var id = options.examId;
+    if (id == null || id == undefined || id == ""){
+      return;
+    }
+    //获取待考考试数据集合
+    that.getExamingObject(id);
   },
-  //检查网络状态并发起数据请求
-  checkNetAndDoRequest: function (id) {
-    var that = this;
-    wx.getNetworkType({
-      success: function (res) {
-        //获取网络类型
-        var networkType = res.networkType;
-        //如果为空
-        if (networkType == null) {
-          wx.showToast({
-            title: '加载失败，网络出现问题',
-            icon: 'none'
-          });
-        } else {
-          //获取待考考试数据集合
-          that.getExamingObject(id);
-        }
-
-      },
-    })
-  },
+ 
   //获取待考考试对象
   getExamingObject: function(id){
     var that = this;
-    var add = app.globalData.serverAddress;
-    wx.request({
-      url: add + 'examlist/'+id,
-      header: app.globalData.header,
-      success: function (res) {
-        console.log(res.data.data);
-        if (res.statusCode == 200 && res.data.status == 0) {
-          that.setData({
-            exam: res.data.data,
-          })
-        }
-      },
-      fail: function (res) {
-        console.log('待考数据请求失败' + res);
-      }
-    })
+    var url = 'examlist/' + id;
+    commonUtils.commonAjax(url,"",1).then(that.callback);
+  },
+  callback: function (res) {
+    var that = this;
+    console.log(res.data.data);
+    if (res.statusCode == 200 && res.data.status == 0) {
+      that.setData({
+        exam: res.data.data,
+      });
+    }else{
+      commonUtils.commonTips(res.statusCode);
+    }
   },
   //跳转考试界面
   targetTo: function(){

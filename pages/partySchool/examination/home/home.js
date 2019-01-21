@@ -9,15 +9,24 @@ Page({
     examing:[],//待考
     examed: [],//已考
     loadLength:60,//加载区域高度值
-    localUrl:'/pages/partySchool/examination/home/home',//当前文件所在地址
-    turnToWay:'navigateTo',//跳转方式
+    localUrl:'/pages/partySchool/examination/home/home',
     examDescUrl:'/pages/partySchool/examination/content/content', //考试说明地址
+    doingIcon:"/images/partySchool_icon/doing.png",
+    nullIcon:"/images/partySchool_icon/null.png"
   },
   //点击切换
   clickTab: function (e) {
     var that = this;
+    var value = e.target.dataset.current;
+    if (value === "1"){
+       //加载已考考试集合
+      that.getExamedList();
+    } else if (value === "0"){
+      //加载待考考试集合
+      that.getExamingList();
+    }
     that.setData({
-      currentTab: e.target.dataset.current
+      currentTab: value
     });
   },
 
@@ -32,15 +41,8 @@ Page({
     }else{
       //加载待考考试集合
       that.getExamingList();
-      //加载完待考，加载已考
-      that.getExamedList();
     }
   },
-  //隐藏加载框
-  hideLoading: function () {
-    wx.hideLoading()
-  },
-  
   //获取待考考试数据集合
   getExamingList: function(){
     var that = this;
@@ -67,10 +69,10 @@ Page({
   getTheFinish: function (res) {
     var that = this;
     console.log(res);
-
     if (res.statusCode == 200 && res.data.status == 0) {
       that.setData({
-        examed: res.data.data
+        examed: res.data.data,
+        examing: res.data.data
       })
     } else {
       commonUtils.commonTips(res.statusCode);
@@ -123,13 +125,5 @@ Page({
    */
   onShareAppMessage: function () {
     
-  },
-  //页面跳转
-  menuTargetTo: function (e) {
-    var that = this;
-    var url = e.target.dataset.targeturl;
-    var examId = e.target.dataset.examid;
-    var targetUrl = url + '?examId=' + examId;
-    pahelper.navigateTo(url);
   }
 })
