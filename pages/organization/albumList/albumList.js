@@ -10,6 +10,9 @@ Page({
    */
   data: {
     foldimg: "/images/icon_function/preFold.png",
+      foldIcon:"/images/icon_function/fold.png",
+      preFoldIcon:"/images/icon_function/preFold.png",
+      targeturl : "/pages/organization/albumDetails/albumDetails",
     isShow: "none",
     species: [{
         id:1,
@@ -100,11 +103,11 @@ Page({
     });
     if (nowShow == "flex")
       this.setData({
-        foldimg: "/images/icon_function/fold.png"
+        foldimg:that.data.flodIcon
       });
     if (nowShow == "none")
       this.setData({
-        foldimg: "/images/icon_function/preFold.png"
+        foldimg: that.data.preFold
       });
   },
 
@@ -116,7 +119,7 @@ Page({
   // 进入对应的详情页
   targetToDetails: function(e) {
     var that = this;
-    var targeturl = "/pages/organization/albumDetails/albumDetails";
+    var targeturl = that.data.targeturl;
     var id = e.currentTarget.dataset.detailsid;
     var num = e.currentTarget.dataset.num;
     var url = targeturl + "?id=" + id + "&num=" + num;
@@ -132,10 +135,11 @@ Page({
   },
   getTheData: function (res) {
     var that = this;
+    console.log(res);
     if (res.statusCode == 200 &&res.data.status == 0 ) {
-      var list = paValidUtil.checkImgPath(res.data.data);
+      var list = paValidUtil.patchImg(4,res.data.data);
       that.setData({
-        contents: list
+        contents: res.data.data
       })
     }else{
       commonUtils.commonTips(res.statusCode);

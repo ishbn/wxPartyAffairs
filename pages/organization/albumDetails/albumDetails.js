@@ -1,7 +1,6 @@
 // pages/organization/detailsAibum/detailsAlbum.js
 var commonUtils = require("../../../utils/commonUtil.js");
 var paValidUtil = require("../../../utils/paValidUtil.js");
-var app = getApp();
 Page({
 
   /**
@@ -9,31 +8,26 @@ Page({
    */
   data: {
     nothing: false,
-    imgurl: 'http://172.21.95.5:19091/',
-    serverurl: app.globalData.serverAddress,
-    coverimg: "https://www.zqu.edu.cn/_mediafile/zquwww/2018/07/13/2d09sy3ajl.jpg",
-    title: "肇庆学院智慧党建系统",
-    description: "肇庆学院智慧党建系统建设完成",
+    title: "",
+    description: "",
     num: 4,
-    photowalls: {
-
-    },
+    photowalls: {},
     photos: []
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this;
     console.log(options);
     //设置标题，描述以及照片数量
-    this.setData({
+      that.setData({
       num: options.num
     });
 
     // 向服务器请求该id的详情与所有照片
-    this.getDetails(options.id)
+      that.getDetails(options.id)
 
   },
 
@@ -116,17 +110,21 @@ Page({
           nothing: true
         })
       }
-
-      that.setData({
-        photowalls: res.data.data
-      });
+      var dataTemp = res.data.data;
+      if (dataTemp.pictures){
+        dataTemp.pictures = paValidUtil.patchImg(3, dataTemp.pictures);
+      }
       /**
        * 将照片单独集合成一个数组，供图片预览用
        */
-      for (var i = 0; i < that.data.photowalls.pictures.length; i++) {
-        var imgurl = that.data.imgurl + that.data.photowalls.pictures[i].image;
-        that.data.photos.push(imgurl)
+      var picList = [];
+      for (var i = 0; i < dataTemp.pictures.length; i++) {
+        picList.push(dataTemp.pictures[i].image);
       }
+      that.setData({
+        photowalls: dataTemp,
+        photos: picList
+      });
     }else{
       commonUtils.commonTips(res.statusCode);
     }

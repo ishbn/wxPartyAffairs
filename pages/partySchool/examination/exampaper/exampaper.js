@@ -1,4 +1,7 @@
 // pages/partySchool/examination/exampaper/exampaper.js
+var commonUtils = require("../../../../utils/commonUtil.js");
+var paValidUtil = require("../../../../utils/paValidUtil.js");
+var pahelper = require("../../../../utils/pahelper.js");
 var app = getApp();
 
 Page({
@@ -11,26 +14,17 @@ Page({
     multipleScore: 2,
     singleScore: 1,
 
-    serverurl: app.globalData.serverAddress,
-
     timer: '', //这个定时器返回的ID
     countDownNum: '10', //倒计时初始值
     result: '00:00:00', //格式化后的时间
 
     score: 0,
-
     flag: true,
-
     wheight: null,
-
     toView: "xxx",
-
     temp_checked: null,
-
     i: 0,
-
     userdata: [],
-
     content: {}
   },
 
@@ -38,27 +32,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
-    this.setData({
-      examID: options.examID,
-      multipleScore: options.multipleScore,
-      singleScore: options.singleScore
-    })
-    //调用函数请求试卷
-    this.askforpaper(this.data.examID);
-
-
-
-    //获得可使用窗口高度
-    try {
-      var res = wx.getSystemInfoSync()
-      console.log(res.windowHeight)
-      this.setData({
-        wheight: res.windowHeight
-      })
-    } catch (e) {
-      // Do something when catch error
+    var that = this;
+    if (!paValidUtil.checkLogin(that.data.localUrl, 1)) {
+      return;
     }
+    var examId = options.examID;
+    var multipleScore = options.multipleScore;
+    var singleScore = options.singleScore;
+    that.setData({
+      examID: examId,
+      multipleScore: multipleScore,
+      singleScore: singleScore
+    });
+    //调用函数请求试卷
+    that.askforpaper(examId);
+
+    var height = pahelper.getScreenHeight();
+    console.log(height);
+    that.setData({
+      wheight: height
+    });
+
   },
 
   /**
@@ -199,151 +193,172 @@ Page({
     var singlenum = that.data.content.singleQuantity;
     var multiplenum = that.data.content.multipleQuantity;
     var multiple = that.data.content.multipleQuestion;
-    //用作判断是否全部完成了
-    if (examnum < singlenum + multiplenum) {
-      wx.showToast({
-        title: '请完成所有题后再提交',
-        icon: 'none',
-        duration: 2500
-      })
+    //检查完成度
+    if (!that.checkFinished()) {
       return;
     }
 
     //开始计算分数,单选
-    for (var i = 0; i < singlenum; i++) {
-      if (typeof(examPaper[i]) == "undefined") {
-        //如果没有选过该选项，提示它
-        var num = i + 1;
-        wx.showToast({
-          title: '请完成第' + num + '题',
-          icon: 'none',
-          duration: 2500
-        });
-        that.setData({
-          toView: num
-        })
-        return;
-      } else if (examPaper[i].userAnswer == single[i].answer) {
-        score = parseInt(score) + parseInt(singleScore);
-        console.log("单选得分为：", score)
-      }
-
-
+    var singleChoiceScore = that.calculateSingle();
+    if (singleChoiceScore >=0){
+      score += singleChoiceScore;
+    }else{
+      console.log("分数有误s");
+      return;
     }
+    
+    var multipleChoiceScore = that.calculateMultiple();
     //开始计算多项分数
-    for (var j = 0; j < multiplenum; j++) {
-
-      if (typeof (examPaper[j + singlenum]) == "undefined") {
-        //如果没有选过该选项，提示它
-        var num = j + singlenum + 1;
-        wx.showToast({
-          title: '请完成第' + num + '题',
-          icon: 'none',
-          duration: 2500
-        });
-        that.setData({
-          toView: num
-        })
-        return;
-      } 
-
-      var tempexam = examPaper[j + singlenum].userAnswer.split(",");
-      var tempanswer = multiple[j].answer;
-      if (tempexam.sort().toString() == tempanswer.sort().toString()) {
-        //score = score + multipleScore;
-        score = parseInt(score) + parseInt(multipleScore);
-        console.log("多选得分为：", score)
-      }
-
+    if (multipleChoiceScore >= 0) {
+      score += multipleChoiceScore;
+    } else {
+      console.log("分数有误d");
+      return;
     }
 
     console.log("总得分为：", score)
 
-    //发送试卷ID、分数以及对应的题号ID和答案到服务器
-    wx.request({
-      url: that.data.serverurl + 'exampaper/' + that.data.examID + '/' + score,
-      method: 'POST',
-      data: JSON.stringify(examPaper),
-      dataType: 'json',
-      header: {
-        'content-type': 'application/json', // 默认值
-        Cookie: app.globalData.header.Cookie
-      },
-      success: function(res) {
-        console.log(res, that.data.examID)
-        if (res.data.data.passScore > score) {
+    var url = 'exampaper/' + that.data.examID + '/' + score;
+    commonUtils.ajaxRequest(url, JSON.stringify(examPaper), 2,0).then(that.submitResult);
+
+  },
+  /**检查是否全部完成 */
+  checkFinished: function() {
+    var that = this;
+    var examnum = that.data.userdata.length;
+    var singlenum = that.data.content.singleQuantity;
+    var multiplenum = that.data.content.multipleQuantity;
+    //用作判断是否全部完成了
+    if (examnum < singlenum + multiplenum) {
+      pahelper.showToast('请完成所有题后再提交');
+      return false;
+    }
+    return true;
+  },
+  /**计算单选分数 */
+  calculateSingle: function() {
+    var that = this;
+    var score = 0;
+    var unfinshed = false;
+    var single = that.data.content.singleQuestion;
+    var singleScore = that.data.singleScore;
+    var singlenum = that.data.content.singleQuantity;
+    var examPaper = that.data.userdata;
+    for (var i = 0; i < singlenum; i++) {
+      if (typeof(examPaper[i]) == "undefined") {
+        //如果没有选过该选项，提示它
+        var num = i + 1;
+        pahelper.showToast('请完成第' + num + '题');
+        that.setData({
+          toView: num
+        });
+        unfinshed = true;
+        break;
+      } else if (examPaper[i].userAnswer == single[i].answer) {
+        score = score + parseInt(singleScore);
+      }
+    }
+    return (unfinshed == false) ? score : -1;
+  },
+  calculateMultiple:function(){
+    var that = this;
+    var score = 0;
+    var unfinshed = false;
+    var multipleScore = that.data.multipleScore;
+    var examPaper = that.data.userdata;
+    var singlenum = that.data.content.singleQuantity;
+    var multiplenum = that.data.content.multipleQuantity;
+    var multiple = that.data.content.multipleQuestion;
+    for (var j = 0; j < multiplenum; j++) {
+      if (typeof (examPaper[j + singlenum]) == "undefined") {
+        //如果没有选过该选项，提示它
+        var num = j + singlenum + 1;
+        pahelper.showToast('请完成第' + num + '题');
+        that.setData({
+          toView: num
+        })
+        unfinshed = true;
+        break;
+      }
+      var tempexam = examPaper[j + singlenum].userAnswer.split(",");
+      var tempanswer = multiple[j].answer;
+      if (tempexam.sort().toString() == tempanswer.sort().toString()) {
+        score = score + parseInt(multipleScore);
+        console.log("多选得分为：", score);
+      }
+    }
+    return (unfinshed == false) ? score : -1;
+  },
+  //发送试卷ID、分数以及对应的题号ID和答案到服务器
+  submitResult: function(res) {
+    var that = this;
+    console.log(res);
+    console.log(that.data.examID);
+    if(res.statusCode == 200 && res.data.data.status==0){
+      if (res.data.data.passScore > score) {
+        wx.showModal({
+          title: '考试不及格,重新考试',
+          content: '本次分数为：' + score,
+          success: function (res) {
+            /**
+             * 不及格，重新请求试卷
+             */
+            wx.redirectTo({
+              url: '/pages/partySchool/examination/exampaper/exampaper?examID=' + that.data.examID + '&multipleScore=' + that.data.multipleScore + '&singleScore=' + that.data.singleScore,
+            });
+          }
+        });
+      } else {
+        if (res.data.data.topScore >= score) {
           wx.showModal({
-            title: '考试不及格,重新考试',
-            content: '本次分数为：' + score,
-            success: function(res) {
-              /**
-               * 不及格，重新请求试卷
-               */
-              wx.redirectTo({
-                url: '/pages/partySchool/examination/exampaper/exampaper?examID=' + that.data.examID + '&multipleScore=' + that.data.multipleScore + '&singleScore=' + that.data.singleScore,
+            title: '考试及格',
+            content: '本次分数为：' + score + ',历史最高分为' + res.data.data.topScore,
+            success: function (res) {
+              //考试及格，返回
+              wx.navigateBack({
+                delta: 3
               })
             }
-          })
+          });
         } else {
-          if (res.data.data.topScore >= score) {
-            wx.showModal({
-              title: '考试及格',
-              content: '本次分数为：' + score + ',历史最高分为' + res.data.data.topScore,
-              success: function(res) {
-                //考试及格，返回
-                wx.navigateBack({
-                  delta: 3
-                })
-              }
-            })
-          } else {
-            wx.showModal({
-              title: '考试及格',
-              content: '本次分数为：' + score + ',为历史最高分',
-              success: function(res) {
-                //考试及格，返回
-                wx.navigateBack({
-                  delta: 3
-                })
-              }
-            })
-          }
+          wx.showModal({
+            title: '考试及格',
+            content: '本次分数为：' + score + ',为历史最高分',
+            success: function (res) {
+              //考试及格，返回
+              wx.navigateBack({
+                delta: 3
+              })
+            }
+          });
         }
       }
-    })
+    }else{
+      commonUtils.commonTips(res.statusCode);
+    }
 
+   
   },
 
   //根据examID请求试卷内容
   askforpaper: function(examID) {
     var that = this;
-    //向服务器发送试卷ID并获得试卷内容
-    wx.request({
-      method: "GET", // 请求方式
-      url: that.data.serverurl + 'exampaper/' + examID, //仅为示例，并非真实的接口地址
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function(result) {
-        console.log(result);
-        if (result.statusCode == 200 && result.data.status == 0) {
-
-          that.setData({
-            content: result.data.data
-            //countDownNum: result.data.data.examPeriod
-          })
-
-          that.countDown(result.data.data.examPeriod); //倒计时
-        } else {
-          wx.showToast({
-            title: '请求失败',
-            duration: 2000
-          })
-        }
-      }
-    })
+    var url = 'exampaper/' + examID;
+    commonUtils.commonAjax(url, "", 1).then(that.processResult);
   },
-
+  processResult: function(result) {
+    var that = this;
+    console.log(result);
+    if (result.statusCode == 200 && result.data.status == 0) {
+      that.setData({
+        content: result.data.data
+        //countDownNum: result.data.data.examPeriod
+      })
+      that.countDown(result.data.data.examPeriod); //倒计时
+    } else {
+      commonUtils.commonTips(result.statusCode);
+    }
+  },
   showit: function(e) {
     this.setData({
       flag: this.data.flag ? false : true
@@ -358,7 +373,7 @@ Page({
   },
 
   //计时器
-  countDown: function (countDownNum) {
+  countDown: function(countDownNum) {
     var that = this;
     //var countDownNum = that.data.countDownNum; //获取倒计时初始值
     //如果将定时器设置在外面，那么用户就看不到countDownNum的数值动态变化，所以要把定时器存进data里面

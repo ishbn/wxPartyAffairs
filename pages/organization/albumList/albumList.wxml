@@ -48,13 +48,13 @@
 
       <!-- 左边布局 -->
       <view class='left'>
-        <image class='leftimg' src='{{item.coverpath}}'></image>
+        <image class='leftimg' src='{{item.coverImage}}'></image>
       </view>
 
       <!-- 右边布局 -->
       <view class='right'>
-        <image class='rightimg' src='{{item.coverpath}}'></image>
-        <image class='coverageArea' src='{{item.coverpath}}'></image>
+        <image class='rightimg' src='{{item.coverImage}}'></image>
+        <image class='coverageArea' src='{{item.coverImage}}'></image>
         <view class='num'>{{item.quantity}}</view>
       </view>
 

@@ -1,4 +1,6 @@
-var time = require('../../../../utils/util.js');
+var commonUtils = require("../../../../utils/commonUtil.js");
+var paValidUtil = require("../../../../utils/paValidUtil.js");
+var pahelper = require("../../../../utils/pahelper.js");
 var app = getApp();
 Page({
 
@@ -10,6 +12,8 @@ Page({
     first_click: false,//第一次点击
     inputVal:'',//输入框的值
     menu: "/images/partySchool_icon/menu.png", //菜单图标
+    menuIcon: "/images/partySchool_icon/menu.png",
+    menuIcon1: "/images/partySchool_icon/menu1.png",
     documentUrl:"../../document/document",//文档详情路径
     open:false, //下拉框的状态
     height: 0,//内容高度
@@ -85,117 +89,75 @@ Page({
       documentList: [],
       isHaveMore: true
     })
-    //检查网络状态
-    that.checkNetAndDoRequest(that.data.id);
+    that.getDocumentList(that.data.id);
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this;
-    //弹出“加载”框
-    wx.showLoading({
-      title: '加载中',
-    })
-    //检查网络并加载数据
-    that.checkNetAndDoRequest(that.data.id);
-  },
-  //隐藏加载框
-  hideLoading: function () {
-    wx.hideLoading()
-  },
-  //检查网络状态并发起数据请求
-  checkNetAndDoRequest: function (id) {
-    var that = this;
-    wx.getNetworkType({
-      success: function (res) {
-        //获取网络类型
-        var networkType = res.networkType;
-        //如果为空
-        if (networkType == null) {
-          wx.showToast({
-            title: '加载失败，网络出现问题',
-            icon: 'none'
-          });
-        } else {
-          //确认网络正常，加载文档集合
-          that.getDocumentList(id);
-        }
-
-      },
-    })
+    that.getDocumentList(that.data.id);
   },
   //获取标签集合
   getLabelList: function () {
     var that = this;
-    //获取服务器地址
-    var add = app.globalData.serverAddress;
-    wx.request({
-      url: add + 'study/get_labels.do',
-      method: 'POST',
-      success: function (res) {
-        console.log(res);
-        if (res.statusCode == 200 && res.data.status == 0) {
-          that.setData({
-            labelList: res.data.data
-          })
-          //确认所有数据加载完毕，隐藏加载框
-          that.hideLoading();
-        }
-      },
-      fail: function (res) {
-        console.log('标签获取失败' + res);
-      }
-    })
+    var url = 'study/get_labels.do';
+    commonUtils.commonAjax(url, "", 2).then(that.getLabelResult);
+  },
+  getLabelResult: function (res) {
+    console.log(res);
+    var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      that.setData({
+        labelList: res.data.data
+      });
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
   },
   //获取文档集合
   getDocumentList: function (id) {
     var that = this;
-    //获取服务器地址
-    var add = app.globalData.serverAddress;
-    wx.request({
-      url: add + 'study/get_study_documents_by_label_id.do',
-      data: {
-        label_id: [id],
-        page:that.data.currentPage,//当前页码
-        pageNum:8//每页显示8条记录
-      },
-      method:'POST',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      success: function (res) {
-        if (res.statusCode == 200 && res.data.status == 0) {
-          //判断是否显示‘加载更多’
-          if (res.data.data.totalPage == that.data.currentPage){
-            that.setData({
-              isHaveMore:false
-            })
-          }
-          that.setData({
-            documentList: that.data.documentList.concat(res.data.data.list)
-          })
-        }
-        //加载完文档，加载标签集合
-        that.getLabelList();
-      },
-      fail: function (res) {
-        console.log('文档获取失败' + res);
+    var url = 'study/get_study_documents_by_label_id.do';
+    var data = {
+      label_id: [id],
+      page: that.data.currentPage,//当前页码
+      pageNum: 8//每页显示8条记录
+    };
+    commonUtils.ajaxRequest(url,data,2,2).then(that.processResult);
+  },
+  processResult: function (res) {
+    var that = this;
+    if (res.statusCode == 200 && res.data.status == 0) {
+      //判断是否显示‘加载更多’
+      if (res.data.data.totalPage == that.data.currentPage) {
+        that.setData({
+          isHaveMore: false
+        })
       }
-    })
+      that.setData({
+        documentList: that.data.documentList.concat(res.data.data.list)
+      });
+      //加载完文档，加载标签集合
+      that.getLabelList();
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
+   
   },
   //点击蒙层恢复
   hiddenShadow: function(){
-    this.setData({
-      open: !this.data.open
+    var that = this;
+    that.setData({
+      open: !that.data.open
     });
-    if (this.data.menu === "/images/partySchool_icon/menu.png") {
-      this.setData({
-        menu: "/images/partySchool_icon/menu1.png"
+    if (that.data.menu === that.data.menuIcon) {
+      that.setData({
+        menu: that.data.menuIcon1
       })
     } else {
-      this.setData({
-        menu: "/images/partySchool_icon/menu.png"
+      that.setData({
+        menu: that.data.menuIcon
       })
     }
   },
@@ -264,12 +226,7 @@ Page({
       that.setData({
         currentPage: that.data.currentPage+1
       })
-      //弹出“加载”框
-      wx.showLoading({
-        title: '加载中',
-      })
-      //检查网络状态并发起数据请求
-      that.checkNetAndDoRequest(that.data.id);
+      that.getDocumentList(that.data.id);
     }
   },
 

@@ -21,11 +21,11 @@ Page({
   onLoad: function (options) {
     var that = this;
     var addr = app.globalData.serverAddress;
-    console.log(options);
+    var targetUrl = decodeURIComponent(options.targetPage);
     //获取全局变量：服务器地址
     that.setData({
       serverAddress: addr,
-      targetPage: options.targetPage,
+      targetPage: targetUrl ,
       turnToWay: options.turnToWay
     });
     //同步获取本地缓存

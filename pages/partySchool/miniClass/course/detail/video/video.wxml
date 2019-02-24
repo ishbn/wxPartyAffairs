@@ -1,0 +1,36 @@
+<view class='main'>
+  <view class='content'>
+    <!--课程头部  -->
+    <view class='head'>
+      <view class='title'>{{videoDetail.videoTitle}}</view>
+      <view class='time'>{{videoDetail.updateTime}} {{videoDetail.uploadUser}}</view>
+    </view>
+  </view>
+  <!--正文 -->
+  <view class='video-box'>
+    <video id="myVideo" src="{{post_content}}" controls="{{false}}" autoplay="{{true}}" show-center-play-btn="{{false}}" loop='{{true}}' enable-progress-gesture="{{false}}" show-fullscreen-btn="{{true}}" objectFit="contain" duration='{{timeLen}}' catchtap="play"
+      bindplay='bindPlay' bindpause='bindPause' bindended='ended' bindtouchstart='touchstart' bindtouchmove='touchmove' bindtouchend='touchend' bindtouchcancel='touchcancel' bindtimeupdate='timeupdate' page-gesture='{{true}}' direction='0' title='{{videoDetail.videoTitle}}' >
+
+      <!-- <cover-view class='left-info'>
+        <cover-view class='info-name'>@{{user_nickname}}</cover-view>
+        <cover-view class='info-detail'>{{post_desc}}</cover-view>
+      </cover-view> -->
+    </video>
+  </view>
+  <view class='contain'>
+    <view class='text'>{{videoDetail.videoIntroduction}}</view>
+  </view>
+
+</view>
+
+
+<!-- 
+ <view class='contain'>
+      <view class='text'>{{videoDetail.videoIntroduction}}</view>
+      <view class='video-content'>
+        <video class='video' src='http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400'
+          controls="{{false}}" autoplay="{{true}}" show-center-play-btn="{{false}}" loop='{{true}}' enable-progress-gesture="{{false}}" show-fullscreen-btn="{{false}}" objectFit="contain" duration='{{timeLen}}' catchtap="play" bindplay='bindPlay' bindpause='bindPause'
+          bindended='ended' bindtouchstart='touchstart' bindtouchmove='touchmove' bindtouchend='touchend' bindtouchcancel='touchcancel' bindtimeupdate='timeupdate'></video>
+        <view class='explain'>视频</view>
+      </view>
+    </view> -->

@@ -9,7 +9,7 @@ Page({
     menu_messages: [
       {
         menu_img: "/images/icon_function/partyClass.png",
-        targeturl: "/pages/partySchool/partyClass/menu/menu",
+        targeturl: "/pages/partySchool/miniClass/menu/menu",
         name: "微党课",
         description: "掌上党课，碎片时间巧利用"
       },

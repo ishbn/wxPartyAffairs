@@ -24,11 +24,12 @@ Page({
     if (!paValidUtil.checkLogin(that.data.localUrl,1)){
       return;
     }
+
     var id = options.examId;
     if (id == null || id == undefined || id == ""){
       return;
     }
-    //获取待考考试数据集合
+     //获取待考考试数据集合
     that.getExamingObject(id);
   },
  

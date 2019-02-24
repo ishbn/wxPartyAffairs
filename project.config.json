@@ -36,19 +36,28 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
-					"name": "sss",
-					"pathName": "pages/partySchool/anti-corruption/anti-corruption",
-					"query": ""
+					"name": "sss2",
+					"pathName": "pages/partySchool/miniClass/course/detail/video/video",
+					"query": "id=2",
+					"scene": null
 				},
 				{
 					"id": 1,
+					"name": "s12qw",
+					"pathName": "pages/partySchool/miniClass/course/detail/video/video",
+					"query": "id=2",
+					"scene": null
+				},
+				{
+					"id": 2,
 					"name": "sss",
-					"pathName": "pages/partySchool/examination/content/content",
-					"query": "examId=4"
+					"pathName": "pages/partySchool/miniClass/course/detail/video1",
+					"query": "id=4",
+					"scene": null
 				}
 			]
 		}

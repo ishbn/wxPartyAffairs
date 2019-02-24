@@ -1,0 +1,23 @@
+<!--index.wxml-->
+<view class='video-box'>
+  <video id="myVideo" src="{{post_content}}" controls="{{false}}" autoplay="{{true}}" show-center-play-btn="{{false}}" loop='{{true}}' enable-progress-gesture="{{false}}" show-fullscreen-btn="{{false}}" objectFit="contain" duration='{{timeLen}}' catchtap="play" bindplay='bindPlay' bindpause='bindPause' bindended='ended' bindtouchstart='touchstart' bindtouchmove='touchmove' bindtouchend='touchend' bindtouchcancel='touchcancel' bindtimeupdate='timeupdate'>
+    <!-- <view hidden='{{showBtn}}' class='cover-play'></view>  -->
+    <!-- <view hidden='{{!showBtn}}' class='cover-pause' catchtap="play"></view> -->
+    <!-- <cover-view class='video-top'>
+      <cover-view class='top-voice'>
+        <cover-image src='/images/music.png' class='voice-img'></cover-image>
+        <cover-view class='voice-txt'>{{voice}}</cover-view>
+        <cover-image bindtap='toSearch' src='/images/search.png' class='voice-search'></cover-image>
+      </cover-view>
+    </cover-view> -->
+
+   
+    
+    <cover-view class='left-info'>
+      <cover-view class='info-name'>@{{user_nickname}}</cover-view>
+      <cover-view class='info-detail'>{{post_desc}}</cover-view>
+    </cover-view>
+  </video>
+</view>
+
+    

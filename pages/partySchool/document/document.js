@@ -27,89 +27,6 @@ Page({
     downloadSize:0,//文件大小
     savedFilePath:''//文件保存路径
   },
-  //点赞
-  // addOne: function (e) {
-  //   this.addWay(this);
-  //   if (this.data.praise == "/images/partySchool_icon/zan.png") {
-  //     this.setData({
-  //       praise: "/images/partySchool_icon/zan1.png",
-  //       show: !this.data.show
-  //     });
-  //     setTimeout(function () {
-  //       this.setData({
-  //         show: !this.data.show
-  //       });
-  //     }.bind(this), 1000)
-  //   }
-  //   else {
-  //     this.setData({
-  //       praise: "/images/partySchool_icon/zan.png",
-  //       cancelShow: !this.data.cancelShow
-  //     });
-  //     setTimeout(function () {
-  //       this.setData({
-  //         cancelShow: !this.data.cancelShow
-  //       });
-  //     }.bind(this), 1000)
-  //   }
-  // },
-  //收藏
-  colOne: function () {
-    var that = this;
-    var isLogin = app.globalData.hadLogin;
-    //检查登录状态
-    if (!isLogin) {
-      var localUrl = that.data.localUrl;
-      var turnToWay = that.data.turnToWay;
-      app.checkLogin(localUrl, turnToWay);
-    }else{
-      that.colWay(that);
-      if (that.data.collect == "/images/partySchool_icon/collect.png") {
-        that.setData({
-          collect: "/images/partySchool_icon/collect1.png",
-          colShow: !that.data.colShow
-        });
-        setTimeout(function () {
-          that.setData({
-            colShow: !that.data.colShow
-          });
-        }.bind(that), 1000)
-      }
-      else {
-        that.setData({
-          collect: "/images/partySchool_icon/collect.png",
-          colCancelShow: !that.data.colCancelShow
-        });
-        setTimeout(function () {
-          that.setData({
-            colCancelShow: !that.data.colCancelShow
-          });
-        }.bind(that), 1000)
-      }
-    }
-  },
-  //点赞延迟一秒点击
-  // addWay: function (self) {
-  //   self.setData({
-  //     clickAdd: false
-  //   })
-  //   setTimeout(function () {
-  //     self.setData({
-  //       clickAdd: true
-  //     })
-  //   }, 1000)
-  // },
-  //收藏延迟一秒点击
-  colWay: function (self) {
-    self.setData({
-      clickCol: false
-    })
-    setTimeout(function () {
-      self.setData({
-        clickCol: true
-      })
-    }, 1000)
-  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -148,9 +65,8 @@ Page({
       data[i].filePath = encodeURIComponent(data[i].filePath);
     }
     data = JSON.stringify(data);
-    wx.redirectTo({
-      url: './document?data='+data+'&index='+index,
-    })
+    pahelper.redirectTo(that.data.localUrl+ '?data='+data+'&index='+index)
+
   },
   //下载文件
   downloadFile: function(e){
@@ -284,5 +200,89 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  //收藏延迟一秒点击
+  colWay: function (self) {
+    self.setData({
+      clickCol: false
+    })
+    setTimeout(function () {
+      self.setData({
+        clickCol: true
+      })
+    }, 1000)
   }
+    //点赞
+  // ,addOne: function (e) {
+  //   this.addWay(this);
+  //   if (this.data.praise == "/images/partySchool_icon/zan.png") {
+  //     this.setData({
+  //       praise: "/images/partySchool_icon/zan1.png",
+  //       show: !this.data.show
+  //     });
+  //     setTimeout(function () {
+  //       this.setData({
+  //         show: !this.data.show
+  //       });
+  //     }.bind(this), 1000)
+  //   }
+  //   else {
+  //     this.setData({
+  //       praise: "/images/partySchool_icon/zan.png",
+  //       cancelShow: !this.data.cancelShow
+  //     });
+  //     setTimeout(function () {
+  //       this.setData({
+  //         cancelShow: !this.data.cancelShow
+  //       });
+  //     }.bind(this), 1000)
+  //   }
+  // },
+  //收藏
+ /* colOne: function () {
+    var that = this;
+    var isLogin = app.globalData.hadLogin;
+    //检查登录状态
+    if (!isLogin) {
+      var localUrl = that.data.localUrl;
+      var turnToWay = that.data.turnToWay;
+      app.checkLogin(localUrl, turnToWay);
+    }else{
+      that.colWay(that);
+      if (that.data.collect == "/images/partySchool_icon/collect.png") {
+        that.setData({
+          collect: "/images/partySchool_icon/collect1.png",
+          colShow: !that.data.colShow
+        });
+        setTimeout(function () {
+          that.setData({
+            colShow: !that.data.colShow
+          });
+        }.bind(that), 1000)
+      }
+      else {
+        that.setData({
+          collect: "/images/partySchool_icon/collect.png",
+          colCancelShow: !that.data.colCancelShow
+        });
+        setTimeout(function () {
+          that.setData({
+            colCancelShow: !that.data.colCancelShow
+          });
+        }.bind(that), 1000)
+      }
+    }
+  },*/
+  //点赞延迟一秒点击
+  // addWay: function (self) {
+  //   self.setData({
+  //     clickAdd: false
+  //   })
+  //   setTimeout(function () {
+  //     self.setData({
+  //       clickAdd: true
+  //     })
+  //   }, 1000)
+  // }
 })

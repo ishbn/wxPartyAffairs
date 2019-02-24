@@ -1,92 +1,70 @@
 <!--pages/partySchool/examination/exampaper/exampaper.wxml-->
-
 <view class='index'>
-
   <!-- 倒计时及所有题目的跳转 -->
   <view class='countdown'>
-    <text class='countdown_content' >剩余时间：{{result}}</text>
+    <text class='countdown_content'>剩余时间：{{result}}</text>
     <view class='showit' data-isShow='{{flag}}' catchtap='showit'>点击选题 / {{content.singleQuantity+content.multipleQuantity}}</view>
   </view>
-
   <view class='tab' hidden='{{flag ? true : false}}'>
     <block wx:for='{{content.singleQuantity+content.multipleQuantity}}' wx:key='*this'>
-        <view class='tabnum' catchtap='targetTo' data-tabid='{{index+1}}'>{{index+1}}</view>
+      <view class='tabnum' catchtap='targetTo' data-tabid='{{index+1}}'>{{index+1}}</view>
     </block>
   </view>
 
   <!-- 内容区 -->
   <view class='content'>
+    <scroll-view style="height: {{wheight*2}}rpx;" scroll-into-view="title{{toView}}" scroll-y="true" scroll-with-animation="true" class="scr">
 
-  <scroll-view style="height: {{wheight*2}}rpx;" scroll-into-view="title{{toView}}" scroll-y="true" scroll-with-animation="true" class="scr">
-
-  
-    <!-- 单选选项 -->
-    <view class='radiocontent' wx:for='{{content.singleQuestion}}' wx:key='*this' wx:for-index="index" id='title{{index+1}}'>
-
+      <!-- 单选选项 -->
+      <view class='radiocontent' wx:for='{{content.singleQuestion}}' wx:key='*this' wx:for-index="index" id='title{{index+1}}'>
         <!-- 题目 -->
         <view class='title'>{{index+1}}、{{item.questionContent}} （1）分</view>
-
         <!-- 单选组渲染区 -->
         <radio-group class="radio-group" bindchange="radioChange">
           <view class='option' data-id='{{content.singleQuestion[index].questionId}}' data-indexnum='{{index}}' catchtap='getsingle' wx:for='{{item.choice}}' wx:key='*this' wx:for-index="idx">
 
             <radio class='radio' value='{{idx+1}}'>{{item}}</radio>
-
             <!-- <text class='radiotext'></text> -->
           </view>
         </radio-group>
+      </view>
 
 
-    </view>
-  
+
+      <!-- 多选选项 -->
+      <view class='checkcontent' wx:for='{{content.multipleQuestion}}' wx:key='*this' wx:for-index="index" id='title{{index+content.singleQuantity+1}}'>
+
+        <view>
+          <!-- 题目 -->
+          <view class='title'>{{index+content.singleQuantity+1}}、{{item.questionContent}} （2）分</view>
+
+          <!-- 多选组渲染区 -->
+          <checkbox-group class='checkbox-group' bindchange="checkboxChange">
+
+            <block wx:for='{{item.choice}}' wx:key='*this' wx:for-index="idx">
+
+              <view class='option' data-id='{{content.multipleQuestion[index].questionId}}' data-indexnum='{{content.singleQuantity+index}}' catchtap='getmultiple'>
+
+                <checkbox class='checkbox' value='{{idx+1}}'>{{item}}</checkbox>
+                <!-- <text class='checkboxtext'></text> -->
+
+              </view>
+
+            </block>
+
+          </checkbox-group>
 
 
-  
-
-<!-- 多选选项 -->
-    <view class='checkcontent' wx:for='{{content.multipleQuestion}}' wx:key='*this' wx:for-index="index" id='title{{index+content.singleQuantity+1}}'>
-
-      <view>
-
-        <!-- 题目 -->
-        <view class='title'>{{index+content.singleQuantity+1}}、{{item.questionContent}} （2）分</view>
-
-        <!-- 多选组渲染区 -->
-        <checkbox-group class='checkbox-group' bindchange="checkboxChange">
-
-          <block wx:for='{{item.choice}}' wx:key='*this' wx:for-index="idx">
-
-            <view class='option' data-id='{{content.multipleQuestion[index].questionId}}' data-indexnum='{{content.singleQuantity+index}}' catchtap='getmultiple'>
-
-              <checkbox class='checkbox' value='{{idx+1}}'>{{item}}</checkbox>
-              <!-- <text class='checkboxtext'></text> -->
-
-            </view>
-
-          </block>
-
-        </checkbox-group>
-
+        </view>
 
       </view>
 
-    </view>
+      <!-- 上下题按钮 -->
+      <view class='btn'>
+        <button catchtap='commit' class='button'>确认交卷</button>
+      </view>
 
-  
-
-  <!-- 上下题按钮 -->
-    <view class='btn'>
-      <button catchtap='commit' class='button'>确认交卷</button>
-    </view>
-
-  </scroll-view>
-
-    
-
-    
-
-    
+    </scroll-view>
 
   </view>
-
 </view>

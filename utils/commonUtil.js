@@ -1,3 +1,11 @@
+module.exports = {
+    commonAjax: commonAjax,
+    ajaxRequest:requestWithContentType,
+    commonTips: commonTips,
+    commonPullDownRefresh: commonPullDownRefresh,
+    commonArrayAdd: paArrayAddEle
+}
+
 // 获取公共配置
 var app = getApp();
 /**
@@ -164,11 +172,4 @@ function requestWithContentType(url, data, type, ctcode) {
       });
     });
   return promise;
-}
-module.exports = {
-  commonAjax: commonAjax,
-  ajaxRequest:requestWithContentType,
-  commonTips: commonTips,
-  commonPullDownRefresh: commonPullDownRefresh,
-  commonArrayAdd: paArrayAddEle
 }

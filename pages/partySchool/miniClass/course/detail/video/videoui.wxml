@@ -1,0 +1,7 @@
+<!--pages/partySchool/miniClass/course/detail/video/videoui.wxml-->
+<view class="wxParse-video" wx:for="{{videos}}" wx:key="*this" data-aa="{{item.index}}">
+  <video id="wxParse{{item.index}}" src="{{srcs['wxParse'+item.index]}}" class="wxParse-video-video" poster="{{item.attr.cover}}" bindplay="bindplay_video" data-id="wxParse{{item.index}}" custom-cache="{{false}}">
+    <cover-view class="controls" hidden="{{srcs['wxParse'+item.index]}}" bindtap="bindplay" data-id="wxParse{{item.index}}" data-src="{{item.attr.src}}">
+    </cover-view>
+  </video>
+</view>

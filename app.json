@@ -39,6 +39,11 @@
     "pages/partySchool/partyClass/class/swiperItem/chapter/chapter",
     "pages/partySchool/partyClass/selectClass/details/detail",
     "pages/partySchool/examination/exampaper/exampaper",
+    "pages/partySchool/miniClass/menu/menu",
+    "pages/partySchool/miniClass/myCourse/myCourse",
+    "pages/partySchool/miniClass/course/coursePush/coursePush",
+    "pages/partySchool/miniClass/course/detail/video/video",
+    "pages/partySchool/miniClass/course/courseClassify/courseClassify",
     "pages/wode/wode/wode",
     "pages/wode/history/history",
     "pages/wode/feedback/feedback_home/feedback_home",
@@ -52,7 +57,9 @@
     "pages/wode/setting/updatePsw/updatePsw",
     "pages/test/test",
     "pages/common/testTemplate/testTemplate",
-    "pages/partySchool/anti-corruption/anti-corruption"
+    "pages/partySchool/anti-corruption/anti-corruption",
+    "pages/partySchool/miniClass/course/detail/video1",
+    "pages/partySchool/miniClass/course/detail/video/videoui"
   ],
   "window": {
     "backgroundTextStyle": "light",

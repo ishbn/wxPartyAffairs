@@ -18,19 +18,20 @@ App({
     wx.getStorage({
       key,
       success: function (res) {
-        cb && cb(res.data)
+        cb && cb(res.data);
       },
       fail: function (err) {
         let msg = err.errMsg || ''
         if (/getStorage:fail/.test(msg)) {
-          self.setStorageData(key)
+          // self.setStorageData(key,"");
         }
       }
     })
   },
   globalData: {
     userInfo: null,
-    serverAddress:'http://192.168.31.12:8080/PartyAffairs/',
+    // serverAddress:'http://120.77.40.163:8080/PartyAffairs/',
+    serverAddress: 'http://192.168.31.12:8080/',
     ftpAddress:"",
     dropDownTime:800,
     hadLogin:false,

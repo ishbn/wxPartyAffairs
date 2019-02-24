@@ -1,3 +1,10 @@
+module.exports = {
+  patchImg:pathImgFun,
+  checkImgPath: checkCover,
+  checkSingleImgPath: checkSingleImgPath,
+  checkLogin: checkLogin
+}
+
 // 获取公共配置
 var app = getApp();
 
@@ -21,9 +28,10 @@ function checkCover(res){
 }
 
 const valid = (url, ftype) =>{
+  var en_url = encodeURIComponent(url);
   ftype = getForwordType(ftype);
     wx.redirectTo({
-      url: "/pages/login/login?targetPage=" + url + "&turnToWay=" + ftype
+      url: "/pages/login/login?targetPage=" + en_url + "&turnToWay=" + ftype
     });
 
 }
@@ -37,8 +45,9 @@ function checkLogin(url, ftype) {
     }
 }
 const turnTo = (url, ftype)=>{
+  var en_url = encodeURIComponent(url);
   wx.redirectTo({
-    url: "/pages/login/login?targetPage=" + url + "&turnToWay=" + ftype
+    url: "/pages/login/login?targetPage=" + en_url + "&turnToWay=" + ftype
   });
 }
 /**获取跳转方式 */
@@ -71,8 +80,71 @@ function checkSingleImgPath(path){
   path = app.globalData.defulatImg;
   return path;
 }
-module.exports = {
-  checkImgPath: checkCover,
-  checkSingleImgPath: checkSingleImgPath,
-  checkLogin: checkLogin
+
+/**
+ * 集中图片处理
+ * 
+ * 1-
+ * 2-
+ * 3-相册图片URL处理
+ */
+function pathImgFun(index,data){
+  if (!data){
+    return;
+  }
+  var proccedData = null;
+  switch (index){
+    case 1:
+      proccedData = checkCover(data);
+    break;
+    case 2:
+      proccedData = checkSingleImgPath(data);
+      break;
+    case 3:
+      proccedData = processAlbum(data);
+      break;
+    case 4:
+      proccedData = processAlbumList(data);
+      break;
+    default:
+      break;
+  }
+  return proccedData;
+}
+
+function processAlbum(res){
+  if (!res) {
+    return;
+  }
+  for (var i = 0; i < res.length; i++) {
+    if (!res[i].image) {
+      res[i].image = app.globalData.defulatImg;
+    } else {
+      if (res[i].image.indexOf("http") == -1 ){
+        // res[i].image = app.globalData.ftpAddress + res[i].image;
+        res[i].image = res[i].image;
+      }
+    }
+    res[i].image = app.globalData.defulatImg;
+  }
+  return res;
+
+}
+
+function processAlbumList(res){
+  if (!res) {
+    return;
+  }
+  for (var i = 0; i < res.length; i++) {
+    if (!res[i].coverImage) {
+      res[i].coverImage = app.globalData.defulatImg;
+    } else {
+      if (res[i].coverImage.indexOf("http") == -1) {
+        // res[i].coverImage = app.globalData.ftpAddress + res[i].coverImage;
+        res[i].coverImage = res[i].coverImage;
+      }
+    }
+    res[i].coverImage = app.globalData.defulatImg;
+  }
+  return res;
 }

@@ -1,0 +1,61 @@
+.video-box{
+  height: 100vh;
+  position: relative;
+}
+.video-box video{
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
+
+
+
+.cover-pause,.cover-play{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .1);
+  z-index: 1;
+}
+.cover-play{
+  background: rgba(0,0,0,0);
+}
+.right-list{
+  position: absolute;
+  right: 30rpx;
+  top: 30%;
+  overflow: hidden;
+  z-index: 15;
+}
+
+
+
+.left-info{
+  width: 60%;
+  position: absolute;
+  left: 30rpx;
+  bottom: 100rpx;
+  overflow: hidden;
+  z-index: 15;
+}
+.info-name{
+  color: #fff;
+  font-size: 30rpx;
+  margin-bottom: 15rpx;
+}
+.info-detail{
+  display: block;
+  width: 100%;
+  height: 90rpx;
+  color: #fff;
+  font-size: 26rpx;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}

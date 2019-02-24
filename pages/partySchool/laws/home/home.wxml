@@ -28,13 +28,13 @@
           <view class='law-title' data-index='{{index}}'>{{item.documentTitle}}</view>
           <view class='behind'>
             <view class='law-time' data-index='{{index}}'>{{item.updateTime}}</view>
-            <image wx:if='{{index==0}}' class='law-image' src="/images/partySchool_icon/top.png" data-index='{{index}}'></image>
+            <!-- <image wx:if='{{index==0}}' class='law-image' src="/images/partySchool_icon/top.png" data-index='{{index}}'></image> -->
           </view>
         </view>
       </view>
     </view>
     <view class='null' wx:else>
-      <image class='null-img' src='/images/partySchool_icon/null.png'></image>
+      <image class='null-img' src='{{nullIcon}}'></image>
       <view class='null-text'>暂无文档记录</view>
     </view>
     <view class='more' wx:if='{{documentList.length>0}}' hidden='{{isHaveMore}}'>没有更多了~</view>
