@@ -11,7 +11,7 @@ Page({
     currentTab: 0, //预设当前项的值
     rotate:true,//未学下拉箭头状态
     rotate1: false,//已学下拉箭头状态
-    localUrl: '/pages/partySchool/partyClass/mySelf/mySelf',//当前文件所在地址
+    localUrl: '/pages/partySchool/miniClass/myCourse/myCourse',//当前文件所在地址
     documentUrl: "/pages/partySchool/document/document",//文档详情路径
     mustLearnDocumentList:[],//必学文档集合
     mustLearnVedioList:[],//必学视频集合
@@ -26,58 +26,20 @@ Page({
     downIcon:"/images/partySchool_icon/arrow.png",
     nullIcon:"/images/partySchool_icon/null.png",
     requiredIcon:"/images/partySchool_icon/required.png",
+    docFirstOrMore:1,
 
-    docFirstOrMore:1
-  },
-  
-  //点击切换
-  clickTab: function (e) {
-    var that = this;
-    var tabId = e.target.dataset.current;
-    that.setData({
-      currentTab: tabId
-    });
-  },
-  //滑动切换
-  swiperTab: function (e) {
-    var that = this;
-    that.setData({
-      currentTab: e.detail.current
-    });
-  },
-  //展示未学下拉列表
-  showContent:function(){
-    var that = this;
-    var animation = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'linear'
-    })
-    if (that.data.rotate) {
-      animation.height(0).step()
-    } else {
-      animation.height(that.data.learningHeight+'rpx').step()
+    videosPage:{
+      pageNum:1,
+      pageSize:15,
+      totalPage:0,
+      userId:''
+    },
+    docPage:{
+      pageNum:1,
+      pageSize:15,
+      totalPage:0,
+      userId: ''
     }
-    that.setData({
-      rotate: !that.data.rotate,
-      learningAnimation: animation.export(),
-    })
-  },
-  //展示已学下拉列表
-  showContent1: function () {
-    var that = this;
-    var animation = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'linear'
-    })
-    if (that.data.rotate1) {
-      animation.height(0).step()
-    } else {
-      animation.height(that.data.learnedHeight + 'rpx').step()
-    }
-    that.setData({
-      rotate1: !that.data.rotate1,
-      learnedAnimation: animation.export(),
-    })
   },
 
   /**
@@ -88,25 +50,31 @@ Page({
     var localUrl = that.data.localUrl;
     if (!paValidUtil.checkLogin(localUrl,1)){
       return;
-    }else {
-      that.getMustLearnVideoList();
-      that.getMustLearnDocumentList();
     }
-    
+    var userInfo = app.globalData.userInfo;
+    var userId = userInfo.userId;
+    var videoParam = that.data.videosPage;
+    var docParam = that.data.docPage;
+    videoParam.userId = userId;
+    docParam.userId = userId;
+    that.setData({
+      videosPage: videoParam,
+      docPage: docParam
+    });
+      that.getMustLearnVideoList();
+     that.getMustLearnDocumentList();
   },
  
   //获取必学视频
   getMustLearnVideoList: function () {
     var that = this;
-    var url = 'study/get_study_videos_must.do';
-    var data = {
-      page: that.data.page,
-      pageNum: that.data.pageNum 
-    };
-    commonUtils.ajaxRequest(url,data,2,1).then(that.getTheDataList);
+    var url = 'study/get_study_video_must_byUserId.do';
+    var data = that.data.videosPage;
+    commonUtils.ajaxRequest(url,data,1,0).then(that.getTheDataList);
   },
   getTheDataList: function(res) {
      var that = this;
+    console.log(res);
     if (res.statusCode == 200 && res.data.status == 0) {
       that.setData({
         mustLearnVedioList: res.data.data.list
@@ -132,12 +100,9 @@ Page({
   //获取文档集合
   getMustLearnDocumentList: function () {
     var that = this;
-    var url = 'study/get_study_documents_must.do';
-    var data = {
-      page: that.data.docCurrentPage,//当前页码
-      pageNum: that.data.pageNum//每页显示8条记录
-    };
-    commonUtils.ajaxRequest(url, data, 2, 1).then(that.getTheDocumentList);
+    var url = 'study/get_study_documents_must_byUserId.do';
+    var data = that.data.docPage;
+    commonUtils.ajaxRequest(url, data, 1, 1).then(that.getTheDocumentList);
   },
   getTheDocumentList: function (res) {
     var that = this;
@@ -226,5 +191,55 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  //点击切换
+  clickTab: function (e) {
+    var that = this;
+    var tabId = e.target.dataset.current;
+    that.setData({
+      currentTab: tabId
+    });
+  },
+  //滑动切换
+  swiperTab: function (e) {
+    var that = this;
+    that.setData({
+      currentTab: e.detail.current
+    });
+  },
+  //展示未学下拉列表
+  showContent: function () {
+    var that = this;
+    var animation = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'linear'
+    })
+    if (that.data.rotate) {
+      animation.height(0).step()
+    } else {
+      animation.height(that.data.learningHeight + 'rpx').step()
+    }
+    that.setData({
+      rotate: !that.data.rotate,
+      learningAnimation: animation.export(),
+    })
+  },
+  //展示已学下拉列表
+  showContent1: function () {
+    var that = this;
+    var animation = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'linear'
+    })
+    if (that.data.rotate1) {
+      animation.height(0).step()
+    } else {
+      animation.height(that.data.learnedHeight + 'rpx').step()
+    }
+    that.setData({
+      rotate1: !that.data.rotate1,
+      learnedAnimation: animation.export(),
+    })
   }
+
 })

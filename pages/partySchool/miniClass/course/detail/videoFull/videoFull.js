@@ -1,4 +1,5 @@
 // pages/videoFull/videoFull.js
+var timeBreak = 0;
 Page({
 
   /**
@@ -18,9 +19,9 @@ Page({
     })
   },
   onShow(){
-    this.videoContext = wx.createVideoContext('myVideo')
+    this.videoContext = wx.createVideoContext('myVideo');
     // 全屏播放
-    this.videoContext.requestFullScreen()
+    this.videoContext.requestFullScreen();
     var res = wx.getSystemInfoSync();
     //iphone x下隐藏状态栏，仅对IPHONE X生效
     if (res.model.search('iPhone X') != -1) {

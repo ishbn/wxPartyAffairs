@@ -8,14 +8,14 @@ Page({
     menu:[
       {
         imgUrls: '/images/partySchool_icon/onclass.png',
-        descs: '课程',
+        descs: '视频课程',
         targetPages: '/pages/partySchool/miniClass/course/coursePush/coursePush'
       },
-      // {
-      //   imgUrls: '/images/partySchool_icon/onPartyClass.png',
-      //   descs: '选课',
-      //   targetPages: './../selectClass/selectClass_home/selectClass_home'
-      // },
+      {
+        imgUrls: '/images/partySchool_icon/onPartyClass.png',
+        descs: '文档资料',
+        targetPages: './../selectClass/selectClass_home/selectClass_home'
+      },
       {
         imgUrls: '/images/partySchool_icon/onMyself.png',
         descs: '我的',

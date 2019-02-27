@@ -9,17 +9,18 @@ module.exports = {
     var id = e.currentTarget.dataset.id
     var old_vid = that.data.old_vid
     var contextData = that.data.contextData || {};
+    console.log(Object.keys(contextData));
     //播放前暂停上一个播放的视频
-    if (Object.keys(contextData).length > 0) {
-      Object.keys(contextData).forEach(function (val, key) {
-        if (id != val) {
-          contextData[val].pause();
-          that.setData({
-            old_vid: id
-          })
-        }
-      })
-    }
+    // if (Object.keys(contextData).length > 0) {
+    //   Object.keys(contextData).forEach(function (val, key) {
+    //     if (id != val) {
+    //       contextData[val].pause();
+    //       that.setData({
+    //         old_vid: id
+    //       })
+    //     }
+    //   })
+    // }
   },
   //点击封面图触发，
   //然后将src赋给video,是为了解决页面加载就下载video的问题

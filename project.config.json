@@ -41,7 +41,7 @@
 				{
 					"id": 0,
 					"name": "sss2",
-					"pathName": "pages/partySchool/miniClass/course/detail/video/video",
+					"pathName": "pages/partySchool/miniClass/myCourse/myCourse",
 					"query": "id=2",
 					"scene": null
 				},
@@ -55,8 +55,8 @@
 				{
 					"id": 2,
 					"name": "sss",
-					"pathName": "pages/partySchool/miniClass/course/detail/video1",
-					"query": "id=4",
+					"pathName": "pages/partySchool/miniClass/course/detail/video/videoui",
+					"query": "id=2",
 					"scene": null
 				}
 			]

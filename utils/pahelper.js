@@ -1,7 +1,7 @@
 module.exports = {
   navigateBack: navigateBack,
   navigateTo: navigateTo,
-    redirectTo:redirectTo,
+  redirectTo:redirectTo,
   showToast: showToast,
   getScreenHeight: getScreenHeight
 }

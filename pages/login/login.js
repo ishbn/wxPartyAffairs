@@ -1,12 +1,14 @@
 // pages/login/login.js
 var app = getApp();
+var commonUtils = require("../../utils/commonUtil.js");
+var paValidUtil = require("../../utils/paValidUtil.js");
+var pahelper = require("../../utils/pahelper.js");
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    serverAddress: null,
     userId: '',
     password: '',
     turnToWay:'navigator',
@@ -20,17 +22,14 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var addr = app.globalData.serverAddress;
     var targetUrl = decodeURIComponent(options.targetPage);
     //获取全局变量：服务器地址
     that.setData({
-      serverAddress: addr,
       targetPage: targetUrl ,
       turnToWay: options.turnToWay
     });
     //同步获取本地缓存
     try {
-
       var userLogin  = wx.getStorageSync('userLogin');
       if (userLogin){
         that.setData({
@@ -40,9 +39,7 @@ Page({
       }
     } catch (e) {
       // Do something when catch error
-
     }
-
   },
 
   /**
@@ -132,38 +129,30 @@ Page({
     //判别是否为空，true执行登录查询
     var flag = that.docheck();
     if (flag) {
-      // 服务器地址
-      var addr = that.data.serverAddress;
-      // 登录请求验证
-      wx.request({
-        method: "post",
-        url: addr + "login",
-        data: "userId=" + that.data.userId + "&password=" + that.data.password,
-        dataType: "json", // 数据类型可以为 text xml json script jsonp
-        header: {
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        success: function (res) {
-          console.log(res);
-          if (res.statusCode == 200 && res.data.status == 0){
-            // 保存本地，方便下次登录
-            that.saveUserInfo(res);
-            //提示登录成功
-            that.showSuccessful();
-            //标志更改为已登录并记住sessionId
-            app.globalData.hadLogin = true;
-            app.globalData.header.Cookie = res.header['Set-Cookie'];
-            // 判断进入页面的方式并选相应的跳转方式跳转
-            that.turnToPage();
-          }else{
-            that.showError('用户名或密码错误');
-          }
-        },
-        fail: function (e) {
-          console.log(e)
-          that.showError('登录失败');
-        }
-      })
+      var url = "login";
+      var data = {
+        userId: that.data.userId,
+        password: that.data.password
+      };
+      commonUtils.ajaxRequest(url,data,2,1).then(that.processResult);
+    }
+  },
+  processResult:function (res) {
+    var that = this;
+    console.log(res);
+    if (res.statusCode == 200 && res.data.status == 0) {
+      // 保存本地，方便下次登录
+      that.saveUserInfo(res);
+      //提示登录成功
+      pahelper.showToast("登录成功");
+      //标志更改为已登录并记住sessionId
+      app.globalData.hadLogin = true;
+      app.globalData.header.Cookie = res.header['Set-Cookie'];
+      app.globalData.userInfo = res.data.data;
+      // 判断进入页面的方式并选相应的跳转方式跳转
+      that.turnToPage();
+    } else {
+      that.showError('用户名或密码错误');
     }
   },
   /**检查登录信息 */
@@ -207,12 +196,7 @@ Page({
       data: res.data.data
     });
   },
-  /**提示登录成功 */
-  showSuccessful:function(){
-    wx.showToast({
-      title: '登录成功',
-    })
-  },
+ 
    /**提示登录失败 */
   showError: function (e) {
     wx.showToast({
