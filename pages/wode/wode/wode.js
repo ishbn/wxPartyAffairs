@@ -21,20 +21,20 @@ Page({
         url: "/pages/organization/partyUserInfo/partyUserInfo",
         dot:''
       },
-      {
-        icon: '/images/icon_base_new/message.png',
-        name: '我的消息',
-        explain: '图文收藏，快速查找',
-        url: "./../collection/collection",
-        dot:'red-point'
-      },
-      {
-        icon: '/images/icon_base_new/collection.png',
-        name: '我的收藏',
-        explain: '图文收藏，快速查找',
-        url: "./../collection/collection",
-        dot: ''
-      },
+      // {
+      //   icon: '/images/icon_base_new/message.png',
+      //   name: '我的消息',
+      //   explain: '图文收藏，快速查找',
+      //   url: "./../collection/collection",
+      //   dot:'red-point'
+      // },
+      // {
+      //   icon: '/images/icon_base_new/collection.png',
+      //   name: '我的收藏',
+      //   explain: '图文收藏，快速查找',
+      //   url: "./../collection/collection",
+      //   dot: ''
+      // },
       {
         icon: '/images/icon_base_new/governmentNews.png',
         name: '党内公示',

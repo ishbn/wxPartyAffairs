@@ -21,19 +21,19 @@ Page({
       },
       {
         menu_img: "/images/partySchool_icon/corruption.png",
-        targeturl: "/pages/partySchool/education/home/home",
+        targeturl: "/pages/partySchool/education/education",
         name: "专题教育",
         description: "专题汇总，重点学习"
       },
       {
         menu_img: "/images/icon_function/activity.png",
-        targeturl: "/pages/partySchool/anti-corruption/home/home",
+        targeturl: "/pages/partySchool/anti-corruption/anti-corruption",
         name: "反腐倡廉",
         description: "弘扬廉政，警钟长鸣"
       },
       {
         menu_img: "/images/partySchool_icon/laws.png",
-        targeturl: "/pages/partySchool/laws/home/home",
+        targeturl: "/pages/partySchool/laws/laws",
         name: "政策法规",
         description: "牢记党章，党规，党纪"
       },

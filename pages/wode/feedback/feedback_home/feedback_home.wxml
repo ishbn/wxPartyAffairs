@@ -10,9 +10,9 @@
     <block wx:if='{{currentTab==0}}'>
       <view class='feedback_type'>
         <text>类型*</text>
-        <picker bindchange="bindPickerChange" value="{{feedback_type_index}}" range="{{feedback_type}}">
+        <picker bindchange="bindPickerChange" value="{{feedback_type_index}}" range="{{feedback_type}}" range-key='typeName'>
 
-           {{feedback_type[feedback_type_index]}}＞
+           {{feedback_type[feedback_type_index].typeName}}＞
 
         </picker>
       </view>
@@ -32,12 +32,12 @@
     </block>  
     
     <block wx:else >
-      <view name="feedback_list_item" wx:for='{{feedback_list}}' wx:key='{{item.feedback_id}}'>
-        <navigator url="../feedback_detail/feedback_detail?feedback_id={{ item.feedback_id }}">
+      <view name="feedback_list_item" wx:for='{{feedback_list}}' wx:key='{{item.feedbackId}}'>
+        <navigator url="{{feedbackDetailUrl+'?id='+ item.feedbackId }}">
           <view class='list_item' >
             <view class='list_item_title'>{{item.title}}</view>
             <view class='list_item_text'>
-              <view class='list_item_type'>{{item.feedback_type}}</view>
+              <view class='list_item_type'>{{item.feedbackName}}</view>
               <view class='list_item_date'>{{item.date}}</view>
             </view>
           </view>

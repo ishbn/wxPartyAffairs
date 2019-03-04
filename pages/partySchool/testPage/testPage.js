@@ -10,7 +10,7 @@ Page({
    */
   data: {
     doc: {},//文档
-    localUrl: '/pages/partySchool/document/document',
+    localUrl: '/pages/partySchool/testPage/testPage',
     dlBtn:"下载",
     dlStatus:0  //0-提示下载 1-取消下载
   },

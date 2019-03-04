@@ -134,7 +134,7 @@ picker{
   color: #999;
   margin: 20rpx 20rpx;
   display: flex;
-  align-items: center;
+  align-items:left;
 }
 .tail{
   font-size: 24rpx;

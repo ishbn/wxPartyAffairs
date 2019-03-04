@@ -3,10 +3,10 @@
 
 <view class="page__detail">
     <view class="detail">
-        <view class="detail__title">  {{ title }} </view>
+        <view class="detail__title">  {{feedback.title }} </view>
         <view class="article__desc">
-           <text class="article__type">{{ feedback_type }}</text>
-           <text class="article__time">{{ date }}</text>
+           <text class="article__type">{{ feedback.feedbackName }}</text>
+           <text class="article__time">{{ feedback.date }}</text>
         </view>
     </view>
 </view>
@@ -16,4 +16,4 @@
     <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
 </view>
 
-<view class='tail'>-- The End --</view>
+<!-- <view class='tail'>-- The End --</view> -->

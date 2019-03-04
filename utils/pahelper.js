@@ -3,7 +3,10 @@ module.exports = {
   navigateTo: navigateTo,
   redirectTo:redirectTo,
   showToast: showToast,
-  getScreenHeight: getScreenHeight
+  getScreenHeight: getScreenHeight,
+  downloadFile: downloadFile,
+  cancelDownload: cancelDownload,
+  isEmpty: isEmpty
 }
 function redirectTo(targeturl){
     wx.redirectTo({
@@ -41,4 +44,36 @@ function getScreenHeight(){
   }finally{
     return height;
   }
+}
+
+function downloadFile(url, filePath){
+  console.log(url);
+  const downloadTask = wx.downloadFile({
+    url: url, // 仅为示例，并非真实的资源
+    filePath: filePath,
+    success(res) {
+      console.log(res);
+      // wx.playVoice({
+      //   filePath: res.tempFilePath
+      // })
+      const tempFilePaths = res.tempFilePath
+      wx.saveFile({
+        tempFilePath: tempFilePaths,
+        success(res) {
+          const savedFilePath = res.savedFilePath
+        }
+      })
+    }
+  })
+}
+
+function cancelDownload(){
+  DownloadTask.abort()
+}
+
+function isEmpty(data){
+  if(typeof(data) == 'undefind' || data == ''){
+    return true;
+  }
+  return false;
 }

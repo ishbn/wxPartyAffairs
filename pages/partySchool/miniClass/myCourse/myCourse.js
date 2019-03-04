@@ -12,11 +12,13 @@ Page({
     rotate:true,//未学下拉箭头状态
     rotate1: false,//已学下拉箭头状态
     localUrl: '/pages/partySchool/miniClass/myCourse/myCourse',//当前文件所在地址
+    videoDetail:"/pages/partySchool/miniClass/course/detail/video/videoui",
     documentUrl: "/pages/partySchool/document/document",//文档详情路径
     mustLearnDocumentList:[],//必学文档集合
     mustLearnVedioList:[],//必学视频集合
     isEncode: false,//编码标识符
     docIsHaveMore: true,//是否加载更多
+    videoIsHaveMore: true,//是否加载更多
     docCurrentPage: 1,//当前页码
     pageNum: 15,//请求长度
     learningCount:0,//未学视频数量
@@ -26,18 +28,15 @@ Page({
     downIcon:"/images/partySchool_icon/arrow.png",
     nullIcon:"/images/partySchool_icon/null.png",
     requiredIcon:"/images/partySchool_icon/required.png",
-    docFirstOrMore:1,
 
     videosPage:{
       pageNum:1,
       pageSize:15,
-      totalPage:0,
       userId:''
     },
     docPage:{
       pageNum:1,
       pageSize:15,
-      totalPage:0,
       userId: ''
     }
   },
@@ -70,23 +69,40 @@ Page({
     var that = this;
     var url = 'study/get_study_video_must_byUserId.do';
     var data = that.data.videosPage;
+    console.log(data);
     commonUtils.ajaxRequest(url,data,1,0).then(that.getTheDataList);
   },
   getTheDataList: function(res) {
      var that = this;
     console.log(res);
     if (res.statusCode == 200 && res.data.status == 0) {
-      that.setData({
-        mustLearnVedioList: res.data.data.list
-      })
-      var learningCount = 0, learnedCount = 0;
-      var list = that.data.mustLearnVedioList
-      for (var i = 0; i < list.length; i++) {
-        if (list[i].schedule < 100)
-          learningCount++;
-        else
-          learnedCount++;
+      var result = res.data.data;
+      // 总页数
+      var totalPage = result.totalPage;
+      //当前页数
+      var nowPageNum = that.data.videosPage.pageNum;
+      var canReqMore = true;
+      if (totalPage <= nowPageNum) {
+        canReqMore = false;
       }
+     
+      var list = result.list;
+      var oldData = that.data.mustLearnVedioList;
+      var resdata = commonUtils.commonArrayAdd(oldData, list);
+      that.setData({
+        mustLearnVedioList: resdata,
+        videoIsHaveMore: canReqMore
+      });
+      //待解决已学在学未学。
+      var learningCount = 0, learnedCount = 0;
+      var localList = that.data.mustLearnVedioList
+      // for (var i = 0; i < localList.length; i++) {
+      //   if (localList[i].schedule < 100)
+      //     learningCount++;
+      //   else
+      //     learnedCount++;
+      // }
+      learningCount = localList.length;
       that.setData({
         learningCount: learningCount,
         learnedCount: learnedCount,
@@ -102,29 +118,29 @@ Page({
     var that = this;
     var url = 'study/get_study_documents_must_byUserId.do';
     var data = that.data.docPage;
+    console.log(data);
     commonUtils.ajaxRequest(url, data, 1, 1).then(that.getTheDocumentList);
   },
   getTheDocumentList: function (res) {
     var that = this;
     console.log(res);
     if (res.statusCode == 200 && res.data.status == 0) {
+      var result = res.data.data;
+      // 总页数
+      var totalPage = result.totalPage;
+      //当前页数
+      var nowPageNum = that.data.docPage.pageNum;
       var canReqMore = true;
-      if (res.data.data.totalPage <= that.data.docCurrentPage) {
+      if (totalPage <= nowPageNum) {
         canReqMore = false;
       }
-      //1--首次请求 2--追加
-      if (that.data.docFirstOrMore == 1){
-        that.setData({
-          docIsHaveMore: canReqMore,
-          mustLearnDocumentList: res.data.data.list
-        });
-      }else{
-        that.setData({
-          docIsHaveMore: canReqMore,
-          mustLearnDocumentList: that.data.mustLearnDocumentList.concat(res.data.data.list)
-        });
-      }
-      
+      var list = result.list;
+      var oldData = that.data.mustLearnDocumentList;
+      var resdata = commonUtils.commonArrayAdd(oldData, list);
+      that.setData({
+        docIsHaveMore: canReqMore,
+        mustLearnDocumentList: resdata
+      });
     }else{
       commonUtils.commonTips(res.statusCode);
     }
@@ -170,16 +186,24 @@ Page({
    */
   onReachBottom: function () {
     var that = this;
+    var currentTab = that.data.currentTab;
     //判断是否加载跟多
-    if(currentTab ==1){
-      console.log("我的视频学习待完善");
-      that.getMustLearnVideoList();
+    if(currentTab ==0){
+      if (that.data.videoIsHaveMore) {
+          var videoParam = that.data.videosPage;
+          videoParam.pageNum += 1;
+          that.setData({
+            videosPage: videoParam
+          }); 
+         that.getMustLearnVideoList();
+      }
     }else{
       if (that.data.docIsHaveMore) {
+        var docParam = that.data.docPage;
+        docParam.pageNum +=1;
         that.setData({
-          docFirstOrMore: 2,
-          docCurrentPage: that.data.docCurrentPage + 1
-        })
+          docPage: docParam
+        });
         that.getMustLearnDocumentList();
       }
     }
@@ -240,6 +264,13 @@ Page({
       rotate1: !that.data.rotate1,
       learnedAnimation: animation.export(),
     })
+  },
+  toDetails:function(e){
+    var that = this;
+    console.log(e);
+    var index = e.target.dataset.index;
+    var vid = that.data.mustLearnVedioList[index].videoId;
+    pahelper.navigateTo(that.data.videoDetail + "?id=" + vid);
   }
 
 })

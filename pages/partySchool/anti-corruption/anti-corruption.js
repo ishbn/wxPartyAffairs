@@ -14,76 +14,15 @@ Page({
     menu: "/images/partySchool_icon/menu.png", //菜单图标
     menuIcon: "/images/partySchool_icon/menu.png",
     menuIcon1: "/images/partySchool_icon/menu1.png",
+    nullIcon:"/images/partySchool_icon/null.png",
     documentUrl: "/pages/partySchool/document/document", //文档详情路径
     open: false, //下拉框的状态
     labelList: [], //所有标签
     docList: [], //所有文档
     isEncode: false, //编码标识符
-    id: '3', //文档标签的id
+    labelId: '3', //文档标签的id
     isHaveMore: true, //是否加载更多
     currentPage: 1 //当前页码
-  },
-  //禁止滑动
-  banSlide: function() {},
-  //输入框显示清除按键
-  showClear: function(e) {
-    var value = e.detail.value;
-    if (value != '') {
-      this.setData({
-        inputVal: value,
-        clear: false
-      })
-    } else {
-      this.setData({
-        clear: true
-      })
-    }
-  },
-  //清除输入框中的内容
-  clearVal: function() {
-    this.setData({
-      inputVal: '',
-      clear: true
-    })
-  },
-  //显示下拉框
-  showitem: function() {
-    var that = this;
-    // 第一次点击菜单
-    if (!that.data.first_click) {
-      that.setData({
-        first_click: true
-      });
-    }
-    that.setData({
-      open: !that.data.open,
-    });
-    if (that.data.menu === that.data.menuIcon) {
-      that.setData({
-        menu: that.data.menuIcon1
-      })
-    } else {
-      that.setData({
-        menu: that.data.menuIcon
-      })
-    }
-
-  },
-  //点击切换
-  clickTab: function(e) {
-    var that = this;
-    //判断是否隐藏蒙层
-    if (that.data.open)
-      that.hiddenShadow();
-
-    //初始化
-    that.setData({
-      id: e.target.dataset.labelid,
-      currentPage: 1,
-      docList: [],
-      isHaveMore: true
-    })
-    that.getDocumentList(that.data.id);
   },
 
   /**
@@ -92,16 +31,53 @@ Page({
   onLoad: function(options) {
     var that = this;
     //加载文档集合
-    that.getDocumentList(that.data.id);
+    that.getDocumentList(that.data.labelId);
   },
 
+  //获取文档集合
+  getDocumentList: function(labelId) {
+    var that = this;
+    var url = 'study/get_study_documents_by_label_id.do';
+    var reqData = {
+      label_id: [labelId],
+      page: that.data.currentPage, //当前页码
+      pageNum: 10 //每页显示8条记录
+    };
+    commonUtils.ajaxRequest(url, reqData, 2, 2).then(that.processResult);
+  },
+  processResult: function(res) {
+    var that = this;
+    console.log(res);
+    if (res.statusCode == 200 && res.data.status == 0) {
+      var result = res.data.data;
+      var producedata = that.changeFormat(result.list);
+      //判断是否显示‘加载更多’
+      var totalPage = result.totalPage;
+      var nowPage = that.data.currentPage;
+      var canReq = true;
+      if (nowPage >= totalPage) {
+        canReq = false;
+      } 
+      var oldData = that.data.docList;
+      var resData = commonUtils.commonArrayAdd(oldData, producedata);
+      that.setData({
+        isHaveMore: canReq,
+        docList: resData
+      });
+      //加载完文档，加载标签集合
+      that.getLabelList();
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
+
+  },
   //获取标签集合
-  getLabelList: function() {
+  getLabelList: function () {
     var that = this;
     var url = 'study/get_labels.do';
     commonUtils.commonAjax(url, "", 2).then(that.processLabelResult);
   },
-  processLabelResult: function(res) {
+  processLabelResult: function (res) {
     var that = this;
     if (res.statusCode == 200 && res.data.status == 0) {
       that.setData({
@@ -110,41 +86,6 @@ Page({
     } else {
       commonUtils.commonTips(res.statusCode);
     }
-  },
-  //获取文档集合
-  getDocumentList: function(id) {
-    var that = this;
-    var url = 'study/get_study_documents_by_label_id.do';
-    var reqData = {
-      label_id: [id],
-      page: that.data.currentPage, //当前页码
-      pageNum: 8 //每页显示8条记录
-    };
-    commonUtils.ajaxRequest(url, reqData, 2, 2).then(that.processResult);
-  },
-  processResult: function(res) {
-    var that = this;
-    if (res.statusCode == 200 && res.data.status == 0) {
-      var data = that.changeFormat(res.data.data.list);
-      //判断是否显示‘加载更多’
-      if (res.data.data.totalPage <= that.data.currentPage) {
-        that.setData({
-          isHaveMore: false
-        })
-      } else {
-        that.setData({
-          currentPage: that.data.currentPage + 1
-        });
-      }
-      that.setData({
-        docList: that.data.docList.concat(data)
-      });
-      //加载完文档，加载标签集合
-      that.getLabelList();
-    } else {
-      commonUtils.commonTips(res.statusCode);
-    }
-
   },
   //点击蒙层恢复
   hiddenShadow: function() {
@@ -160,24 +101,6 @@ Page({
         menu: that.data.menuIcon
       })
     }
-  },
-  //跳转
-  targetTo: function(e) {
-    var that = this;
-    var index = e.target.dataset.index
-    var docList = that.data.docList;
-    if (that.data.isEncode == false) {
-      for (var i = 0; i < docList.length; i++) {
-        docList[i].filePath = encodeURIComponent(docList[i].filePath);
-      }
-      //编码判断符
-      that.setData({
-        isEncode: true
-      })
-    }
-    docList = JSON.stringify(docList);
-    pahelper.navigateTo(that.data.documentUrl + '?data=' + docList + '&index=' + index);
-
   },
   //转换时间格式
   changeFormat: function(data) {
@@ -238,7 +161,7 @@ Page({
         currentPage: that.data.currentPage + 1
       })
       //加载文档集合
-      that.getDocumentList(that.data.id);
+      that.getDocumentList(that.data.labelId);
     }
   },
 
@@ -247,5 +170,67 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  //禁止滑动
+  banSlide: function () { },
+  //输入框显示清除按键
+  showClear: function (e) {
+    var value = e.detail.value;
+    if (value != '') {
+      this.setData({
+        inputVal: value,
+        clear: false
+      })
+    } else {
+      this.setData({
+        clear: true
+      })
+    }
+  },
+  //清除输入框中的内容
+  clearVal: function () {
+    this.setData({
+      inputVal: '',
+      clear: true
+    })
+  },
+  //显示下拉框
+  showitem: function () {
+    var that = this;
+    // 第一次点击菜单
+    if (!that.data.first_click) {
+      that.setData({
+        first_click: true
+      });
+    }
+    that.setData({
+      open: !that.data.open,
+    });
+    if (that.data.menu === that.data.menuIcon) {
+      that.setData({
+        menu: that.data.menuIcon1
+      })
+    } else {
+      that.setData({
+        menu: that.data.menuIcon
+      })
+    }
+
+  },
+  //点击切换
+  clickTab: function (e) {
+    var that = this;
+    //判断是否隐藏蒙层
+    if (that.data.open)
+      that.hiddenShadow();
+
+    //初始化
+    that.setData({
+      labelId: e.target.dataset.labelid,
+      currentPage: 1,
+      docList: [],
+      isHaveMore: true
+    })
+    that.getDocumentList(that.data.labelId);
   }
 })

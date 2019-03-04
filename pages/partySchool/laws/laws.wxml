@@ -1,0 +1,44 @@
+<view class='main'>
+  <view class='searchBox' catchtouchmove='banSlide'>
+    <view class='menu'>
+    <!--菜单图标  -->
+      <image class='menu-image' src='{{menu}}' bindtap="showitem"></image>
+    </view>
+    <!--搜索框  -->
+    <view class='content'>
+        <image class='img' src='/images/partySchool_icon/search.png' mode="aspectFit"></image>
+      <input class='ipt'  value='{{inputVal}}' bindinput='showClear' placeholder='输入标题搜索' placeholder-style="font-size:30rpx;" confirm-type="search"></input>
+      <icon class='clear' type='clear' size='13' hidden='{{clear}}' bindtap='clearVal'></icon>
+    </view>
+  </view>
+      <!--下拉内容  -->
+      <view id='box' class="{{open?'display_show':'display_none'}} {{first_click?'show':'hide'}}" catchtouchmove='banSlide'>
+        <view class='label' bindtap="clickTab" data-labelId='2'>全部</view>
+        <view class='label' bindtap="clickTab" data-labelId='8'>{{labelList[7].labelName}}</view>
+        <view class='label' bindtap="clickTab" data-labelId='9'>{{labelList[8].labelName}}</view>
+        <view class='label' bindtap="clickTab" data-labelId='10'>{{labelList[9].labelName}}</view>
+      </view>
+      <!--蒙层  -->
+      <view class='shadow' style='height:1200rpx;' hidden='{{!open}}' bindtap='hiddenShadow' catchtouchmove='banSlide'></view>
+
+    <!--菜单栏内容  -->
+    <view class='under' wx:if='{{documentList.length>0}}'>
+     <navigator wx:for="{{documentList}}" wx:key="{{item.documentId}}"  url="{{documentUrl + '?id=' + item.documentId}}">
+      <view class="view" >
+        <view class="inner">
+          <view class='law-title'>{{item.documentTitle}}</view>
+          <view class='behind'>
+            <view class='law-time'>{{item.updateTime}}</view>
+            <!-- <image wx:if='{{index==0}}' class='law-image' src="/images/partySchool_icon/top.png" data-index='{{index}}'></image> -->
+          </view>
+        </view>
+      </view>
+       </navigator>
+    </view>
+    <view class='null' wx:else>
+      <image class='null-img' src='{{nullIcon}}'></image>
+      <view class='null-text'>暂无文档记录</view>
+    </view>
+    <view class='more' wx:if='{{documentList.length>0}}' hidden='{{isHaveMore}}'>没有更多了~</view>
+    <view class='more' wx:if='{{documentList.length>0}}' hidden='{{!isHaveMore}}'>正在加载...</view>
+</view>

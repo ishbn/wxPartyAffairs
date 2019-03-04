@@ -1,0 +1,65 @@
+<view class='main'>
+  <view class='content'>
+    <!--课程头部  -->
+    <view class='head'>
+      <view class='title'>{{document.documentTitle}}</view>
+      <view class='under'>
+        <view class='time'>{{document.updateTime}} {{document.uploadUser}}</view>
+        <view class='number'>
+          <image class='look' src='{{lookIcon}}'></image>
+          <view class='people'>{{document.downloadTimes}}</view>
+        </view>
+      </view>
+    </view>
+    <!--正文 -->
+    <view class='contain'>
+      <!-- <block wx:if="{{document.coverImg!=''}}"> -->
+        <view class="imgBox">
+          <image  src="{{document.coverImg}}"></image>
+        </view>
+      <!-- </block> -->
+      
+      <!-- 介绍 -->
+      <view class='text'>{{document.documentIntroduction}}</view>
+      <!-- 下载链接 -->
+      <view class='download-view'>
+        <view class='download'>
+          <image src='{{downloadIcon}}' class='download-img'></image>
+        </view>
+        <view class='downloadPath' bindtap='downloadFile' data-url='{{document.filePath}}'>下载</view>
+      </view>
+    </view>
+    <!--页脚  -->
+    <view class='footer'>
+      <!--收藏效果  -->
+      <!-- <view class='icon'>
+        <view class='col' hidden='{{colShow}}'>收藏成功</view>
+        <view class='col' hidden='{{colCancelShow}}'>取消收藏</view>
+      </view>
+      收藏图标 
+      <view class='inner'>
+        <image class='collect' src='{{collect}}' bindtap="{{clickCol?'colOne':''}}"></image>
+      </view> -->
+      <!--上一篇  -->
+      <!-- <view class='pre' wx:if='{{documentList[pre]!=null}}'>
+        <view>上一篇：</view>
+        <view class='footer-title' data-list='{{documentList}}' data-index='{{pre}}' bindtap='targetTo'>{{documentList[pre].documentTitle}}</view>
+      </view> -->
+      <!--下一篇  -->
+      <!-- <view class='next' wx:if='{{documentList[next]!=null}}'>
+        <view>下一篇：</view>
+        <view class='footer-title' data-list='{{documentList}}' data-index='{{next}}' bindtap='targetTo'>{{documentList[next].documentTitle}}</view>
+      </view> -->
+    </view>
+  </view>
+  <!-- 下载进度 -->
+  <view class='percent' hidden='{{isDownload}}'>
+    <view class='downloadInfo'>
+      <view class='download-percent'>下载进度</view>
+      <view class='download-size'>{{downloadSize}}kb</view>
+    </view>
+    <view class='progress'>
+      <progress percent='{{percent}}' show-info='true'></progress>
+    </view>
+  </view>
+</view>

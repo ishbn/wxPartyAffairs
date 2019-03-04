@@ -1,75 +1,3 @@
-/* pages/partySchool/miniClass/course/detail/video/videoui.wxss */
-.content{
-  width: 100%;
-  height: auto;
-  margin-top:10rpx;
-}
-.head{
-  width: 100%;
-  height: 100rpx;
-  margin:0 10rpx;
-}
-.title{
-  width: 100%;
-  height: 55%;
-  /* line-height: 50rpx;
-  font-size: 35rpx; */
-  display: flex;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.time{
-  width: 100%;
-  height: 45%;
-  color: darkgray;
-  font-size: 25rpx;
-  line-height: 50rpx;
-}
-
-
-.wxParse-video{
-    text-align: center;
-    margin: 10px 0;
-}
-.wxParse-video-video{
-    width:100%;
-}
-/*视频列表封面  */
-.controls {
-  position: relative;
-  height: 100%;
-  margin-top: 0;
-  display: flex;
-  color: #fff;
-}
-/* 视频缩略图 */
-.img_block{
-  width:100px;
-  height:100px;line-height:100px;
-  background: #dcdcdc;
-  text-align: center;
-}
-.img_block image {
-  width: 100%;
-  height: 100%;
-}
-
-.contain{
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.text{
-  width: 95%;
-  font-size: 30rpx;
-  line-height: 60rpx;
-  text-indent: 60rpx;
-  word-wrap: break-word; 
-}
-
-
 .moduleWrap.draggingForOverflow {
   overflow: hidden;
 }
@@ -369,7 +297,7 @@
 }
 
 .mutil-graph-swiperA .img-wrapper {
-  height: 180px;
+  height: 200px;
   box-sizing: border-box;
 }
 

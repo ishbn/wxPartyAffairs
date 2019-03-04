@@ -36,19 +36,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
 					"name": "sss2",
-					"pathName": "pages/partySchool/miniClass/myCourse/myCourse",
-					"query": "id=2",
+					"pathName": "pages/partySchool/testPage/testPage",
+					"query": "id=57",
 					"scene": null
 				},
 				{
 					"id": 1,
 					"name": "s12qw",
-					"pathName": "pages/partySchool/miniClass/course/detail/video/video",
+					"pathName": "pages/wode/feedback/feedback_home/feedback_home",
 					"query": "id=2",
 					"scene": null
 				},

@@ -1,24 +1,56 @@
 <!--pages/partySchool/miniClass/course/detail/video/videoui.wxml-->
- <view class='content'>
-    <!--课程头部  -->
+<!-- <view class='content'>
     <view class='head'>
       <view class='title'>{{videos.videoTitle}}</view>
       <view class='time'>{{videos.updateTime}} {{videos.uploadUser}}</view>
     </view>
-  </view>
+  </view> -->
+
+
 
 
 <view class="wxParse-video" data-aa="{{videos.videoId}}">
-  <video id="wxParse{{videos.videoId}}" src="{{srcs['wxParse'+videos.videoId]}}" class="wxParse-video-video" poster="{{videos.coverImg}}" bindplay="bindplay_video" data-id="wxParse{{videos.videoId}}" custom-cache="{{false}}" enable-progress-gesture='{{false}}' bindtimeupdate='timeupdate' title='{{videos.videoTitle}}' show-progress="{{false}}" >
+  <video id="wxParse{{videos.videoId}}" src="{{srcs['wxParse'+videos.videoId]}}" class="wxParse-video-video" poster="{{videos.coverImg}}" bindplay="bindplay_video" data-id="wxParse{{videos.videoId}}" custom-cache="{{false}}" enable-progress-gesture='{{false}}'
+    bindtimeupdate='timeupdate' title='{{videos.videoTitle}}' show-progress="{{false}}">
     <cover-view class="controls" hidden="{{srcs['wxParse'+videos.videoId]}}" bindtap="bindplay" data-id="wxParse{{videos.videoId}}" data-src="{{videos.videoPath}}">
     </cover-view>
   </video>
 </view>
 
+<view class="moduleType module-pack ">
+  <view class="moduleTitle">
+    <span class="lines left-lines"></span>
+    <span class="titleText">内容详情</span>
+    <span class="lines right-lines"></span>
+  </view>
+
+  <view class="packModulesContainer" style="background-color: rgb(255, 255, 255); ">
+    <view class="moduleType"></view>
+    <view class="textContent">
+      <view>◆标题：{{videos.videoTitle}}</view>
+      <view>◆时间：{{videos.updateTime}} {{videos.uploadUser}}</view>
+      <!-- <view>◆下载次数：{{doc.downloadTimes}}</view> -->
+      <view>◆简介：{{videos.videoIntroduction}}</view>
+      <!-- <view>◆下载量：{{doc.filePath}}</view> -->
+      <!-- <button type='download' bindtap='clickDownload'>{{dlBtn}}</button> -->
+    </view>
+  </view>
+
+
+<!-- <view class='content'>
+    <view class='head'>
+      <view class='title'>{{videos.videoTitle}}</view>
+      <view class='time'>{{videos.updateTime}} {{videos.uploadUser}}</view>
+    </view>
+  </view> 
 
 <view class='contain'>
-    <view class='text'>{{videos.videoIntroduction}}</view>
-  </view>
+  <view class='text'>{{videos.videoIntroduction}}</view>
+</view> -->
+
+</view>
+
+
 
 
 

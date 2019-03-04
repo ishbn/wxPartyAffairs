@@ -57,7 +57,7 @@ Page({
 
         imgUrls: '/images/icon/相册r.png',
         descs: '活动相册',
-        target_page: '/pages/organization/eventAlbum/eventAlbum'
+        target_page: '/pages/organization/partybranchList/partybranchList'
       },
       {
 

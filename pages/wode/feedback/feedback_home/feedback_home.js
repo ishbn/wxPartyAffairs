@@ -1,4 +1,8 @@
 // pages/wode/feedback/feedback_home/feedback_home.js
+var commonUtils = require("../../../../utils/commonUtil.js");
+var paValidUtil = require("../../../../utils/paValidUtil.js");
+var pahelper = require("../../../../utils/pahelper.js");
+var app = getApp();
 Page({
 
   /**
@@ -8,35 +12,20 @@ Page({
     currentTab: 0,
     more: true,
     feedback_type_index: 0,
-    feedback_type: [
-      '工作作风',
-      '党规党纪',
-      '产品建议',
-      '程序报错',
-      '投诉反馈',
-      '我要举报',
-      '其他'
-    ],
+    feedback_type: [],
     feedback: {
-      feedback_type: '工作作风',
+      feedbackType: '',
       title: '',
-      content: ''
+      content: '',
+      userId:''
     },
     maxlength: 1024,
-    feedback_list: [
-      {
-        feedback_id: 1,
-        title: '我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题我是标题',
-        feedback_type: '我是类型',
-        date: '2018-12-13'
-      },
-      {
-        feedback_id: 2,
-        title: '我是标题',
-        feedback_type: 'weqwe',
-        date: '2018-12-13'
-      }
-    ]
+    feedback_list: [],
+    pageNum:1,
+    num:10,
+    reqMore:true,
+    localUrl:"/pages/wode/feedback/feedback_home/feedback_home",
+    feedbackDetailUrl:"/pages/wode/feedback/feedback_detail/feedback_detail"
 
   },
 
@@ -44,9 +33,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
+    var thisUrl = that.data.localUrl;
+    if (!paValidUtil.checkLogin(thisUrl , 2)) {
+      return;
+    }
 
+    var userId = app.globalData.userInfo.userId;
+    var fb = that.data.feedback;
+    fb.userId = userId;
+    that.setData({
+      feedback: fb
+    });
+
+    var url = "/feedback/getFeedbackType";
+    //获取反馈类型
+    commonUtils.ajaxRequest(url,"",0,1).then(that.getFeebBackType);
   },
-
+  getFeebBackType:function(res){
+    var that = this;
+    console.log(res);
+    if (res.statusCode == 200 && res.data.status == 0) {
+      var result = res.data.data;
+      that.setData({
+        feedback_type: result
+      });
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -86,7 +101,16 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    var that = this;
+      var tag =that.data.currentTab;
+      var canMore = that.data.reqMore;
+    if (tag == 1 && canMore ){
+        var nextpageNum = that.data.pageNum+1;
+        that.setData({
+          pageNum: nextpageNum
+        });
+      that.getFeedbackList();
+      }
   },
 
   /**
@@ -95,12 +119,72 @@ Page({
   onShareAppMessage: function () {
 
   },
+
+  /**点击提交 */
+  dosubmit: function () {
+    var that = this;
+    //检查输入项
+    var error = that.docheck();
+    // console.log(error);
+    if (error) {
+      return;
+    }
+    console.log(that.data.feedback);
+    var url ="/feedback/insertFeedback";
+    var data=that.data.feedback;
+    commonUtils.ajaxRequest(url,data,2,0).then(that.subResult);
+  },
+  subResult:function(res){
+    var that = this;
+    console.log(res);
+    if (res.statusCode == 200 && res.data.status == 0) {
+      var result = res.data;
+      pahelper.showToast(result.msg);
+      that.setData({
+        feedback:{}
+      });
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
+  },
+  
+  getFeedbackList: function () {
+    var that =this;
+    var pageNum = that.data.pageNum;
+    var num = that.data.num;
+    var canReqMore = that.data.reqMore;
+    if (canReqMore){
+      var url = "/feedback/getMyFeedbackList/" + pageNum + "/" + num;
+      commonUtils.ajaxRequest(url, {}, 1, 0).then(that.getfeedbackList);
+    }
+  },
+  getfeedbackList:function(res){
+    var that = this;
+    console.log(res);
+    if (res.statusCode == 200 && res.data.status == 0) {
+      var result = res.data.data;
+      var canMore =true;
+      var nowPage = that.data.pageNum;
+      var totalPage = result.totalPageNum;
+      if (nowPage >= totalPage){
+        canMore=false;
+      }
+      var oldData = that.data.feedback_list;
+      var proData = commonUtils.commonArrayAdd(oldData, result.list);
+      that.setData({
+        reqMore:canMore,
+        feedback_list: proData
+      });
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
+  },
   bindPickerChange: function (e) {
     var that = this;
     // console.log('picker发送选择改变，携带值为', e.detail.value);
     var feed = that.data.feedback;
-    var type_f = that.data.feedback_type[e.detail.value];
-    feed.feedback_type = type_f;
+    var type_f = that.data.feedback_type[e.detail.value].typeId;
+    feed.feedbackType = type_f;
     this.setData({
       feedback_type_index: e.detail.value,
       feedback: feed
@@ -110,15 +194,21 @@ Page({
   swichNav: function (e) {
     //sconsole.log(e);
     var that = this;
-    if (this.data.currentTab === e.target.dataset.current) {
+    var index = e.target.dataset.current;
+    if (that.data.currentTab == index) {
       return false;
     } else {
       that.setData({
-        currentTab: e.target.dataset.current,
+        currentTab: index
       });
-      if (that.data.currentTab == 1) {
-        //检查网络状态并执行 数据查询请求
-        that.checkNetWork();
+      if (index == 1) {
+        that.setData({
+          feedback_list: [],
+          pageNum:1,
+          reqMore: true
+        });
+        // 请求反馈列表
+        that.getFeedbackList();
       }
     }
 
@@ -145,24 +235,10 @@ Page({
       feedback: fb
     })
   },
-  /**点击提交 */
-  dosubmit: function () {
-    var that = this;
-    //检查输入项
-    var error = that.docheck();
-    // console.log(error);
-    if (error) {
-      return;
-    }
-    console.log(that.data.feedback);
-    /*wx.request({
-      url: '',
-    })*/
-  },
   docheck: function () {
     var that = this;
     var data = that.data.feedback;
-    if (data.feedback_type === '') {
+    if (data.feedbackType === '') {
       that.showError('类型不能为空');
       return true;
     }
@@ -181,28 +257,5 @@ Page({
       title: e,
       icon: 'none'
     })
-  },
-  checkNetWork: function () {
-    var that = this;
-    wx.getNetworkType({
-      success: function (res) {
-        // 返回网络类型, 有效值：
-        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
-        var networkType = res.networkType;
-        if (networkType == 'none') {
-          // 提示网络出错
-          that.showError('加载失败，请检查网络');
-        } else {
-          // 请求反馈列表
-          that.getFeedbackList();
-        }
-      },
-      fail:function(res){
-        that.showError('检查网络失败，请稍后再试');
-      }
-    });
-  },
-  getFeedbackList: function () {
-    console.log('等一个接口');
   }
 })

@@ -27,10 +27,9 @@
     "pages/partySchool/threeOne/home/home",
     "pages/partySchool/threeOne/myMeeting/myMeeting",
     "pages/partySchool/threeOne/summary/summary",
-    "pages/partySchool/education/home/home",
-    "pages/partySchool/anti-corruption/home/home",
-    "pages/partySchool/laws/home/home",
+    "pages/partySchool/laws/laws",
     "pages/partySchool/examination/home/home",
+    "pages/partySchool/education/education",
     "pages/partySchool/examination/content/content",
     "pages/partySchool/partyClass/class/swiperItem/swiperItem_home/swiperItem_home",
     "pages/partySchool/partyClass/mySelf/mySelf",
@@ -59,7 +58,8 @@
     "pages/common/testTemplate/testTemplate",
     "pages/partySchool/anti-corruption/anti-corruption",
     "pages/partySchool/miniClass/course/detail/video1",
-    "pages/partySchool/miniClass/course/detail/video/videoui"
+    "pages/partySchool/miniClass/course/detail/video/videoui",
+    "pages/partySchool/testPage/testPage"
   ],
   "window": {
     "backgroundTextStyle": "light",

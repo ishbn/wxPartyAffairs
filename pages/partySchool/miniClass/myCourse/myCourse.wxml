@@ -17,7 +17,7 @@
     </view>
     <!--未学下拉菜单  -->
     <view animation="{{learningAnimation}}" id='box' class="show">
-      <view wx:for='{{mustLearnVedioList}}' wx:key='{{index}}' wx:if='{{item.schedule<100}}' class='oneVedio' bindtap='toDetails'>
+      <view wx:for='{{mustLearnVedioList}}' wx:key='{{index}}' wx:if='{{item.already<100}}' class='oneVedio' bindtap='toDetails'>
         <view class='vedioImg'>
           <image class='img' src='{{item.coverImg}}' data-index='{{index}}'></image>
         </view>
