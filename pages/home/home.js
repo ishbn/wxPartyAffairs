@@ -1,6 +1,8 @@
 // pages/home/home.js
 var commonUtils = require("../../utils/commonUtil.js");
 var paValidUtil = require("../../utils/paValidUtil.js");
+var pahelper = require("../../utils/pahelper.js");
+
 var app = getApp();
 Page({
 
@@ -83,6 +85,8 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    //如果存在缓存，自动登录
+    that.autoLogin();
     that.doRequestData();
 
   },
@@ -180,6 +184,59 @@ Page({
     var that = this;
     that.setData({
       canShow: true
+    });
+  },
+  autoLogin: function() {
+    var that = this;
+    var userInfo = "";
+    // 缓存
+    try {
+      userInfo = wx.getStorageSync('userLogin');
+    } catch (e) {
+      // Do something when catch error
+    }
+    if (JSON.stringify(userInfo)!="{}") {
+      var url = "login";
+      if (pahelper.isEmpty(userInfo.userId) || pahelper.isEmpty(userInfo.password)){
+        return;
+      }
+      console.log(userInfo)
+
+      var data = {
+        userId: userInfo.userId,
+        password: userInfo.password
+      };
+      commonUtils.ajaxRequest(url, data, 2, 1).then(that.autoLoginResult);
+    } else {
+      return;
+    }
+  },
+  autoLoginResult: function(res) {
+    var that = this;
+    console.log(res);
+    if (res.statusCode == 200 && res.data.status == 0) {
+      // 保存本地，方便下次登录
+      that.saveUserInfo(res);
+      //标志更改为已登录并记住sessionId
+      app.globalData.hadLogin = true;
+      app.globalData.header.Cookie = res.header['Set-Cookie'];
+      app.globalData.userInfo = res.data.data;
+    }
+  },
+  /**保存缓存 */
+  saveUserInfo: function(res) {
+    var that = this;
+    var userlogin = {
+      userId: that.data.userId,
+      password: that.data.password
+    }
+    wx.setStorage({
+      key: "userLogin",
+      data: userlogin
+    });
+    wx.setStorage({
+      key: "userInfo",
+      data: res.data.data
     });
   }
 })

@@ -72,8 +72,9 @@ function cancelDownload(){
 }
 
 function isEmpty(data){
-  if(typeof(data) == 'undefind' || data == ''){
+  if(typeof(data) == 'undefind' || data == ''|| data ==0){
     return true;
   }
   return false;
 }
+

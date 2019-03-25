@@ -1,9 +1,10 @@
 'use strict';
 
 let app = getApp();
-
+var commonUtils = require("../../utils/commonUtil.js");
+var paValidUtil = require("../../utils/paValidUtil.js");
+var pahelper = require("../../utils/pahelper.js");
 // 后继的代码都会放在此对象中
-// let handler = {
 Page({
   data: {
 
@@ -27,70 +28,38 @@ Page({
   requestArticleData: function(id) {
     var that = this;
     var addr = app.globalData.serverAddress;
-    wx.request({
-      url: addr+'/study/get_study_documents_by_label_id.do',
-      // mock: true,
-      method: 'POST',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      data: {
-        label_id: [id],
-        page: that.data.page+1||1, //当前页码
-        pageNum: 10 //每页显示8条记录
-
-        // tag: '微信热门',
-        // start: this.data.page || 1,
-        // days: this.data.days || 3,
-        // pageSize: this.data.pageSize,
-        // langs: config.appLang || 'en'
-      },
-      success: function(res) {
-        console.log(res);
-        if (res.data.status === 0 && res.data.data.list.length) {
-
-          // 正常数据 do something
-          let articleData = res.data.data.list;
-          console.log(articleData);
-          //重构原始数据
-          let format1Data = that.formatArticleDataStructure(articleData);
-          //格式化原始数据
-          let formatData = that.formatArticleData(format1Data);
-          console.log(formatData);
-          that.renderArticle(formatData);
-        }
-        /*
-         * 如果加载第一页就没有数据，说明数据存在异常情况
-         * 处理方式：弹出异常提示信息（默认提示信息）并设置下拉加载功能不可用
-         */
-        else if (that.data.page === 1 && res.data && res.data.length === 0) {
-          // util.alert();
-          this.setData({
-            hasMore: false
-          });
-        }
-        /*
-         * 如果非第一页没有数据，那说明没有数据了，停用下拉加载功能即可
-         */
-        else if (that.data.page !== 1 && res.data && res.data.length === 0) {
-          that.setData({
-            hasMore: false
-          });
-        }
-        /*
-         * 返回异常错误
-         * 展示后端返回的错误信息，并设置下拉加载功能不可用
-         */
-        else {
-          // util.alert('提示', res);
-          this.setData({
-            hasMore: false
-          });
-          return null;
-        }
-
+    var url = '/study/get_study_documents_by_label_id.do';
+    var data = {
+      label_id: [id],
+      page: that.data.page + 1 || 1, //当前页码
+      pageNum: 10 //每页显示8条记录
+    };
+    commonUtils.ajaxRequest(url,data,2,1).then(that.articalList);
+  },
+  articalList: function (res) {
+    var that = this;
+    console.log(res);
+    if (res.statusCode == 200 && res.data.status == 0) {
+      var result = res.data.data;
+      if (result.list.length>0){
+        // 正常数据 do something
+        let articleData = result.list;
+        console.log(articleData);
+        //重构原始数据
+        let format1Data = that.formatArticleDataStructure(articleData);
+        //格式化原始数据
+        let formatData = that.formatArticleData(format1Data);
+        console.log(formatData);
+        that.renderArticle(formatData);
+      }else{
+        this.setData({
+          hasMore: false
+        });
       }
-    });
+    
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
   },
   /*重构数据结构*/
   formatArticleDataStructure: function(data) {
@@ -311,5 +280,4 @@ Page({
     })
   }
 
-})
-// Page(handler)
+});

@@ -163,6 +163,9 @@ Page({
     console.log(res);
     if (res.statusCode == 200 && res.data.status == 0) {
       var result = res.data.data;
+      for (var i = 0; i < result.list.length; i++) {
+        result.list[i].date = (result.list[i].date).substring(0, 10);
+      }
       var canMore =true;
       var nowPage = that.data.pageNum;
       var totalPage = result.totalPageNum;

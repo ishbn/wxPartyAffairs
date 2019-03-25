@@ -1,12 +1,2 @@
-<view class='header'>
-  <image src='{{imges}}'></image>
-</view>
-<!--菜单  -->
-<view class='wrapper'>
-  <view class='box' wx:for="{{menu}}" wx:key="*this">
-    <view class='menu' catchtap='menuTargetTo' data-targeturl='{{item.targetPages}}'>
-      <image class="menu-img" src="{{item.imgUrls}}" data-targeturl='{{item.targetPages}}'></image>
-      <view  class="menu-desc" data-targeturl='{{item.targetPages}}'>{{item.descs}}</view>
-    </view>
-    </view>
-</view>
+<!--pages/partySchool/partyClass/menu/menu.wxml-->
+<text>pages/partySchool/partyClass/menu/menu.wxml</text>

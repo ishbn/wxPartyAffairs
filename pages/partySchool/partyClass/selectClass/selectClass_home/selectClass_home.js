@@ -1,45 +1,13 @@
+// pages/partySchool/partyClass/selectClass/selectClass_home/selectClass_home.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    currentTab: 0, //预设当前项的值
-    detailUrl:"./../details/detail",//跳转到详细课程的页面地址
-    list:{//标签
-      law:[
-        "全部","党章","准则","条例","规则","规定","办法","细则"
-      ],
-      presidentXi:[
-        "全部","系列讲话","从严治党","新时代","治国理论","依法治国","中国梦"
-      ],
-      nineteen:[
-        "全部","报告","决议"
-      ]
-    }
+
   },
-  //滑动切换
-  swiperTab: function (e) {
-    var that = this;
-    that.setData({
-      currentTab: e.detail.current
-    });
-  },
-  //点击切换
-  clickTab: function (e) {
-    var that = this;
-    that.setData({
-      currentTab: e.target.dataset.current
-    });
-  },
-  //点击标签实现跳转
-  navigateTo: function(e){
-    var url = this.data.detailUrl;
-    var classObject = JSON.stringify(e);
-    wx.navigateTo({
-      url: url + '?e=' + classObject
-    });
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

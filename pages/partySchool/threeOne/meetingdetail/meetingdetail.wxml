@@ -1,0 +1,30 @@
+<!--pages/partySchool/threeOne/meetingdetail/meetingdetail.wxml-->
+<!-- <text>pages/partySchool/threeOne/meetingdetail/meetingdetail.wxml</text> -->
+
+
+
+<view class="wxParse-video" data-aa="{{videos.meetingId}}">
+  <video id="wxParse{{videos.meetingId}}" src="{{srcs['wxParse'+videos.meetingId]}}" class="wxParse-video-video" poster="{{videos.coverpath}}" bindplay="bindplay_video" data-id="wxParse{{videos.meetingId}}" custom-cache="{{false}}" enable-progress-gesture='{{false}}'
+     title='{{videos.title}}' show-progress="{{false}}">
+    <cover-view class="controls" hidden="{{srcs['wxParse'+videos.meetingId]}}" bindtap="bindplay" data-id="wxParse{{videos.meetingId}}" data-src="{{videos.video}}">
+    </cover-view>
+  </video>
+</view>
+
+<view class="moduleType module-pack ">
+  <view class="moduleTitle">
+    <span class="lines left-lines"></span>
+    <span class="titleText">内容详情</span>
+    <span class="lines right-lines"></span>
+  </view>
+
+  <view class="packModulesContainer" style="background-color: rgb(255, 255, 255); ">
+    <view class="moduleType"></view>
+    <view class="textContent">
+      <view>◆标题：{{videos.title}}</view>
+      <view>◆时间：{{videos.lastTime}} {{videos.creatorName}}</view>
+      <view>◆简介：{{videos.content}}</view>
+      <!-- <button type='download' bindtap='clickDownload'>{{dlBtn}}</button> -->
+    </view>
+  </view>
+</view>

@@ -1,27 +1,11 @@
+// pages/partySchool/partyClass/menu/menu.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imges: '/images/bg/bg_time.png',
-    menu:[
-      {
-        imgUrls: '/images/partySchool_icon/onclass.png',
-        descs: '课程',
-        targetPages: './../class/class_home/class_home'
-      },
-      // {
-      //   imgUrls: '/images/partySchool_icon/onPartyClass.png',
-      //   descs: '选课',
-      //   targetPages: './../selectClass/selectClass_home/selectClass_home'
-      // },
-      {
-        imgUrls: '/images/partySchool_icon/onMyself.png',
-        descs: '我的',
-        targetPages: './../mySelf/mySelf'
-      }
-    ]
+
   },
 
   /**
@@ -78,11 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  menuTargetTo: function (e) {
-    var src = e.target.dataset.targeturl;
-    wx.navigateTo({
-      url: src
-    })
   }
 })

@@ -124,7 +124,7 @@
 }
 .view{
   width: 350rpx;
-  height: 390rpx;
+  height: 350rpx;
   background: white;
   margin-top: 20rpx;
   margin-left: 17rpx;
@@ -142,7 +142,7 @@
 }
 .info{
   width: 320rpx;
-  height: 80rpx;
+  height: 65rpx;
   line-height: 40rpx;
   overflow: hidden;
   word-wrap: break-word;

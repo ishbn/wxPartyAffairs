@@ -4,7 +4,8 @@ App({
     var that = this;
     that.getStorageData('visited', (data) => {
       this.globalData.visitedArticles = data;
-    })
+    });
+    
   },
   checkLogin:function(url,ftype){
     if(!this.globalData.hadLogin){
@@ -31,6 +32,7 @@ App({
   globalData: {
     userInfo: null,
     // serverAddress:'http://120.77.40.163:8080/PartyAffairs/',
+    // serverAddress: 'http://192.168.88.53:8080/',
     serverAddress: 'http://192.168.31.12:8080/',
     ftpAddress:"",
     dropDownTime:800,

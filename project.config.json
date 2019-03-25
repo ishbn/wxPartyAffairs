@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -55,7 +55,7 @@
 				{
 					"id": 2,
 					"name": "sss",
-					"pathName": "pages/partySchool/miniClass/course/detail/video/videoui",
+					"pathName": "pages/partySchool/threeOne/myMeeting/myMeeting",
 					"query": "id=2",
 					"scene": null
 				}

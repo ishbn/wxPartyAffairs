@@ -1,18 +1,2 @@
-<view class='background'>
-  <!--头部  -->
-  <!-- <view class='inner'>
-    <image class='meeting-image' src='{{head.image}}'></image>
-    <view class='meeting-info'>{{head.info}}</view>
-  </view> -->
-  <!--底部  -->
-  <view class='under'>
-    <view class='content1'>
-      <image class='myMeeting-image' bindtap='targetTo' src='{{myMeeting.image}}' data-targetUrl='{{myMeeting.targetUrl}}'></image>
-      <view class='myMeeting-info' bindtap='targetTo' data-targetUrl='{{myMeeting.targetUrl}}'>{{myMeeting.info}}</view>
-    </view>
-    <view class="content2">
-      <image class='summary-image' bindtap='targetTo' src='{{summary.image}}' data-targetUrl='{{summary.targetUrl}}'></image>
-      <view class='summary-info' bindtap='targetTo' data-targetUrl='{{summary.targetUrl}}'>{{summary.info}}</view>
-    </view>
-  </view>
-</view>
+<!--pages/partySchool/threeOne/home/home.wxml-->
+<text>pages/partySchool/threeOne/home/home.wxml</text>

@@ -99,7 +99,10 @@ Page({
             // 销毁Cookie，登录标识
             app.globalData.header.Cookie = '';
             app.globalData.hadLogin = false;
-            url += '?targetPage=/pages/wode/wode/wode&turnToWay=tabbar';
+            app.globalData.userInfo = "";
+            var tartget = '/pages/wode/wode/wode';
+            var en_url = encodeURIComponent(tartget);
+            url += "?targetPage=" + en_url +"&turnToWay=switchTab";
             //转发
             wx.reLaunch({
               url: url
