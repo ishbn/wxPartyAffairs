@@ -21,7 +21,7 @@ function checkCover(res){
       res[i].coverpath = res[i].coverpath;
 
     }
-    res[i].coverpath = app.globalData.defulatImg;
+    // res[i].coverpath = app.globalData.defulatImg;
 
   }
   return res;
@@ -125,7 +125,7 @@ function processAlbum(res){
         res[i].image = res[i].image;
       }
     }
-    res[i].image = app.globalData.defulatImg;
+    // res[i].image = app.globalData.defulatImg;
   }
   return res;
 
@@ -144,7 +144,7 @@ function processAlbumList(res){
         res[i].coverImage = res[i].coverImage;
       }
     }
-    res[i].coverImage = app.globalData.defulatImg;
+    // res[i].coverImage = app.globalData.defulatImg;
   }
   return res;
 }

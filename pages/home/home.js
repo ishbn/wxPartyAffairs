@@ -12,60 +12,59 @@ Page({
   data: {
     canShow: false,
     menu: [{
-        // imgUrls: '/images/icon_function/file.png',
-        imgUrls: '/images/icon/档案 (1).png',
+        imgUrls: '/images/icon/paper.png',
         descs: '党员档案',
         target_page: '/pages/organization/partyUserInfo/partyUserInfo'
       },
       {
-        imgUrls: '/images/icon/课程r.png',
+        imgUrls: '/images/icon/class.png',
         descs: '微党课',
-        target_page: "/pages/partySchool/partyClass/class/class_home/class_home"
+        target_page: "/pages/partySchool/miniClass/course/coursePush/coursePush"
       },
       {
 
-        imgUrls: '/images/icon/文章.png',
+        imgUrls: '/images/icon/meeting.png',
         descs: '三会一课',
-        target_page: '/pages/partySchool/threeOne/home/home'
+        target_page: '/pages/partySchool/threeOne/myMeeting/myMeeting'
       },
       {
 
-        imgUrls: '/images/icon/教育.png',
+        imgUrls: '/images/icon/education.png',
         descs: '专题教育',
-        target_page: '/pages/partySchool/education/home/home'
+        target_page: '/pages/partySchool/education/education'
       },
       {
-        imgUrls: '/images/icon/公告2.png',
+        imgUrls: '/images/icon/notice.png',
         descs: '通知公示',
         target_page: '/pages/news/notices/notices_list/notices_list'
       },
       {
-        imgUrls: '/images/icon/新闻 (1).png',
+        imgUrls: '/images/icon/news.png',
         descs: '党建要闻',
         target_page: '/pages/news/news/news_list/news_list'
       },
       {
-        imgUrls: '/images/icon/考试 (1).png',
-        descs: 'e起考试',
+        imgUrls: '/images/icon/exam.png',
+        descs: '我的考试',
         target_page: '/pages/partySchool/examination/home/home'
       },
       {
 
-        imgUrls: '/images/icon/档案推送r.png',
+        imgUrls: '/images/icon/report.png',
         descs: '思想汇报',
         target_page: '/pages/wode/thoughtreport/thoughtreport'
       },
       {
 
-        imgUrls: '/images/icon/相册r.png',
+        imgUrls: '/images/icon/album.png',
         descs: '活动相册',
         target_page: '/pages/organization/partybranchList/partybranchList'
       },
       {
 
-        imgUrls: '/images/icon/消息 (4).png',
-        descs: '我的消息',
-        target_page: '/pages/test/test'
+        imgUrls: '/images/icon/vote.png',
+        descs: '投票',
+        target_page: '/pages/organization/voteList/voteList'
       }
 
     ],

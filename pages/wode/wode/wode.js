@@ -43,10 +43,10 @@ Page({
         dot: ''
       },
       {
-        icon: '/images/icon_base_new/feedback.png',
-        name: '我要反馈',
+        icon: '/images/partySchool_icon/onMyself.png',
+        name: '必学资料',
         explain: '反馈意见，解答疑问',
-        url: "./../feedback/feedback_home/feedback_home",
+        url: "/pages/partySchool/miniClass/myCourse/myCourse",
         dot: ''
       }, 
       {
@@ -57,12 +57,20 @@ Page({
         dot: ''
       },
       {
-        icon: '/images/icon_base_new/history.png',
-        name: '历史学习',
-        explain: '温故知新，数往知来',
-        url: "./../history/history",
+        icon: '/images/icon_base_new/feedback.png',
+        name: '我要反馈',
+        explain: '反馈意见，解答疑问',
+        url: "./../feedback/feedback_home/feedback_home",
         dot: ''
-      },
+      }, 
+      
+      // {
+      //   icon: '/images/icon_base_new/history.png',
+      //   name: '历史学习',
+      //   explain: '温故知新，数往知来',
+      //   url: "./../history/history",
+      //   dot: ''
+      // },
       {
         icon: '/images/icon_base_new/setting.png',
         name: '设置',

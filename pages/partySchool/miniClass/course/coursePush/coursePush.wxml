@@ -1,29 +1,48 @@
-<view class='main'>
-  <!--头部  -->
-  <view class='head'>正在学习{{count}}门课程></view>
-  <!--轮播图  -->
-  <swiper class="swiper" circular='true' autoplay="true" previous-margin="75rpx" next-margin="75rpx" bindchange="swiperChange" current='{{currentTab}}'>
-    <block class="block" wx:for="{{mustVedioList}}" wx:key="{{index}}">
-      <swiper-item class="swiper-item" bindtap='toDetails'>
-        <navigator url='{{videoDetailUrl+"?id="+item.videoId}}'>
-          <image src="{{item.coverImg}}" class="slide-image {{currentTab == index ? 'active' : ''}}" />
+<block wx:if="{{count>0}}">
+  <view class='main'>
+    <!--头部  -->
+    <view class='head'>正在学习{{count}}门课程></view>
+    <!--轮播图  -->
+    <swiper class="swiper" circular='true' autoplay="true" previous-margin="75rpx" next-margin="75rpx" bindchange="swiperChange" current='{{currentTab}}'>
+      <block class="block" wx:for="{{mustVedioList}}" wx:key="{{index}}">
+        <swiper-item class="swiper-item" bindtap='toDetails'>
+          <navigator url='{{videoDetailUrl+"?id="+item.videoId}}'>
+            <image src="{{item.coverImg}}" class="slide-image {{currentTab == index ? 'active' : ''}}" />
 
-        </navigator>
-      </swiper-item>
-    </block>
-  </swiper>
-  <!-- 轮播图下的信息 -->
-  <view class='swp-info' bindtap='targetTo' data-id='{{item.id}}'>
-    <view class='swp-title' data-targeturl='{{videoDetailUrl}}'>{{mustVedioList[currentTab].videoTitle}}</view>
-    <progress class='progress' data-targeturl='{{videoDetailUrl}}' percent="{{mustVedioList[currentTab].schedule}}" show-info/>
-    <view class='under'>
-      <view class='swp-rest' data-targeturl='{{videoDetailUrl}}'>进度{{mustVedioList[currentTab].schedule}}%</view>
-      <view class='swp-end' data-targeturl='{{videoDetailUrl}}'>
-        <view>{{mustVedioList[currentTab].updateTime}}</view>
+          </navigator>
+        </swiper-item>
+      </block>
+    </swiper>
+    <!-- 轮播图下的信息 -->
+    <view class='swp-info' bindtap='targetTo' data-id='{{item.id}}'>
+      <view class='swp-title' data-targeturl='{{videoDetailUrl}}'>{{mustVedioList[currentTab].videoTitle}}</view>
+      <progress class='progress' data-targeturl='{{videoDetailUrl}}' percent="{{mustVedioList[currentTab].schedule}}" show-info/>
+      <view class='under'>
+        <view class='swp-rest' data-targeturl='{{videoDetailUrl}}'>进度{{mustVedioList[currentTab].schedule}}%</view>
+        <view class='swp-end' data-targeturl='{{videoDetailUrl}}'>
+          <view>{{mustVedioList[currentTab].updateTime}}</view>
+        </view>
       </view>
     </view>
   </view>
-</view>
+</block>
+
+<block wx:else>
+  <view class='main'>
+    <view class='head'>{{allVedioList[currentTab].videoTitle}}</view>
+      <swiper class="swiper" circular='true' autoplay="true" previous-margin="75rpx" next-margin="75rpx" bindchange="swiperChange" current='{{currentTab}}'>
+        <block class="block" wx:for="{{allVedioList}}"  wx:key="{{index}}">
+          <swiper-item class="swiper-item" bindtap='toDetails'>
+            <navigator url='{{videoDetailUrl+"?id="+item.videoId}}'>
+              <image src="{{item.coverImg}}" class="slide-image {{currentTab == index ? 'active' : ''}}" />
+            </navigator>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+</block>
+
+
 <!--最新视频 -->
 <view class='lastest-class'>
   <!-- 最新视频头部 -->

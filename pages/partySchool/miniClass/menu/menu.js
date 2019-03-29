@@ -7,12 +7,12 @@ Page({
     imges: '/images/bg/bg_time.png',
     menu:[
       {
-        imgUrls: '/images/partySchool_icon/onclass.png',
+        imgUrls: '/images/icon_function/video.png',
         descs: '视频课程',
         targetPages: '/pages/partySchool/miniClass/course/coursePush/coursePush'
       },
       {
-        imgUrls: '/images/partySchool_icon/onPartyClass.png',
+        imgUrls: '/images/icon_function/doc.png',
         descs: '文档资料',
         targetPages: './../selectClass/selectClass_home/selectClass_home'
       },

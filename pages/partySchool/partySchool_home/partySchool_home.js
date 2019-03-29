@@ -7,9 +7,15 @@ Page({
   data: {
     headimg: "/images/bg/bg_time.png",
     menu_messages: [
+      // {
+      //   menu_img: "/images/icon_function/partyClass.png",
+      //   targeturl: "/pages/partySchool/miniClass/menu/menu",
+      //   name: "微党课",
+      //   description: "掌上党课，碎片时间巧利用"
+      // },
       {
-        menu_img: "/images/icon_function/partyClass.png",
-        targeturl: "/pages/partySchool/miniClass/menu/menu",
+        menu_img: "/images/icon_function/video.png",
+        targeturl: "/pages/partySchool/miniClass/course/coursePush/coursePush",
         name: "微党课",
         description: "掌上党课，碎片时间巧利用"
       },

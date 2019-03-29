@@ -24,13 +24,13 @@ Page({
         targeturl: "/pages/organization/voteList/voteList",
         name: "投票",
         description: "图文并茂，结果立现"
-      },
-      {
-        menu_img: "/images/icon_function/activity.png",
-        targeturl: "/pages/organization/activity/activity",
-        name: "活动报名",
-        description: "党内活动，不容错过"
       }
+      // ,{
+      //   menu_img: "/images/icon_function/activity.png",
+      //   targeturl: "/pages/organization/activity/activity",
+      //   name: "活动报名",
+      //   description: "党内活动，不容错过"
+      // }
     ]
 
   },

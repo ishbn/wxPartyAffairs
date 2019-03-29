@@ -47,10 +47,12 @@ Page({
     console.log(res);
     var that = this;
     if (res.statusCode == 200 && res.data.status == 0) {
+      var result = res.data.data.list;
+      var count = result.length;
       that.setData({
-        mustVedioList: res.data.data.list,
-        count: res.data.data.list.length
-      })
+        mustVedioList: result,
+        count: count
+      });
     }else{
       commonUtils.commonTips(res.statusCode);
     }

@@ -53,16 +53,8 @@ Page({
             return;
         }
         //为排序投票提供
-        var systemInfo = wx.getSystemInfoSync();
-        var scrollViewHeight = systemInfo.windowHeight - 47;
-        var scrollViewWidth = systemInfo.windowWidth;
-        that.setData({
-            'scrollPosition.scrollViewWidth': scrollViewWidth,
-            'scrollPosition.scrollViewHeight': scrollViewHeight,
-            'scrollPosition.windowViewHeight': systemInfo.windowHeight,
-        });
-
-        var voteId = options.voteId;
+        that.setScreenParam();
+        var voteId = options.id;
         if (voteId == null || typeof(voteId) == "undefind") {
             that.setData({
                 flag: true
@@ -70,9 +62,19 @@ Page({
             return;
         }
         //请求数据，传入voteId
-        that.askforserver();
+      that.askforserver(voteId);
     },
-
+    setScreenParam:function(){
+      var that = this;
+      var systemInfo = wx.getSystemInfoSync();
+      var scrollViewHeight = systemInfo.windowHeight - 47;
+      var scrollViewWidth = systemInfo.windowWidth;
+      that.setData({
+        'scrollPosition.scrollViewWidth': scrollViewWidth,
+        'scrollPosition.scrollViewHeight': scrollViewHeight,
+        'scrollPosition.windowViewHeight': systemInfo.windowHeight,
+      });
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
@@ -302,6 +304,8 @@ Page({
         commonUtils.commonAjax(url,"",2).then(that.voteResult);
     },
     voteResult:function (res) {
+      var that = this;
+      console.log(res);
         if(res.statusCode ==200 && res.data.data.status == 0){
             pahelper.showToast("投票成功！");
         }else {
