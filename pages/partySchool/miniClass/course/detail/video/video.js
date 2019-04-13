@@ -2,6 +2,8 @@ var app = getApp();
 var commonUtils = require("../../../../../../utils/commonUtil.js");
 var paValidUtil = require("../../../../../../utils/paValidUtil.js");
 var pahelper = require("../../../../../../utils/pahelper.js");
+var WxParse = require('../../../../../../utils/wxParse/wxParse.js');
+
 var start;
 Page({
 
@@ -43,7 +45,10 @@ Page({
     if (res.statusCode == 200 && res.data.status == 0) {
       that.setData({
         videoDetail: res.data.data,
-      })
+      });
+      //进行富文本解析
+      WxParse.wxParse('article.content', 'html', that.data.videoDetail.content, that);
+
     } else {
       commonUtils.commonTips(res.statusCode);
     }

@@ -1,13 +1,20 @@
 <!--pages/wode/personalInfo/aboutme/aboutme.wxml-->
 
-<view class='wholePage'>
+<!-- <view class='wholePage'>
   <view class='header'>
       <image src='{{headerimg}}'></image>
   </view>
   <view>
     <text>about me</text>
   </view>
+</view> -->
+
+<view class="container">
+  <view  bindtap="bindViewTap" class="userinfo">
+    <image class="userinfo-avatar" src="{{avatarUrl}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{nickName}}</text>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
 </view>
-
-<text>pages/wode/personalInfo/aboutme/aboutme.wxml</text>
-

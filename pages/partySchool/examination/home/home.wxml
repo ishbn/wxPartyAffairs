@@ -20,7 +20,7 @@
           </view>
           <!-- 右半部分 -->
           <view class='right'>
-            <image class='image' src='{{doingIcon}}'></image>
+            <image class='examing_image' src='{{doingIcon}}'></image>
           </view>
         </navigator>
       </view>

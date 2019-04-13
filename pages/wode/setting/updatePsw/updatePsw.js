@@ -1,11 +1,15 @@
 // pages/wode/personalInfo/updatePsw/updatePsw.js
+var commonUtils = require("../../../../utils/commonUtil.js");
+var paValidUtil = require("../../../../utils/paValidUtil.js");
+var pahelper = require("../../../../utils/pahelper.js");
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    bgImage:'/images/background/followParty.jpg',
+    bgImage:'/images/bg/followParty.jpg',
     oldPsw:'',
     newPsw:'',
     newPsw1:'',
@@ -20,7 +24,29 @@ Page({
   onLoad: function (options) {
   
   },
-
+  updatePsw: function () {
+    var that = this;
+    if (that.checkPsw()) {
+      // 提交更改
+      var url = "/userInfo/update_mine_password";
+      var param = {
+        old_password: that.data.oldPsw,
+        new_password: that.data.newPsw
+      }
+      commonUtils.ajaxRequest(url, param, 2,1).then(that.shoeResult);
+    }
+  },
+  shoeResult:function(res){
+    var that = this;
+    console.log(res);
+    if (res.statusCode == 200 && res.data.status == 0) {
+      pahelper.showToast("修改成功！");
+    } else if(res.statusCode == 200 && res.data.status == 1) {
+      pahelper.showFail(res.data.msg);
+    } else {
+      commonUtils.commonTips(res.statusCode);
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -110,13 +136,7 @@ Page({
       })
     }
   },
-  updatePsw:function(){
-  var that = this;
-    if (that.checkPsw()){
-      // 提交更改
-      console.log('去拿接口，我在117行');
-    }
-  },
+
   checkPsw:function(){
     var that = this;
     // 检查输入是否为空

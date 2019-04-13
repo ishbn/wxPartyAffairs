@@ -3,6 +3,7 @@ module.exports = {
   navigateTo: navigateTo,
   redirectTo:redirectTo,
   showToast: showToast,
+  showFail:showFail,
   getScreenHeight: getScreenHeight,
   downloadFile: downloadFile,
   cancelDownload: cancelDownload,
@@ -28,6 +29,13 @@ function navigateBack(index){
 function showToast(context){
   wx.showToast({
     title: context,
+    duration: 2500
+  });
+}
+function showFail(context){
+  wx.showToast({
+    title: context,
+    icon:"none",
     duration: 2500
   });
 }

@@ -54,7 +54,7 @@ Page({
     var that = this;
     if (res.statusCode == 200 && res.data.status == 0) {
       that.setData({
-        examed: res.data.data
+        examing: res.data.data
       })
     } else {
       commonUtils.commonTips(res.statusCode);
@@ -72,7 +72,6 @@ Page({
     if (res.statusCode == 200 && res.data.status == 0) {
       that.setData({
         examed: res.data.data,
-        examing: res.data.data
       })
     } else {
       commonUtils.commonTips(res.statusCode);

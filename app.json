@@ -52,6 +52,7 @@
     "pages/wode/thoughtreport/thoughtreport",
     "pages/wode/thoughtreport_detail/thoughtreport_detail",
     "pages/wode/setting/menu/menu",
+    "pages/wode/setting/aboutme/aboutme",
     "pages/wode/setting/updatePsw/updatePsw",
     "pages/test/test",
     "pages/common/testTemplate/testTemplate",

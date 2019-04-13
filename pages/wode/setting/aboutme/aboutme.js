@@ -5,8 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    headerimg: '/images/background/followParty.jpg',
-
+    headerimg: '/images/bg/followParty.jpg',
+    nickName:"智慧党建系统",
+    avatarUrl:"/images/bg/logo.png",
+    motto:"肇庆学院·计算机科学与软件学院"
   },
 
   /**

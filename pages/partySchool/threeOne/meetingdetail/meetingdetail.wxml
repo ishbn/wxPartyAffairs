@@ -1,5 +1,6 @@
 <!--pages/partySchool/threeOne/meetingdetail/meetingdetail.wxml-->
 <!-- <text>pages/partySchool/threeOne/meetingdetail/meetingdetail.wxml</text> -->
+<import src="../../../../utils/wxParse/wxParse.wxml"/>
 
 
 
@@ -23,7 +24,9 @@
     <view class="textContent">
       <view>◆标题：{{videos.title}}</view>
       <view>◆时间：{{videos.lastTime}} {{videos.creatorName}}</view>
-      <view>◆简介：{{videos.content}}</view>
+      <view>◆简介：
+      <template is="wxParse" data="{{wxParseData:article.content.nodes}}"/>
+   </view>
       <!-- <button type='download' bindtap='clickDownload'>{{dlBtn}}</button> -->
     </view>
   </view>

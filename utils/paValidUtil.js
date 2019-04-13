@@ -8,21 +8,25 @@ module.exports = {
 // 获取公共配置
 var app = getApp();
 
+function isUrl(path){
+  var match = /^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/;
+  var urlDemo = new RegExp(match); 
+  return urlDemo.test(path);
+}
+
 /**检查封面图片是否为空 待确认路径为相对还是绝对*/
 function checkCover(res){
   if (!res){
     return;
   }
   for (var i = 0; i < res.length; i++) {
-    if ((!res[i].coverpath) || res[i].coverpath == "#默认#") {
+    if(!isUrl(res[i].coverpath)){
       res[i].coverpath = app.globalData.defulatImg;
-    } else {
-      // res[i].coverpath = app.globalData.serverAddress + res[i].coverpath;
-      res[i].coverpath = res[i].coverpath;
-
     }
-    // res[i].coverpath = app.globalData.defulatImg;
-
+    // if ((!res[i].coverpath) || typeof (res[i].coverpath) =='undefined'|| res[i].coverpath == "#默认#") {
+    //   res[i].coverpath = app.globalData.defulatImg;
+    // }
+  
   }
   return res;
 }
@@ -74,10 +78,9 @@ const getForwordType = (code)=>{
   }
 }
 function checkSingleImgPath(path){
-  if ((!path) || path == "#默认#") {
-    path =  app.globalData.defulatImg;
-  } 
-  path = app.globalData.defulatImg;
+  if (!isUrl(path)) {
+    path = app.globalData.defulatImg;
+  }
   return path;
 }
 
@@ -117,16 +120,13 @@ function processAlbum(res){
     return;
   }
   for (var i = 0; i < res.length; i++) {
-    if (!res[i].image) {
+    if (!isUrl(res[i].image)) {
       res[i].image = app.globalData.defulatImg;
-    } else {
-      if (res[i].image.indexOf("http") == -1 ){
-        // res[i].image = app.globalData.ftpAddress + res[i].image;
-        res[i].image = res[i].image;
-      }
     }
-    // res[i].image = app.globalData.defulatImg;
-  }
+    // if (!res[i].image) {
+    //   res[i].image = app.globalData.defulatImg;
+    // } 
+    }
   return res;
 
 }
@@ -136,15 +136,9 @@ function processAlbumList(res){
     return;
   }
   for (var i = 0; i < res.length; i++) {
-    if (!res[i].coverImage) {
+    if (!isUrl(res[i].coverImage)) {
       res[i].coverImage = app.globalData.defulatImg;
-    } else {
-      if (res[i].coverImage.indexOf("http") == -1) {
-        // res[i].coverImage = app.globalData.ftpAddress + res[i].coverImage;
-        res[i].coverImage = res[i].coverImage;
-      }
     }
-    // res[i].coverImage = app.globalData.defulatImg;
   }
   return res;
 }

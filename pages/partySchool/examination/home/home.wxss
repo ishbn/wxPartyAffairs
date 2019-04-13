@@ -68,6 +68,10 @@
   width: 32px;
   height: 32px;
 }
+.examing_image{
+  width: 110rpx;
+  height: 60rpx;
+}
 .title{
   height: 50%;
   line-height: 85rpx;

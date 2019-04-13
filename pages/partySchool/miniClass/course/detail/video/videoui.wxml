@@ -1,4 +1,6 @@
 <!--pages/partySchool/miniClass/course/detail/video/videoui.wxml-->
+<import src="../../../../../../utils/wxParse/wxParse.wxml"/>
+
 <!-- <view class='content'>
     <view class='head'>
       <view class='title'>{{videos.videoTitle}}</view>
@@ -30,7 +32,10 @@
       <view>◆标题：{{videos.videoTitle}}</view>
       <view>◆时间：{{videos.updateTime}} {{videos.uploadUser}}</view>
       <!-- <view>◆下载次数：{{doc.downloadTimes}}</view> -->
-      <view>◆简介：{{videos.videoIntroduction}}</view>
+      <!-- <view>◆简介：{{videos.videoIntroduction}}</view> -->
+       <view>◆简介：</view>
+           <template is="wxParse" data="{{wxParseData:article.content.nodes}}"/>
+
       <!-- <view>◆下载量：{{doc.filePath}}</view> -->
       <!-- <button type='download' bindtap='clickDownload'>{{dlBtn}}</button> -->
     </view>
